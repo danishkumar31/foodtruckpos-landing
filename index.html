@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Truck POS · The smarter way to run your truck.</title>
+  <meta name="description" content="Complete iPad POS for food trucks. Take orders, run your kitchen, accept every payment, and track your business from one iPad. No proprietary hardware." />
+  <meta property="og:title" content="Food Truck POS" />
+  <meta property="og:description" content="The smarter way to run your truck." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Variables ─────────────────────────────────────────────── */
+    :root {
+      --bg:           #0a0a0a;
+      --card-bg:      #141414;
+      --card-bg-2:    #111111;
+      --border:       #222222;
+      --border-hover: rgba(255,107,0,0.4);
+      --accent:       #FF6B00;
+      --accent-dim:   rgba(255,107,0,0.12);
+      --accent-glow:  rgba(255,107,0,0.06);
+      --text-primary: #ffffff;
+      --text-secondary: #888888;
+      --text-tertiary:  #444444;
+      --green:        #22c55e;
+      --green-dim:    rgba(34,197,94,0.12);
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+    img { max-width: 100%; }
+
+    /* ── Layout ────────────────────────────────────────────────── */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section { padding: 100px 0; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+
+    /* ── Typography ────────────────────────────────────────────── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,107,0,0.2);
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Buttons ───────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover {
+      background: #ff8533;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(255,107,0,0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: #444;
+      background: rgba(255,255,255,0.03);
+      transform: translateY(-1px);
+    }
+    .btn-sm {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    /* ── Animations ────────────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.6); }
+    }
+    @keyframes orb1 {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33%       { transform: translate(60px,-40px) scale(1.12); }
+      66%       { transform: translate(-40px,50px) scale(0.9); }
+    }
+    @keyframes orb2 {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33%       { transform: translate(-50px,35px) scale(1.08); }
+      66%       { transform: translate(40px,-25px) scale(0.92); }
+    }
+
+    /* ── Navigation ────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.scrolled {
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-color: var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 24px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+      cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      padding: 16px 24px 24px;
+      border-top: 1px solid var(--border);
+      background: rgba(10,10,10,0.95);
+      gap: 2px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: color 0.2s ease;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--text-primary); }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 120px 24px 80px;
+    }
+    .hero-orb1 {
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      bottom: -350px;
+      left: -250px;
+      background: radial-gradient(circle, rgba(255,107,0,0.13) 0%, transparent 62%);
+      animation: orb1 14s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-orb2 {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      top: -200px;
+      right: -150px;
+      background: radial-gradient(circle, rgba(100,60,210,0.09) 0%, transparent 62%);
+      animation: orb2 18s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 780px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px 6px 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    .hero-headline {
+      font-size: clamp(48px, 6.5vw, 72px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+    .hero-headline .accent { color: var(--accent); }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .hero-trust {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Social Proof ──────────────────────────────────────────── */
+    #social-proof {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .social-proof-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .social-proof-label {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      max-width: 200px;
+      line-height: 1.4;
+    }
+    .social-proof-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .proof-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .proof-pill svg { color: var(--accent); flex-shrink: 0; }
+
+    /* ── Features ──────────────────────────────────────────────── */
+    #features { background: var(--bg); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      padding: 32px 28px;
+      transition: background 0.2s ease;
+      position: relative;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      border-radius: 0;
+      transition: border-color 0.2s ease;
+      pointer-events: none;
+    }
+    .feature-card:hover { background: #181818; }
+    .feature-card:hover::after { border-color: rgba(255,107,0,0.25); }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+    .feature-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .feature-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── How It Works ──────────────────────────────────────────── */
+    #how-it-works { background: var(--bg); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 12px);
+      right: calc(16.66% + 12px);
+      height: 1px;
+      border-top: 1px dashed var(--border);
+      pointer-events: none;
+    }
+    .step {
+      padding: 0 32px;
+      text-align: center;
+    }
+    .step:first-child { padding-left: 0; }
+    .step:last-child  { padding-right: 0; }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 24px;
+      font-variant-numeric: tabular-nums;
+    }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .step-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Pricing ───────────────────────────────────────────────── */
+    #pricing { background: var(--bg); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .pricing-card:hover {
+      border-color: #333;
+    }
+    .pricing-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255,107,0,0.15), 0 24px 64px rgba(255,107,0,0.07);
+      background: #161616;
+    }
+    .popular-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-tier {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .pricing-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .pricing-dollar { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .pricing-amount {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--text-primary);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .pricing-period { font-size: 14px; color: var(--text-secondary); }
+    .pricing-desc {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 28px;
+      min-height: 20px;
+    }
+    .pricing-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 24px;
+    }
+    .pricing-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .pricing-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .pricing-feature svg { color: var(--accent); flex-shrink: 0; }
+    .pricing-cta { width: 100%; }
+    .pricing-cta.primary { background: var(--accent); color: #000; }
+    .pricing-cta.outline { border: 1px solid var(--border); color: var(--text-primary); background: transparent; }
+    .pricing-cta.outline:hover { background: rgba(255,255,255,0.03); border-color: #444; }
+    .pricing-note {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Kitchen Callout ───────────────────────────────────────── */
+    #kitchen { background: var(--bg); padding: 0 0 100px; }
+    .kitchen-card {
+      background: linear-gradient(135deg, rgba(255,107,0,0.03) 0%, transparent 50%);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 20px;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .kitchen-text .section-badge { margin-bottom: 16px; }
+    .kitchen-title {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+    }
+    .kitchen-body {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .kitchen-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .kitchen-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .kitchen-feature svg { color: var(--green); flex-shrink: 0; }
+
+    /* KDS Mockup */
+    .kds-mockup {
+      display: flex;
+      justify-content: center;
+    }
+    .kds-device {
+      background: #1c1c2e;
+      border-radius: 22px;
+      padding: 14px;
+      border: 1px solid #2a2a3e;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+      width: 100%;
+      max-width: 300px;
+    }
+    .kds-screen {
+      background: #0c0c1a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .kds-app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .kds-app-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .kds-app-time {
+      font-size: 11px;
+      color: #444;
+    }
+    .kds-tickets { padding: 12px; }
+    .kds-ticket {
+      background: #181828;
+      border: 1px solid #2a2a3e;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .kds-ticket-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .kds-order-meta {}
+    .kds-order-num {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .kds-customer-name {
+      font-size: 12px;
+      color: #555;
+      margin-top: 3px;
+    }
+    .kds-timer {
+      background: var(--green-dim);
+      color: var(--green);
+      font-size: 22px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      padding: 8px 12px;
+      border-radius: 9px;
+      border: 1px solid rgba(34,197,94,0.18);
+      letter-spacing: -0.02em;
+    }
+    .kds-items { padding: 10px 14px; }
+    .kds-item-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      font-size: 13px;
+      color: #ccc;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .kds-item-row:last-child { border-bottom: none; }
+    .kds-qty {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 12px;
+      min-width: 20px;
+    }
+    .kds-ready-btn {
+      display: block;
+      width: calc(100% - 28px);
+      margin: 10px 14px 14px;
+      background: var(--green-dim);
+      color: var(--green);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 9px;
+      padding: 11px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.01em;
+      cursor: default;
+      font-family: inherit;
+    }
+
+    /* ── Testimonials ──────────────────────────────────────────── */
+    #testimonials { background: var(--bg); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .testimonial-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    .testimonial-quote {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(255,107,0,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .testimonial-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .testimonial-biz {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    /* ── FAQ ───────────────────────────────────────────────────── */
+    #faq { background: var(--bg); }
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 24px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--card-bg);
+      transition: background 0.2s ease;
+      user-select: none;
+    }
+    .faq-question:hover { background: #181818; }
+    .faq-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-answer-inner {
+      padding: 0 24px 22px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      background: var(--card-bg);
+    }
+
+    /* ── Final CTA ─────────────────────────────────────────────── */
+    #cta {
+      position: relative;
+      overflow: hidden;
+      padding: 120px 24px;
+      text-align: center;
+    }
+    .cta-orb {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cta-content { position: relative; }
+    .cta-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .cta-sub {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .cta-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .cta-trust {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      transition: color 0.2s ease;
+    }
+    .footer-links a:hover { color: var(--text-secondary); }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      color: var(--text-tertiary);
+      transition: color 0.2s ease;
+    }
+    .footer-social a:hover { color: var(--text-secondary); }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid  { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .kitchen-card  { grid-template-columns: 1fr; gap: 40px; padding: 40px 28px; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+      .steps::before { display: none; }
+      .step { padding: 0; text-align: left; display: flex; gap: 20px; align-items: flex-start; }
+      .step-number { flex-shrink: 0; margin-bottom: 0; }
+      .kds-mockup { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 72px 0; }
+      .nav-links, .nav-right .btn { display: none; }
+      .nav-hamburger { display: flex; }
+      .features-grid { grid-template-columns: 1fr; border-radius: 16px; }
+      .social-proof-inner { flex-direction: column; align-items: flex-start; }
+      .social-proof-label { max-width: none; }
+      .hero-btns { flex-direction: column; align-items: stretch; }
+      .hero-btns .btn { width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-right { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .kitchen-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ───────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">🚚 Food Truck POS</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://apps.apple.com" class="btn btn-primary btn-sm">Download Free</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://apps.apple.com">Download Free</a>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge fade-in">
+      <span class="badge-dot"></span>
+      Now available on iPad
+    </div>
+    <h1 class="hero-headline fade-in">The POS built for<br><span class="accent">food trucks.</span></h1>
+    <p class="hero-sub fade-in">
+      Take orders, run your kitchen, accept every payment, and track your business
+      all from one iPad. No proprietary hardware. No monthly surprises.
+    </p>
+    <div class="hero-btns fade-in">
+      <a href="https://apps.apple.com" class="btn btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        Download on the App Store
+      </a>
+      <a href="https://foodtruckpos-dashboard.vercel.app" class="btn btn-outline">
+        View Live Dashboard
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7M17 7H7M17 7v10"/>
+        </svg>
+      </a>
+    </div>
+    <p class="hero-trust fade-in">Free 14 day trial · No credit card required · Cancel any time</p>
+  </div>
+</section>
+
+<!-- ── Social Proof ──────────────────────────────────────────────── -->
+<section id="social-proof">
+  <div class="container">
+    <div class="social-proof-inner">
+      <p class="social-proof-label">Trusted by food truck operators across Canada and the United States</p>
+      <div class="social-proof-pills">
+        <div class="proof-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          2 min setup
+        </div>
+        <div class="proof-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+            <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20"/>
+          </svg>
+          Works offline
+        </div>
+        <div class="proof-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+          No hardware needed
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ─────────────────────────────────────────────────── -->
+<section id="features" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge fade-in">Features</div>
+      <h2 class="section-title fade-in">Everything your truck needs.</h2>
+      <p class="section-sub fade-in">Built specifically for mobile food service, not adapted from restaurant software.</p>
+    </div>
+    <div class="features-grid fade-in">
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Fast Order Taking</h3>
+        <p class="feature-body">Build orders in seconds with your full menu. Category filters, item modifiers, and customer lookup built in.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+            <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Genuine Offline Mode</h3>
+        <p class="feature-body">Keep selling when connectivity drops. Card payments queue automatically and sync to Stripe when you are back online.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Wireless Kitchen Display</h3>
+        <p class="feature-body">Send orders to a second iPad in the kitchen instantly. No cables, no extra hardware. Just two iPads on the same network.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="2" y1="20" x2="22" y2="20"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Real Time Analytics</h3>
+        <p class="feature-body">Revenue by day and hour, top selling items, kitchen speed metrics, and a 30 day revenue forecast.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Every Payment Method</h3>
+        <p class="feature-body">Cash, Tap to Pay, Square Reader, or any external terminal. Stripe Terminal integration built in.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Owner Web Dashboard</h3>
+        <p class="feature-body">Check your revenue from any browser. Stats sync automatically as your team takes orders throughout the day.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ──────────────────────────────────────────────── -->
+<section id="how-it-works" class="section" style="border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge fade-in">Setup</div>
+      <h2 class="section-title fade-in">Up and running in 2 minutes.</h2>
+    </div>
+    <div class="steps">
+      <div class="step fade-in">
+        <div class="step-number">01</div>
+        <div>
+          <h3 class="step-title">Download the app</h3>
+          <p class="step-body">Install FoodTruckPOS on your iPad from the App Store. Sign in with your demo account or create a new one.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">02</div>
+        <div>
+          <h3 class="step-title">Add your menu</h3>
+          <p class="step-body">Enter your items, set prices, add modifiers and categories. Takes about 5 minutes for a typical food truck menu.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">03</div>
+        <div>
+          <h3 class="step-title">Start taking orders</h3>
+          <p class="step-body">Tap items to build an order, select a payment method, and you are done. Your first order in under a minute.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ───────────────────────────────────────────────────── -->
+<section id="pricing" class="section" style="border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge fade-in">Pricing</div>
+      <h2 class="section-title fade-in">Simple, honest pricing.</h2>
+      <p class="section-sub fade-in">One price per iPad. No hidden fees, no transaction cuts, no proprietary hardware required.</p>
+    </div>
+    <div class="pricing-grid fade-in">
+
+      <!-- Starter -->
+      <div class="pricing-card">
+        <p class="pricing-tier">Starter</p>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$</span>
+          <span class="pricing-amount">29</span>
+          <span class="pricing-period">/month</span>
+        </div>
+        <p class="pricing-desc">1 iPad · Perfect for solo operators</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            1 iPad
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Full POS features
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Kitchen display
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Analytics dashboard
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Email support
+          </li>
+        </ul>
+        <a href="https://apps.apple.com" class="btn pricing-cta outline">Start Free Trial</a>
+      </div>
+
+      <!-- Professional -->
+      <div class="pricing-card featured">
+        <div class="popular-badge">Most Popular</div>
+        <p class="pricing-tier">Professional</p>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$</span>
+          <span class="pricing-amount">59</span>
+          <span class="pricing-period">/month</span>
+        </div>
+        <p class="pricing-desc">Up to 3 iPads · Best for growing trucks</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Up to 3 iPads
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Everything in Starter
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Web owner dashboard
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Priority support
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            SMS order notifications
+          </li>
+        </ul>
+        <a href="https://apps.apple.com" class="btn pricing-cta primary">Start Free Trial</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card">
+        <p class="pricing-tier">Enterprise</p>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$</span>
+          <span class="pricing-amount">99</span>
+          <span class="pricing-period">/month</span>
+        </div>
+        <p class="pricing-desc">Unlimited iPads · Fleets and franchises</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Unlimited iPads
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Everything in Professional
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Custom onboarding
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Dedicated support
+          </li>
+        </ul>
+        <a href="mailto:hello@foodtruckpos.app" class="btn pricing-cta outline">Contact Us</a>
+      </div>
+
+    </div>
+    <p class="pricing-note fade-in">All plans include a 14 day free trial. No credit card required to start.</p>
+  </div>
+</section>
+
+<!-- ── Kitchen Display ───────────────────────────────────────────── -->
+<section id="kitchen" class="section" style="border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="kitchen-card fade-in">
+      <div class="kitchen-text">
+        <div class="section-badge">Built in feature</div>
+        <h2 class="kitchen-title">Wireless kitchen display included.</h2>
+        <p class="kitchen-body">
+          Most POS systems charge $40/month extra for a kitchen display system.
+          FoodTruckPOS includes it free. Use any spare iPad as your KDS and orders
+          appear instantly with a live countdown timer.
+        </p>
+        <ul class="kitchen-features">
+          <li class="kitchen-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Live countdown timer on every ticket
+          </li>
+          <li class="kitchen-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Mark orders ready with one tap
+          </li>
+          <li class="kitchen-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Automatic SMS to customer when ready
+          </li>
+          <li class="kitchen-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Works over local WiFi or hotspot
+          </li>
+        </ul>
+      </div>
+      <div class="kds-mockup">
+        <div class="kds-device">
+          <div class="kds-screen">
+            <div class="kds-app-header">
+              <span class="kds-app-label">Kitchen Display</span>
+              <span class="kds-app-time">2:34 PM</span>
+            </div>
+            <div class="kds-tickets">
+              <div class="kds-ticket">
+                <div class="kds-ticket-header">
+                  <div class="kds-order-meta">
+                    <div class="kds-order-num">#1030</div>
+                    <div class="kds-customer-name">Danish</div>
+                  </div>
+                  <div class="kds-timer">1:17</div>
+                </div>
+                <div class="kds-items">
+                  <div class="kds-item-row">
+                    <span class="kds-qty">1×</span>
+                    <span>Cheese Burger</span>
+                  </div>
+                  <div class="kds-item-row">
+                    <span class="kds-qty">1×</span>
+                    <span>Paneer Tikki Burger</span>
+                  </div>
+                </div>
+                <button class="kds-ready-btn" tabindex="-1">Mark Ready</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ──────────────────────────────────────────────── -->
+<section id="testimonials" class="section" style="border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge fade-in">Testimonials</div>
+      <h2 class="section-title fade-in">What operators are saying.</h2>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card fade-in">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Finally a POS that does not require me to buy $800 of hardware. Set it up in 10 minutes on my existing iPad."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SM</div>
+          <div>
+            <div class="testimonial-name">Sarah M.</div>
+            <div class="testimonial-biz">Butter Chicken Poutine Co. · Edmonton AB</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-in">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"The kitchen display alone is worth it. My kitchen staff can see every order the second it is placed."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JT</div>
+          <div>
+            <div class="testimonial-name">James T.</div>
+            <div class="testimonial-biz">Smoke and Fire BBQ · Calgary AB</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-in">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"I check my revenue from my phone while sourcing ingredients. The dashboard is genuinely useful."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">PK</div>
+          <div>
+            <div class="testimonial-name">Priya K.</div>
+            <div class="testimonial-biz">Masala Street Food · Toronto ON</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────────────────── -->
+<section id="faq" class="section" style="border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge fade-in">FAQ</div>
+      <h2 class="section-title fade-in">Common questions.</h2>
+    </div>
+    <div class="faq-list fade-in">
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Does this work on any iPad?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. FoodTruckPOS runs on any iPad with iOS 16 or later. That includes iPad mini, iPad Air, iPad Pro, and the standard iPad. No specific model required.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Do I need internet to take orders?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">No. The app works fully offline. Cash payments process instantly. Card payments queue and sync automatically when connectivity returns.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          How does the kitchen display work?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">The cashier and kitchen iPads connect over your local WiFi or iPhone hotspot using peer to peer networking. No internet required between the two devices.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          What payment methods are supported?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Cash, Stripe Terminal Tap to Pay, Square Reader, and any external card terminal with manual confirmation. Most operators use cash plus one card option.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Can I use my existing Square reader?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. Select Square Reader as your payment method. The app records the payment and prompts your staff to charge on the Square hardware separately.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Is my data safe?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">All data is stored on your device using Apple CoreData. Payment processing goes through Stripe, which is PCI DSS Level 1 certified. We never store card numbers.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Final CTA ─────────────────────────────────────────────────── -->
+<section id="cta" style="border-top:1px solid var(--border);">
+  <div class="cta-orb"></div>
+  <div class="cta-content container">
+    <h2 class="cta-title fade-in">Ready to modernize<br>your truck?</h2>
+    <p class="cta-sub fade-in">Join food truck operators who have switched to a POS that actually works for mobile food service.</p>
+    <div class="cta-btns fade-in">
+      <a href="https://apps.apple.com" class="btn btn-primary">Download Free</a>
+      <a href="https://foodtruckpos-dashboard.vercel.app" class="btn btn-outline">View Dashboard</a>
+    </div>
+    <p class="cta-trust fade-in">14 day free trial · No credit card · Works on any iPad</p>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">🚚 Food Truck POS</div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Support</a>
+        <a href="https://foodtruckpos-dashboard.vercel.app">Dashboard</a>
+      </div>
+      <div class="footer-right">
+        <span class="footer-copy">© 2026 Food Truck POS. Built for the road.</span>
+        <div class="footer-social">
+          <a href="https://github.com/danishkumar31" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Sticky nav ────────────────────────────────────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // ── Mobile nav toggle ─────────────────────────────────────────
+  const hamburger  = document.getElementById('hamburger');
+  const navMobile  = document.getElementById('nav-mobile');
+  hamburger.addEventListener('click', () => {
+    const isOpen = navMobile.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+  navMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navMobile.classList.remove('open'));
+  });
+
+  // ── Smooth anchor scroll ─────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const offset = 72;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  // ── FAQ accordion ─────────────────────────────────────────────
+  document.querySelectorAll('.faq-question').forEach(q => {
+    const toggle = () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.toggle('open');
+      q.setAttribute('aria-expanded', isOpen);
+    };
+    q.addEventListener('click', toggle);
+    q.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  // ── Intersection Observer fade-in ─────────────────────────────
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  // Stagger children inside fade-in containers
+  document.querySelectorAll('.features-grid .feature-card, .testimonials-grid .testimonial-card, .steps .step').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 80}ms`;
+  });
+</script>
+
+</body>
+</html>
