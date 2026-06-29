@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide · Food Truck POS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --card: #1A1A1A;
+      --card2: #222222;
+      --border: #222222;
+      --border2: #2A2A2A;
+      --orange: #FF6B00;
+      --orange-dim: rgba(255,107,0,0.12);
+      --text: #FFFFFF;
+      --text2: #888888;
+      --text3: #555555;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #eab308;
+      --purple: #a78bfa;
+      --sidebar-w: 252px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Top bar ─────────────────────────────────────────────────── */
+    #topbar {
+      position: sticky; top: 0; z-index: 200;
+      height: 52px;
+      background: rgba(10,10,10,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14px; }
+    .topbar-back { font-size: 13px; color: var(--text2); }
+    .topbar-back:hover { color: var(--text); }
+    .mobile-menu-btn {
+      display: none; background: none; border: none; color: var(--text2);
+      cursor: pointer; padding: 6px; font-size: 18px; line-height: 1;
+    }
+
+    /* ── Layout ──────────────────────────────────────────────────── */
+    .layout { display: flex; min-height: calc(100vh - 52px); }
+
+    /* ── Sidebar ─────────────────────────────────────────────────── */
+    #sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: sticky; top: 52px;
+      height: calc(100vh - 52px);
+      overflow-y: auto;
+      background: #111111;
+      border-right: 1px solid var(--border);
+      padding: 16px 8px 24px;
+    }
+    #sidebar::-webkit-scrollbar { width: 0; }
+    .sb-label {
+      font-size: 10px; font-weight: 700; color: var(--text3);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      padding: 12px 12px 5px;
+    }
+    .sb-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 8px;
+      color: var(--text2); font-size: 12.5px; font-weight: 500;
+      transition: background 0.12s, color 0.12s;
+      margin-bottom: 1px; cursor: pointer;
+    }
+    .sb-link:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+    .sb-link.active { background: var(--orange-dim); color: var(--orange); }
+    .sb-num {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--card2); color: var(--text3);
+      font-size: 9px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sb-link.active .sb-num { background: var(--orange-dim); color: var(--orange); }
+    .sb-link span.lbl { flex: 1; }
+    .bp { font-size: 8px; font-weight: 800; padding: 2px 5px; border-radius: 3px; letter-spacing: 0.4px; flex-shrink: 0; }
+    .bp-pro { background: #2A1A00; color: var(--orange); border: 1px solid rgba(255,107,0,0.2); }
+    .bp-ent { background: #1C1428; color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+
+    /* ── Mobile dropdown ─────────────────────────────────────────── */
+    #mobile-nav {
+      display: none;
+      position: sticky; top: 52px; z-index: 150;
+      background: #111; border-bottom: 1px solid var(--border);
+      padding: 8px; max-height: 55vh; overflow-y: auto;
+    }
+    #mobile-nav.open { display: block; }
+    #mobile-nav .sb-link { font-size: 13px; }
+
+    /* ── Main content ────────────────────────────────────────────── */
+    #content {
+      flex: 1; min-width: 0;
+      padding: 44px 52px 80px;
+      max-width: 820px;
+    }
+
+    /* Intro */
+    .guide-intro { margin-bottom: 56px; }
+    .guide-intro h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+    .guide-intro p { color: var(--text2); font-size: 14px; max-width: 520px; }
+
+    /* Section */
+    .section { margin-bottom: 72px; scroll-margin-top: 28px; }
+    .sec-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .sec-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--orange-dim); color: var(--orange);
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .sec-hd h2 { font-size: 19px; font-weight: 700; }
+    .tier-pill { font-size: 9px; font-weight: 800; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.5px; }
+    .tier-pro { background: #2A1A00; color: var(--orange); border: 1px solid rgba(255,107,0,0.25); }
+    .tier-ent { background: #1C1428; color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+
+    .sec-desc { color: var(--text2); font-size: 13.5px; line-height: 1.7; margin-bottom: 18px; max-width: 620px; }
+    .sec-desc strong { color: var(--text); }
+
+    /* Steps */
+    .steps { list-style: none; margin-bottom: 22px; display: flex; flex-direction: column; gap: 9px; }
+    .steps li { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--text2); }
+    .steps li .sn {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--card2); color: var(--orange);
+      font-size: 9px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .steps li strong { color: var(--text); }
+
+    /* Mockup */
+    .mockup {
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 14px; overflow: hidden;
+    }
+    .mockup svg { display: block; width: 100%; height: auto; }
+
+    /* Tip */
+    .tip {
+      margin-top: 14px;
+      background: rgba(255,107,0,0.06); border: 1px solid rgba(255,107,0,0.14);
+      border-radius: 10px; padding: 11px 15px;
+      font-size: 13px; color: var(--text2);
+    }
+    .tip strong { color: var(--orange); }
+
+    /* Locked notice */
+    .locked-notice {
+      display: flex; align-items: center; gap: 10px;
+      background: #141414; border: 1px solid var(--border2);
+      border-radius: 10px; padding: 12px 16px; margin-bottom: 16px;
+      font-size: 13px; color: var(--text2);
+    }
+    .locked-notice .ln-icon { font-size: 16px; flex-shrink: 0; }
+    .locked-notice a { color: var(--orange); }
+    .locked-notice a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 780px) {
+      #sidebar { display: none; }
+      .mobile-menu-btn { display: block; }
+      #content { padding: 24px 18px 60px; }
+      .guide-intro h1 { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<header id="topbar">
+  <div class="topbar-brand">🚚 <span>Food Truck POS</span></div>
+  <a href="index.html" class="topbar-back">← Back to Home</a>
+  <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+</header>
+
+<!-- Mobile nav dropdown -->
+<div id="mobile-nav">
+  <div class="sb-label">Before You Open</div>
+  <a href="#menu-setup" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
+  <a href="#staff-pin" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
+  <a href="#app-settings" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
+  <div class="sb-label">Every Day</div>
+  <a href="#starting-day" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
+  <a href="#taking-order" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
+  <a href="#kitchen" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
+  <a href="#payment" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
+  <a href="#closing" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
+  <div class="sb-label">Enterprise</div>
+  <a href="#sms" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
+  <div class="sb-label">Pro and Enterprise</div>
+  <a href="#customers" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
+  <a href="#reports" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
+  <a href="#inventory" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
+  <a href="#expenses" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
+  <a href="#profit-loss" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+</div>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="sb-label">Before You Open</div>
+    <a href="#menu-setup" class="sb-link"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
+    <a href="#staff-pin" class="sb-link"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
+    <a href="#app-settings" class="sb-link"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
+
+    <div class="sb-label">Every Day</div>
+    <a href="#starting-day" class="sb-link"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
+    <a href="#taking-order" class="sb-link"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
+    <a href="#kitchen" class="sb-link"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
+    <a href="#payment" class="sb-link"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
+    <a href="#closing" class="sb-link"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
+
+    <div class="sb-label">Enterprise</div>
+    <a href="#sms" class="sb-link"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
+
+    <div class="sb-label">Pro and Enterprise</div>
+    <a href="#customers" class="sb-link"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#reports" class="sb-link"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#inventory" class="sb-link"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#expenses" class="sb-link"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#profit-loss" class="sb-link"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+  </aside>
+
+  <!-- Main -->
+  <main id="content">
+
+    <div class="guide-intro">
+      <h1>User Guide</h1>
+      <p>A step by step walkthrough of your food truck day from first setup to close. Jump to any section using the sidebar.</p>
+    </div>
+
+    <!-- ── 1. MENU SETUP ──────────────────────────────────────────── -->
+    <section class="section" id="menu-setup">
+      <div class="sec-hd">
+        <div class="sec-num">1</div>
+        <h2>Setting Up Your Menu</h2>
+      </div>
+      <p class="sec-desc">
+        Do this before your first day of service. Your menu syncs instantly across all devices so every station sees the same items and prices. Start with categories, then fill in your items.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open <strong>Menu</strong> from the sidebar. Tap <strong>Add Item</strong> in the top right corner.</span></li>
+        <li><span class="sn">2</span><span>Enter the <strong>Item Name</strong>, <strong>Category</strong>, <strong>Price</strong>, and <strong>Prep Time</strong> in minutes. The default categories are Mains, Sides, and Drinks.</span></li>
+        <li><span class="sn">3</span><span>Toggle <strong>Available for ordering</strong> on. Items toggled off will not appear on the order screen until you switch them back on.</span></li>
+        <li><span class="sn">4</span><span>Tap <strong>Save</strong>. Repeat for each item on your menu.</span></li>
+        <li><span class="sn">5</span><span>Tap <strong>Categories</strong> in the menu header to create custom categories beyond the defaults. Tap the pencil icon on any custom category to rename it. A custom category with no items can be deleted by tapping the trash icon.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 430" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="430" fill="#111111"/>
+          <!-- Header -->
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFFFFF">Menu</text>
+          <!-- Add Item button -->
+          <rect x="572" y="12" width="90" height="28" rx="8" fill="#FF6B00"/>
+          <text x="617" y="30" font-size="11" font-weight="700" fill="#000000" text-anchor="middle">+ Add Item</text>
+          <!-- Search bar -->
+          <rect x="16" y="60" width="648" height="34" rx="8" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="36" y="81" font-size="12" fill="#444444">Search menu items...</text>
+          <!-- Category tabs -->
+          <rect x="16" y="104" width="44" height="26" rx="6" fill="#FF6B00"/>
+          <text x="38" y="121" font-size="11" font-weight="600" fill="#000" text-anchor="middle">All</text>
+          <rect x="68" y="104" width="58" height="26" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="97" y="121" font-size="11" font-weight="500" fill="#888" text-anchor="middle">Mains</text>
+          <rect x="134" y="104" width="50" height="26" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="159" y="121" font-size="11" font-weight="500" fill="#888" text-anchor="middle">Sides</text>
+          <rect x="192" y="104" width="56" height="26" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="220" y="121" font-size="11" font-weight="500" fill="#888" text-anchor="middle">Drinks</text>
+          <!-- Item 1 -->
+          <rect x="16" y="142" width="648" height="66" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="28" y="156" width="40" height="16" rx="4" fill="#2A1A00"/>
+          <text x="48" y="167" font-size="9" font-weight="700" fill="#FF6B00" text-anchor="middle">MAINS</text>
+          <text x="28" y="189" font-size="13" font-weight="600" fill="#FFFFFF">Butter Chicken Poutine</text>
+          <text x="28" y="202" font-size="11" fill="#888">⏱ 12 min</text>
+          <text x="580" y="167" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">$14.50</text>
+          <!-- toggle ON -->
+          <rect x="620" y="154" width="34" height="18" rx="9" fill="#FF6B00"/>
+          <circle cx="644" cy="163" r="7" fill="#FFFFFF"/>
+          <text x="623" y="199" font-size="10" fill="#22c55e" text-anchor="start">Available</text>
+          <!-- Item 2 -->
+          <rect x="16" y="218" width="648" height="66" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="28" y="232" width="40" height="16" rx="4" fill="#1A1A2A"/>
+          <text x="48" y="243" font-size="9" font-weight="700" fill="#888888" text-anchor="middle">SIDES</text>
+          <text x="28" y="265" font-size="13" font-weight="600" fill="#FFFFFF">Samosa Bites</text>
+          <text x="28" y="278" font-size="11" fill="#888">⏱ 5 min</text>
+          <text x="580" y="243" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">$7.00</text>
+          <rect x="620" y="230" width="34" height="18" rx="9" fill="#FF6B00"/>
+          <circle cx="644" cy="239" r="7" fill="#FFFFFF"/>
+          <text x="623" y="275" font-size="10" fill="#22c55e">Available</text>
+          <!-- Item 3 -->
+          <rect x="16" y="294" width="648" height="66" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="28" y="308" width="50" height="16" rx="4" fill="#0D1A0D"/>
+          <text x="53" y="319" font-size="9" font-weight="700" fill="#888888" text-anchor="middle">DRINKS</text>
+          <text x="28" y="341" font-size="13" font-weight="600" fill="#888888">Mango Lassi</text>
+          <text x="28" y="354" font-size="11" fill="#555">⏱ 2 min</text>
+          <text x="580" y="319" font-size="13" font-weight="700" fill="#888888" text-anchor="middle">$5.50</text>
+          <!-- toggle OFF -->
+          <rect x="620" y="306" width="34" height="18" rx="9" fill="#333333"/>
+          <circle cx="627" cy="315" r="7" fill="#FFFFFF"/>
+          <text x="623" y="351" font-size="10" fill="#555555">Off today</text>
+          <!-- Add item form hint -->
+          <rect x="16" y="370" width="648" height="48" rx="10" fill="#1C1C1C" stroke="#2A2A2A" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="340" y="397" font-size="12" fill="#444444" text-anchor="middle">Tap Add Item to create your next menu item</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Use the availability toggle each morning to hide items you are out of. They stay saved and turn back on whenever you need them.</div>
+    </section>
+
+    <!-- ── 2. STARTING YOUR DAY ───────────────────────────────────── -->
+    <section class="section" id="starting-day">
+      <div class="sec-hd">
+        <div class="sec-num">2</div>
+        <h2>Starting Your Day</h2>
+      </div>
+      <p class="sec-desc">
+        The app shows a PIN lock screen whenever no staff member is active. Enter your personal 4-digit PIN to clock in and unlock the POS. Once signed in, open your shift before taking any orders so cash can be reconciled at close.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open the app. The <strong>PIN lock screen</strong> appears. Enter your <strong>4-digit staff PIN</strong> to clock in. Your name and role appear in the sidebar while you are active. If no PINs have been set yet, tap <strong>Continue as Owner</strong> to proceed.</span></li>
+        <li><span class="sn">2</span><span>Go to <strong>Reports</strong> in the sidebar. Tap <strong>Start Day</strong> to open your shift.</span></li>
+        <li><span class="sn">3</span><span>Count the cash in your drawer and enter the total as your <strong>Opening Count</strong>. Tap <strong>Confirm</strong>.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="380" fill="#111111"/>
+          <!-- Sidebar strip -->
+          <rect width="200" height="380" fill="#0D0D0D"/>
+          <rect x="200" y="0" width="1" height="380" fill="#222"/>
+          <!-- Brand -->
+          <text x="20" y="34" font-size="13" font-weight="800" fill="#FFFFFF">🚚 Street Feast</text>
+          <rect x="0" y="48" width="200" height="1" fill="#222"/>
+          <!-- Staff card -->
+          <rect x="10" y="58" width="180" height="52" rx="8" fill="#1A1A1A" stroke="#252525" stroke-width="1"/>
+          <circle cx="32" cy="84" r="13" fill="#FF6B00"/>
+          <text x="32" y="88" font-size="10" font-weight="700" fill="#000" text-anchor="middle">D</text>
+          <text x="52" y="80" font-size="12" font-weight="600" fill="#FFF">Danish Kumar</text>
+          <text x="52" y="94" font-size="10" fill="#888888">owner</text>
+          <text x="172" y="87" font-size="10" fill="#FF6B00" font-weight="600" text-anchor="end">Switch</text>
+          <!-- Nav items -->
+          <text x="20" y="134" font-size="9" font-weight="700" fill="#333" letter-spacing="1.5">CASHIER</text>
+          <rect x="8" y="141" width="184" height="32" rx="8" fill="transparent"/>
+          <text x="36" y="161" font-size="12" fill="#888">🛒  Orders</text>
+          <rect x="8" y="176" width="184" height="32" rx="8" fill="transparent"/>
+          <text x="36" y="196" font-size="12" fill="#888">🍽️  Menu</text>
+          <text x="20" y="224" font-size="9" font-weight="700" fill="#333" letter-spacing="1.5">CASHIER</text>
+          <rect x="8" y="231" width="184" height="32" rx="8" fill="rgba(255,107,0,0.12)"/>
+          <rect x="0" y="231" width="3" height="32" rx="2" fill="#FF6B00"/>
+          <text x="36" y="251" font-size="12" font-weight="600" fill="#FF6B00">📊  Reports</text>
+          <rect x="8" y="267" width="184" height="32" rx="8" fill="transparent"/>
+          <text x="36" y="287" font-size="12" fill="#888">⚙️  Settings</text>
+
+          <!-- Main content area -->
+          <rect x="200" y="0" width="480" height="380" fill="#111"/>
+          <!-- Header -->
+          <rect x="200" y="0" width="480" height="48" fill="#0D0D0D"/>
+          <text x="220" y="30" font-size="15" font-weight="700" fill="#FFF">Reports</text>
+          <!-- Start Day button -->
+          <rect x="534" y="12" width="128" height="28" rx="8" fill="#22c55e"/>
+          <text x="598" y="30" font-size="11" font-weight="700" fill="#000" text-anchor="middle">Start Day</text>
+
+          <!-- Opening till card -->
+          <rect x="220" y="68" width="440" height="130" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="240" y="94" font-size="12" font-weight="700" fill="#888" letter-spacing="0.5">OPENING TILL COUNT</text>
+          <text x="240" y="118" font-size="13" fill="#888">Count the cash in your drawer before your first order.</text>
+          <rect x="240" y="132" width="200" height="36" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+          <text x="256" y="155" font-size="13" fill="#FFF">$</text>
+          <text x="272" y="155" font-size="13" fill="#FFF">250.00</text>
+          <rect x="458" y="132" width="90" height="36" rx="8" fill="#FF6B00"/>
+          <text x="503" y="155" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Confirm</text>
+
+          <!-- Status row -->
+          <rect x="220" y="218" width="440" height="56" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <circle cx="244" cy="246" r="6" fill="#22c55e"/>
+          <text x="258" y="251" font-size="13" font-weight="600" fill="#FFF">Shift open</text>
+          <text x="258" y="265" font-size="11" fill="#888">Started at 10:32 AM · Jun 23, 2026</text>
+
+          <!-- Hint -->
+          <text x="220" y="310" font-size="12" fill="#444">Shift must be open before you can place orders.</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> You must tap Start Day each morning. Orders placed without an open shift will still be saved but the daily report will not include a cash reconciliation.</div>
+    </section>
+
+    <!-- ── 3. TAKING AN ORDER ─────────────────────────────────────── -->
+    <section class="section" id="taking-order">
+      <div class="sec-hd">
+        <div class="sec-num">3</div>
+        <h2>Taking a Customer Order</h2>
+      </div>
+      <p class="sec-desc">
+        The order screen is split into two panels: the menu grid on the left and the cart on the right. Tap items to add them, adjust quantities inline, then send the order to the kitchen with one tap.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>When a customer walks up, optionally type their <strong>name and phone number</strong> in the Customer field at the top of the cart. This enables SMS notifications on Enterprise.</span></li>
+        <li><span class="sn">2</span><span>Tap items in the menu grid to add them to the cart. Use <strong>+ / -</strong> to adjust quantities.</span></li>
+        <li><span class="sn">3</span><span>Tap <strong>Charge $X.XX</strong> to send the order to the kitchen and proceed to payment.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 470" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="470" fill="#111111"/>
+          <!-- Header -->
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">New Order</text>
+          <!-- Left panel: menu grid (0-400) -->
+          <!-- Category bar -->
+          <rect x="0" y="48" width="400" height="36" fill="#0D0D0D"/>
+          <rect x="12" y="56" width="34" height="22" rx="6" fill="#FF6B00"/>
+          <text x="29" y="71" font-size="10" font-weight="600" fill="#000" text-anchor="middle">All</text>
+          <rect x="54" y="56" width="52" height="22" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="80" y="71" font-size="10" fill="#888" text-anchor="middle">Mains</text>
+          <rect x="114" y="56" width="44" height="22" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="136" y="71" font-size="10" fill="#888" text-anchor="middle">Sides</text>
+          <rect x="166" y="56" width="50" height="22" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="191" y="71" font-size="10" fill="#888" text-anchor="middle">Drinks</text>
+          <!-- Menu grid 3 col -->
+          <!-- Row 1 -->
+          <rect x="10" y="92" width="116" height="90" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="18" y="101" width="38" height="14" rx="3" fill="#2A1A00"/>
+          <text x="37" y="111" font-size="8" font-weight="700" fill="#FF6B00" text-anchor="middle">MAINS</text>
+          <text x="18" y="130" font-size="11" font-weight="600" fill="#FFF">Butter Chicken</text>
+          <text x="18" y="144" font-size="11" font-weight="600" fill="#FFF">Poutine</text>
+          <text x="18" y="162" font-size="12" font-weight="700" fill="#FF6B00">$14.50</text>
+          <!-- qty badge -->
+          <circle cx="108" cy="100" r="10" fill="#FF6B00"/>
+          <text x="108" y="104" font-size="9" font-weight="800" fill="#000" text-anchor="middle">2</text>
+
+          <rect x="134" y="92" width="116" height="90" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="142" y="101" width="34" height="14" rx="3" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="159" y="111" font-size="8" font-weight="700" fill="#888" text-anchor="middle">SIDES</text>
+          <text x="142" y="130" font-size="11" font-weight="600" fill="#FFF">Samosa Bites</text>
+          <text x="142" y="162" font-size="12" font-weight="700" fill="#FF6B00">$7.00</text>
+
+          <rect x="258" y="92" width="116" height="90" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="266" y="101" width="40" height="14" rx="3" fill="#0D1A0D" stroke="#1A2A1A" stroke-width="1"/>
+          <text x="286" y="111" font-size="8" font-weight="700" fill="#888" text-anchor="middle">DRINKS</text>
+          <text x="266" y="130" font-size="11" font-weight="600" fill="#FFF">Mango Lassi</text>
+          <text x="266" y="162" font-size="12" font-weight="700" fill="#FF6B00">$5.50</text>
+
+          <!-- Row 2 -->
+          <rect x="10" y="190" width="116" height="90" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="18" y="199" width="38" height="14" rx="3" fill="#2A1A00"/>
+          <text x="37" y="209" font-size="8" font-weight="700" fill="#FF6B00" text-anchor="middle">MAINS</text>
+          <text x="18" y="228" font-size="11" font-weight="600" fill="#FFF">Street Corn</text>
+          <text x="18" y="242" font-size="11" font-weight="600" fill="#FFF">Elote</text>
+          <text x="18" y="260" font-size="12" font-weight="700" fill="#FF6B00">$11.00</text>
+
+          <rect x="134" y="190" width="116" height="90" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="142" y="199" width="34" height="14" rx="3" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="159" y="209" font-size="8" font-weight="700" fill="#888" text-anchor="middle">SIDES</text>
+          <text x="142" y="228" font-size="11" font-weight="600" fill="#FFF">Tandoori Fries</text>
+          <text x="142" y="260" font-size="12" font-weight="700" fill="#FF6B00">$6.50</text>
+
+          <rect x="258" y="190" width="116" height="90" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <rect x="266" y="199" width="40" height="14" rx="3" fill="#0D1A0D" stroke="#1A2A1A" stroke-width="1"/>
+          <text x="286" y="209" font-size="8" font-weight="700" fill="#888" text-anchor="middle">DRINKS</text>
+          <text x="266" y="228" font-size="11" font-weight="600" fill="#FFF">Chai Latte</text>
+          <text x="266" y="260" font-size="12" font-weight="700" fill="#FF6B00">$4.50</text>
+
+          <!-- Divider -->
+          <rect x="398" y="0" width="1" height="470" fill="#222"/>
+
+          <!-- Right panel: cart -->
+          <rect x="398" y="0" width="282" height="470" fill="#0F0F0F"/>
+          <!-- Cart header -->
+          <rect x="398" y="48" width="282" height="48" fill="#0D0D0D"/>
+          <text x="416" y="78" font-size="14" font-weight="700" fill="#FFF">Order</text>
+          <text x="456" y="78" font-size="12" fill="#555">#027</text>
+          <text x="650" y="78" font-size="11" fill="#888" text-anchor="end">3 items</text>
+
+          <!-- Customer field -->
+          <text x="416" y="116" font-size="9" font-weight="700" fill="#555" letter-spacing="1">CUSTOMER</text>
+          <rect x="416" y="122" width="246" height="32" rx="8" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="430" y="142" font-size="12" fill="#FFF">Maria Singh</text>
+          <text x="654" y="142" font-size="10" fill="#555" text-anchor="end">+1 647 555 0234</text>
+
+          <!-- Cart items -->
+          <rect x="416" y="164" width="246" height="48" rx="8" fill="#1A1A1A"/>
+          <text x="428" y="184" font-size="12" font-weight="500" fill="#FFF">Butter Chicken Poutine</text>
+          <text x="654" y="184" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$29.00</text>
+          <rect x="428" y="194" width="22" height="20" rx="5" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="439" y="208" font-size="12" fill="#FFF" text-anchor="middle">−</text>
+          <text x="462" y="208" font-size="11" font-weight="600" fill="#FFF">2</text>
+          <rect x="472" y="194" width="22" height="20" rx="5" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="483" y="208" font-size="12" fill="#FF6B00" text-anchor="middle">+</text>
+
+          <rect x="416" y="218" width="246" height="40" rx="8" fill="#1A1A1A"/>
+          <text x="428" y="238" font-size="12" font-weight="500" fill="#FFF">Samosa Bites</text>
+          <text x="654" y="238" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$7.00</text>
+          <rect x="428" y="246" width="22" height="18" rx="5" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="439" y="258" font-size="11" fill="#FFF" text-anchor="middle">−</text>
+          <text x="462" y="258" font-size="11" font-weight="600" fill="#FFF">1</text>
+          <rect x="472" y="246" width="22" height="18" rx="5" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="483" y="258" font-size="11" fill="#FF6B00" text-anchor="middle">+</text>
+
+          <!-- Divider -->
+          <rect x="416" y="268" width="246" height="1" fill="#222"/>
+
+          <!-- Totals -->
+          <text x="416" y="292" font-size="12" fill="#888">Subtotal</text>
+          <text x="654" y="292" font-size="12" fill="#FFF" text-anchor="end">$36.00</text>
+          <text x="416" y="312" font-size="12" fill="#888">Tax (13%)</text>
+          <text x="654" y="312" font-size="12" fill="#FFF" text-anchor="end">$4.68</text>
+          <rect x="416" y="324" width="246" height="1" fill="#222"/>
+          <text x="416" y="344" font-size="14" font-weight="700" fill="#FFF">Total</text>
+          <text x="654" y="344" font-size="14" font-weight="800" fill="#FFF" text-anchor="end">$40.68</text>
+
+          <!-- Buttons -->
+          <rect x="416" y="358" width="114" height="36" rx="9" fill="#222222" stroke="#333" stroke-width="1"/>
+          <text x="473" y="380" font-size="12" font-weight="600" fill="#888" text-anchor="middle">New Order</text>
+          <rect x="538" y="358" width="124" height="36" rx="9" fill="#FF6B00"/>
+          <text x="600" y="380" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Charge $40.68</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Taking the customer name is optional but recommended. On Enterprise, any customer with a phone number on their order automatically gets a text when their food is ready.</div>
+    </section>
+
+    <!-- ── 4. KITCHEN DISPLAY ────────────────────────────────────── -->
+    <section class="section" id="kitchen">
+      <div class="sec-hd">
+        <div class="sec-num">4</div>
+        <h2>Kitchen Display</h2>
+      </div>
+      <p class="sec-desc">
+        The kitchen screen runs on a separate device and updates in real time as orders are placed. Your cook sees each ticket the moment the cashier taps Charge. Tap <strong>Mark Ready</strong> when food is plated.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open the app on your kitchen device and tap <strong>Kitchen Display</strong> in the sidebar. The status badge shows the live connection.</span></li>
+        <li><span class="sn">2</span><span>Pending orders appear on the left. Each ticket shows the order number, elapsed time, customer name, and item list.</span></li>
+        <li><span class="sn">3</span><span>Tap <strong>Mark Ready ✓</strong> when the order is plated. It moves to the Ready column. If the customer has a phone number, they get an SMS automatically on Enterprise.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="420" fill="#111111"/>
+          <!-- Header -->
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Kitchen Display</text>
+          <!-- Live badge -->
+          <rect x="170" y="16" width="46" height="20" rx="5" fill="#0D1F0D"/>
+          <circle cx="182" cy="26" r="4" fill="#22c55e"/>
+          <text x="190" y="30" font-size="10" font-weight="600" fill="#22c55e">Live</text>
+          <!-- Column headers -->
+          <text x="20" y="68" font-size="11" font-weight="700" fill="#888" letter-spacing="0.5">PENDING (2)</text>
+          <text x="350" y="68" font-size="11" font-weight="700" fill="#22c55e" letter-spacing="0.5">READY (1)</text>
+
+          <!-- Ticket 1 - Pending yellow -->
+          <rect x="14" y="76" width="316" height="160" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <rect x="14" y="76" width="316" height="40" rx="12" fill="#1A1400"/>
+          <rect x="14" y="96" width="316" height="20" fill="#1A1400"/>
+          <text x="28" y="102" font-size="16" font-weight="800" fill="#FFF">#025</text>
+          <rect x="232" y="82" width="84" height="26" rx="6" fill="#eab30833"/>
+          <text x="274" y="99" font-size="12" font-weight="700" fill="#eab308" text-anchor="middle">04:32</text>
+          <text x="28" y="128" font-size="12" font-weight="500" fill="#CCCCCC">Maria Singh</text>
+          <rect x="28" y="138" width="1" height="56" fill="#2A2A2A"/>
+          <text x="40" y="154" font-size="12" fill="#FFF">Butter Chicken Poutine</text>
+          <text x="40" y="170" font-size="11" fill="#888">× 2</text>
+          <text x="40" y="186" font-size="12" fill="#FFF">Samosa Bites</text>
+          <text x="40" y="198" font-size="11" fill="#888">× 1</text>
+          <rect x="26" y="208" width="290" height="20" rx="6" fill="#FF6B00"/>
+          <text x="171" y="222" font-size="11" font-weight="700" fill="#000" text-anchor="middle">Mark Ready ✓</text>
+
+          <!-- Ticket 2 - Pending green (fresh) -->
+          <rect x="14" y="246" width="316" height="130" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <rect x="14" y="246" width="316" height="40" rx="12" fill="#0D180D"/>
+          <rect x="14" y="266" width="316" height="20" fill="#0D180D"/>
+          <text x="28" y="272" font-size="16" font-weight="800" fill="#FFF">#026</text>
+          <rect x="232" y="252" width="84" height="26" rx="6" fill="#22c55e22"/>
+          <text x="274" y="269" font-size="12" font-weight="700" fill="#22c55e" text-anchor="middle">01:08</text>
+          <text x="28" y="298" font-size="12" font-weight="500" fill="#CCCCCC">Guest</text>
+          <text x="28" y="318" font-size="12" fill="#FFF">Street Corn Elote</text>
+          <text x="28" y="334" font-size="11" fill="#888">× 1</text>
+          <rect x="26" y="346" width="290" height="20" rx="6" fill="#FF6B00"/>
+          <text x="171" y="360" font-size="11" font-weight="700" fill="#000" text-anchor="middle">Mark Ready ✓</text>
+
+          <!-- Divider between columns -->
+          <rect x="338" y="76" width="1" height="328" fill="#222"/>
+
+          <!-- Ticket Ready - red (old) -->
+          <rect x="348" y="76" width="316" height="148" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <rect x="348" y="76" width="316" height="40" rx="12" fill="#1A0D0D"/>
+          <rect x="348" y="96" width="316" height="20" fill="#1A0D0D"/>
+          <text x="362" y="102" font-size="16" font-weight="800" fill="#FFF">#024</text>
+          <rect x="566" y="82" width="84" height="26" rx="6" fill="#ef444433"/>
+          <text x="608" y="99" font-size="12" font-weight="700" fill="#ef4444" text-anchor="middle">12:55</text>
+          <text x="362" y="128" font-size="12" font-weight="500" fill="#CCCCCC">John T.</text>
+          <text x="362" y="148" font-size="12" fill="#FFF">Mango Lassi</text>
+          <text x="362" y="162" font-size="11" fill="#888">× 1</text>
+          <text x="362" y="178" font-size="12" fill="#FFF">Tandoori Fries</text>
+          <text x="362" y="190" font-size="11" fill="#888">× 1</text>
+          <rect x="360" y="200" width="290" height="18" rx="6" fill="#222"/>
+          <text x="505" y="213" font-size="11" font-weight="600" fill="#555" text-anchor="middle">Dismiss</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> The timer color changes from green to yellow to red as minutes pass. Red means an order has been waiting over 10 minutes.</div>
+    </section>
+
+    <!-- ── 5. TAKING PAYMENT ──────────────────────────────────────── -->
+    <section class="section" id="payment">
+      <div class="sec-hd">
+        <div class="sec-num">5</div>
+        <h2>Taking Payment</h2>
+      </div>
+      <p class="sec-desc">
+        After tapping Charge, the payment sheet slides up. Choose cash, card, external terminal, or Square. Cash automatically calculates change due. Optionally add a tip or discount before confirming.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap the payment method: <strong>Cash</strong>, <strong>Card</strong>, <strong>External Terminal</strong>, or <strong>Square</strong>.</span></li>
+        <li><span class="sn">2</span><span>For cash, enter the amount tendered. Change due is calculated instantly.</span></li>
+        <li><span class="sn">3</span><span>Select a tip percentage or enter a custom amount. Apply a discount if needed. Tap <strong>Confirm Payment</strong>.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 480" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="480" fill="#0A0A0A"/>
+          <!-- Modal card -->
+          <rect x="80" y="20" width="520" height="440" rx="16" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="340" y="56" font-size="15" font-weight="700" fill="#FFF" text-anchor="middle">Charge Order #027</text>
+
+          <!-- Payment method -->
+          <text x="100" y="84" font-size="10" font-weight="700" fill="#555" letter-spacing="1">PAYMENT METHOD</text>
+          <rect x="100" y="90" width="112" height="34" rx="8" fill="#FF6B00"/>
+          <text x="156" y="112" font-size="11" font-weight="700" fill="#000" text-anchor="middle">💵 Cash</text>
+          <rect x="220" y="90" width="112" height="34" rx="8" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="276" y="112" font-size="11" font-weight="600" fill="#888" text-anchor="middle">💳 Card</text>
+          <rect x="340" y="90" width="120" height="34" rx="8" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="400" y="112" font-size="11" font-weight="600" fill="#888" text-anchor="middle">🖨️ Terminal</text>
+          <rect x="468" y="90" width="112" height="34" rx="8" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="524" y="112" font-size="11" font-weight="600" fill="#888" text-anchor="middle">◻ Square</text>
+
+          <!-- Cash tendered -->
+          <text x="100" y="148" font-size="10" font-weight="700" fill="#555" letter-spacing="1">CASH TENDERED</text>
+          <rect x="100" y="154" width="220" height="36" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+          <text x="116" y="177" font-size="14" font-weight="600" fill="#FFF">$  50.00</text>
+          <text x="340" y="172" font-size="12" fill="#888">Change due</text>
+          <text x="580" y="172" font-size="14" font-weight="700" fill="#22c55e" text-anchor="end">$4.64</text>
+
+          <!-- Tip -->
+          <text x="100" y="214" font-size="10" font-weight="700" fill="#555" letter-spacing="1">TIP</text>
+          <rect x="100" y="220" width="54" height="28" rx="7" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="127" y="238" font-size="11" fill="#888" text-anchor="middle">0%</text>
+          <rect x="162" y="220" width="54" height="28" rx="7" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="189" y="238" font-size="11" fill="#888" text-anchor="middle">10%</text>
+          <rect x="224" y="220" width="54" height="28" rx="7" fill="#FF6B00"/>
+          <text x="251" y="238" font-size="11" font-weight="700" fill="#000" text-anchor="middle">15%</text>
+          <rect x="286" y="220" width="54" height="28" rx="7" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="313" y="238" font-size="11" fill="#888" text-anchor="middle">18%</text>
+          <rect x="348" y="220" width="54" height="28" rx="7" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="375" y="238" font-size="11" fill="#888" text-anchor="middle">20%</text>
+          <rect x="410" y="220" width="64" height="28" rx="7" fill="#222" stroke="#333" stroke-width="1"/>
+          <text x="442" y="238" font-size="11" fill="#888" text-anchor="middle">Custom</text>
+
+          <!-- Discount -->
+          <text x="100" y="276" font-size="10" font-weight="700" fill="#555" letter-spacing="1">DISCOUNT (OPTIONAL)</text>
+          <rect x="100" y="282" width="180" height="32" rx="8" fill="#111" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="116" y="303" font-size="12" fill="#444">$0.00</text>
+
+          <!-- Divider -->
+          <rect x="100" y="328" width="480" height="1" fill="#2A2A2A"/>
+
+          <!-- Summary -->
+          <text x="100" y="350" font-size="12" fill="#888">Subtotal</text>
+          <text x="580" y="350" font-size="12" fill="#FFF" text-anchor="end">$36.00</text>
+          <text x="100" y="368" font-size="12" fill="#888">Tip (15%)</text>
+          <text x="580" y="368" font-size="12" fill="#FFF" text-anchor="end">$5.40</text>
+          <text x="100" y="386" font-size="12" fill="#888">Tax (13%)</text>
+          <text x="580" y="386" font-size="12" fill="#FFF" text-anchor="end">$4.68</text>
+          <text x="100" y="406" font-size="14" font-weight="700" fill="#FFF">Total</text>
+          <text x="580" y="406" font-size="14" font-weight="800" fill="#FFF" text-anchor="end">$46.08</text>
+
+          <!-- Confirm button -->
+          <rect x="100" y="420" width="480" height="26" rx="9" fill="#FF6B00"/>
+          <text x="340" y="437" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Confirm Payment  $46.08</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Select External Terminal or Square when your card reader handles the charge separately. The app records the transaction without processing payment itself.</div>
+    </section>
+
+    <!-- ── 6. SMS NOTIFICATIONS ───────────────────────────────────── -->
+    <section class="section" id="sms">
+      <div class="sec-hd">
+        <div class="sec-num">6</div>
+        <h2>Customer Notifications via SMS</h2>
+        <span class="tier-pill tier-ent">ENTERPRISE</span>
+      </div>
+      <div class="locked-notice">
+        <span class="ln-icon">🔒</span>
+        <span>This feature requires the <strong style="color:#a78bfa">Enterprise</strong> plan. <a href="index.html#pricing">View pricing</a> to upgrade.</span>
+      </div>
+      <p class="sec-desc">
+        Connect your own Twilio account once in Settings and your truck automatically texts customers when their order is ready. You pay Twilio directly at their rates with no markup from us.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Go to <strong>Settings → SMS Notifications</strong>. Log in to <strong>twilio.com</strong> and copy your <strong>Account SID</strong> and <strong>Auth Token</strong> from the console dashboard.</span></li>
+        <li><span class="sn">2</span><span>Paste both values into the fields and tap <strong>Connect Twilio</strong>. Your Twilio phone number is detected automatically.</span></li>
+        <li><span class="sn">3</span><span>From now on, any customer who has a phone number on their order will get a text from your truck name when the kitchen marks the order ready. No phone number? It skips silently.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="400" fill="#111111"/>
+          <!-- Header -->
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">SMS Notifications</text>
+          <rect x="180" y="14" width="82" height="22" rx="5" fill="#1C1428"/>
+          <text x="221" y="29" font-size="9" font-weight="800" fill="#a78bfa" text-anchor="middle">ENTERPRISE</text>
+
+          <!-- Left: connect form -->
+          <rect x="16" y="62" width="316" height="322" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="32" y="90" font-size="13" font-weight="700" fill="#FFF">Connect Twilio</text>
+          <text x="32" y="108" font-size="11" fill="#888">Log in to twilio.com and copy your Account</text>
+          <text x="32" y="122" font-size="11" fill="#888">SID and Auth Token from the console.</text>
+          <text x="32" y="150" font-size="10" font-weight="700" fill="#555" letter-spacing="1">ACCOUNT SID</text>
+          <rect x="32" y="156" width="282" height="34" rx="8" fill="#111" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="46" y="178" font-size="11" fill="#444">ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</text>
+          <text x="32" y="212" font-size="10" font-weight="700" fill="#555" letter-spacing="1">AUTH TOKEN</text>
+          <rect x="32" y="218" width="282" height="34" rx="8" fill="#111" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="46" y="240" font-size="13" fill="#444">••••••••••••••••••••••••••••</text>
+          <text x="32" y="280" font-size="10" fill="#444">Your Auth Token is encrypted before storage.</text>
+          <text x="32" y="294" font-size="10" fill="#444">We never store it in plain text.</text>
+          <rect x="32" y="310" width="282" height="36" rx="9" fill="#FF6B00"/>
+          <text x="173" y="332" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Connect Twilio</text>
+          <text x="173" y="362" font-size="10" fill="#444" text-anchor="middle">Disconnect</text>
+
+          <!-- Right: connected state -->
+          <rect x="348" y="62" width="316" height="322" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="364" y="90" font-size="12" font-weight="700" fill="#888">After connecting</text>
+          <!-- Connected status -->
+          <rect x="364" y="100" width="282" height="56" rx="10" fill="#0D1F0D" stroke="#22c55e22" stroke-width="1"/>
+          <circle cx="384" cy="128" r="10" fill="#22c55e"/>
+          <text x="384" y="132" font-size="11" font-weight="700" fill="#000" text-anchor="middle">✓</text>
+          <text x="402" y="122" font-size="12" font-weight="700" fill="#FFF">SMS Notifications Active</text>
+          <text x="402" y="138" font-size="11" fill="#22c55e">+1 (416) 555-0187</text>
+          <text x="364" y="180" font-size="11" fill="#888">Customers who provide a phone number</text>
+          <text x="364" y="194" font-size="11" fill="#888">on their order will receive a text from</text>
+          <text x="364" y="208" font-size="11" fill="#888">your truck name when their food is ready.</text>
+          <!-- Example message -->
+          <rect x="364" y="226" width="282" height="72" rx="10" fill="#111" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="380" y="246" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">EXAMPLE TEXT MESSAGE</text>
+          <text x="380" y="264" font-size="11" fill="#888">From: Street Feast</text>
+          <text x="380" y="280" font-size="11" fill="#FFF">Hi Maria! Your order is ready</text>
+          <text x="380" y="294" font-size="11" fill="#FFF">for pickup. Come get it while</text>
+          <text x="380" y="308" font-size="11" fill="#FFF">it is hot!</text>
+          <!-- Disconnect -->
+          <rect x="364" y="316" width="282" height="34" rx="9" fill="#2A1010" stroke="#ef444422" stroke-width="1"/>
+          <text x="505" y="337" font-size="12" font-weight="600" fill="#ef4444" text-anchor="middle">Disconnect Twilio</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> You only need to connect Twilio once. It stays connected until you explicitly disconnect. No extra configuration is needed beyond pasting your credentials.</div>
+    </section>
+
+    <!-- ── 7. CUSTOMERS ───────────────────────────────────────────── -->
+    <section class="section" id="customers">
+      <div class="sec-hd">
+        <div class="sec-num">7</div>
+        <h2>Tracking Customers</h2>
+        <span class="tier-pill tier-pro">PRO</span>
+      </div>
+      <div class="locked-notice">
+        <span class="ln-icon">🔒</span>
+        <span>This feature requires the <strong style="color:#FF6B00">Pro</strong> plan. <a href="index.html#pricing">View pricing</a> to upgrade. All your order data is already stored and will appear instantly once you upgrade.</span>
+      </div>
+      <p class="sec-desc">
+        Customer profiles are created automatically when a name is entered at order time. Use the Customers screen to look up returning customers, see their visit history, and note any allergy information.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open <strong>Customers</strong> from the sidebar. Search by name, phone, or email in the search bar.</span></li>
+        <li><span class="sn">2</span><span>Tap a customer to view their contact details, total visits, lifetime spend, and full order history.</span></li>
+        <li><span class="sn">3</span><span>Any allergy notes you add show as a red alert on the customer row so kitchen staff are always reminded.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="400" fill="#111111"/>
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Customers</text>
+          <rect x="560" y="12" width="102" height="28" rx="8" fill="#FF6B00"/>
+          <text x="611" y="30" font-size="11" font-weight="700" fill="#000" text-anchor="middle">+ Add Customer</text>
+          <!-- Search -->
+          <rect x="16" y="60" width="648" height="34" rx="8" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="36" y="81" font-size="12" fill="#444">Search by name, phone or email...</text>
+          <!-- Customer rows -->
+          <!-- Row 1 -->
+          <rect x="16" y="104" width="648" height="60" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <circle cx="46" cy="134" r="17" fill="#FF6B00"/>
+          <text x="46" y="138" font-size="12" font-weight="700" fill="#000" text-anchor="middle">MS</text>
+          <text x="74" y="126" font-size="13" font-weight="600" fill="#FFF">Maria Singh</text>
+          <text x="74" y="142" font-size="11" fill="#888">+1 647 555 0234</text>
+          <text x="74" y="156" font-size="10" fill="#555">12 visits</text>
+          <text x="638" y="126" font-size="12" font-weight="700" fill="#FFF" text-anchor="end">$284.50</text>
+          <text x="638" y="142" font-size="10" fill="#888" text-anchor="end">lifetime spend</text>
+          <!-- Row 2 -->
+          <rect x="16" y="172" width="648" height="60" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <circle cx="46" cy="202" r="17" fill="#2A3A5A"/>
+          <text x="46" y="206" font-size="12" font-weight="700" fill="#7BB3FF" text-anchor="middle">JT</text>
+          <text x="74" y="194" font-size="13" font-weight="600" fill="#FFF">John T.</text>
+          <text x="74" y="210" font-size="11" fill="#888">+1 905 555 0456</text>
+          <text x="74" y="224" font-size="10" fill="#555">7 visits</text>
+          <!-- Allergy badge -->
+          <rect x="122" y="218" width="52" height="14" rx="4" fill="#2A0D0D"/>
+          <text x="148" y="228" font-size="8" font-weight="700" fill="#ef4444" text-anchor="middle">⚠ ALLERGY</text>
+          <text x="638" y="194" font-size="12" font-weight="700" fill="#FFF" text-anchor="end">$167.00</text>
+          <text x="638" y="210" font-size="10" fill="#888" text-anchor="end">lifetime spend</text>
+          <!-- Row 3 -->
+          <rect x="16" y="240" width="648" height="60" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <circle cx="46" cy="270" r="17" fill="#1A2A1A"/>
+          <text x="46" y="274" font-size="12" font-weight="700" fill="#22c55e" text-anchor="middle">PK</text>
+          <text x="74" y="262" font-size="13" font-weight="600" fill="#FFF">Priya K.</text>
+          <text x="74" y="278" font-size="11" fill="#888">priya@email.com</text>
+          <text x="74" y="292" font-size="10" fill="#555">3 visits</text>
+          <text x="638" y="262" font-size="12" font-weight="700" fill="#FFF" text-anchor="end">$54.75</text>
+          <text x="638" y="278" font-size="10" fill="#888" text-anchor="end">lifetime spend</text>
+          <!-- Row 4 -->
+          <rect x="16" y="308" width="648" height="60" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <circle cx="46" cy="338" r="17" fill="#222"/>
+          <text x="46" y="342" font-size="12" font-weight="700" fill="#555" text-anchor="middle">G</text>
+          <text x="74" y="330" font-size="13" font-weight="600" fill="#888">Guest</text>
+          <text x="74" y="346" font-size="11" fill="#555">No contact on file</text>
+          <text x="74" y="360" font-size="10" fill="#444">1 visit</text>
+          <text x="638" y="330" font-size="12" font-weight="600" fill="#888" text-anchor="end">$22.00</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ── 8. REPORTS ─────────────────────────────────────────────── -->
+    <section class="section" id="reports">
+      <div class="sec-hd">
+        <div class="sec-num">8</div>
+        <h2>Daily Reports</h2>
+        <span class="tier-pill tier-pro">PRO</span>
+      </div>
+      <div class="locked-notice">
+        <span class="ln-icon">🔒</span>
+        <span>This feature requires the <strong style="color:#FF6B00">Pro</strong> plan. <a href="index.html#pricing">View pricing</a> to upgrade.</span>
+      </div>
+      <p class="sec-desc">
+        The Reports screen shows a live summary of your revenue, orders, and top items. Switch between Today, This Week, and This Month to see trends. An end of day email report is sent to your inbox automatically when you close your shift.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open <strong>Reports</strong>. Tap <strong>Today</strong>, <strong>This Week</strong>, or <strong>This Month</strong> to change the period.</span></li>
+        <li><span class="sn">2</span><span>Review <strong>Gross Revenue</strong>, <strong>Tax Collected</strong>, <strong>Total Orders</strong>, and the payment breakdown by cash vs. card.</span></li>
+        <li><span class="sn">3</span><span>Scroll to <strong>Top Selling Items</strong> to see which items are driving the most volume and revenue.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="440" fill="#111111"/>
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Reports</text>
+          <rect x="554" y="12" width="108" height="28" rx="8" fill="#222" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="608" y="30" font-size="11" font-weight="600" fill="#888" text-anchor="middle">End of Day</text>
+          <!-- Period tabs -->
+          <rect x="16" y="60" width="80" height="28" rx="7" fill="#FF6B00"/>
+          <text x="56" y="78" font-size="11" font-weight="700" fill="#000" text-anchor="middle">Today</text>
+          <rect x="104" y="60" width="90" height="28" rx="7" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="149" y="78" font-size="11" fill="#888" text-anchor="middle">This Week</text>
+          <rect x="202" y="60" width="96" height="28" rx="7" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="250" y="78" font-size="11" fill="#888" text-anchor="middle">This Month</text>
+          <!-- Stats grid 2×2 -->
+          <rect x="16" y="100" width="156" height="72" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="120" font-size="9" font-weight="700" fill="#555" letter-spacing="0.5">TOTAL ORDERS</text>
+          <text x="30" y="152" font-size="22" font-weight="800" fill="#FFF">47</text>
+
+          <rect x="180" y="100" width="156" height="72" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="194" y="120" font-size="9" font-weight="700" fill="#555" letter-spacing="0.5">GROSS REVENUE</text>
+          <text x="194" y="152" font-size="20" font-weight="800" fill="#FF6B00">$1,284.50</text>
+
+          <rect x="344" y="100" width="156" height="72" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="358" y="120" font-size="9" font-weight="700" fill="#555" letter-spacing="0.5">TAX COLLECTED</text>
+          <text x="358" y="152" font-size="20" font-weight="800" fill="#FFF">$148.99</text>
+
+          <rect x="508" y="100" width="156" height="72" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="522" y="120" font-size="9" font-weight="700" fill="#555" letter-spacing="0.5">AVG ORDER</text>
+          <text x="522" y="152" font-size="20" font-weight="800" fill="#FFF">$27.33</text>
+
+          <!-- Payment breakdown -->
+          <rect x="16" y="184" width="648" height="74" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="206" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">PAYMENT BREAKDOWN</text>
+          <text x="30" y="232" font-size="12" fill="#888">Cash</text>
+          <text x="180" y="232" font-size="12" font-weight="600" fill="#FFF">$480.00</text>
+          <text x="280" y="232" font-size="12" fill="#888">Card / Other</text>
+          <text x="450" y="232" font-size="12" font-weight="600" fill="#FFF">$804.50</text>
+          <rect x="590" y="218" width="60" height="1" fill="#2A2A2A"/>
+          <text x="30" y="252" font-size="12" fill="#888">Net Revenue</text>
+          <text x="180" y="252" font-size="13" font-weight="700" fill="#FFF">$1,135.51</text>
+
+          <!-- Top items -->
+          <rect x="16" y="270" width="648" height="158" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="292" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">TOP SELLING ITEMS</text>
+          <!-- Item rows -->
+          <text x="30" y="320" font-size="13" font-weight="700" fill="#FF6B00">1</text>
+          <text x="50" y="320" font-size="13" fill="#FFF">Butter Chicken Poutine</text>
+          <text x="480" y="320" font-size="12" fill="#888" text-anchor="end">23 ×</text>
+          <text x="648" y="320" font-size="12" font-weight="600" fill="#FF6B00" text-anchor="end">$333.50</text>
+          <!-- bar -->
+          <rect x="50" y="325" width="260" height="3" rx="2" fill="#FF6B00" opacity="0.5"/>
+
+          <text x="30" y="348" font-size="13" font-weight="700" fill="#888">2</text>
+          <text x="50" y="348" font-size="13" fill="#FFF">Samosa Bites</text>
+          <text x="480" y="348" font-size="12" fill="#888" text-anchor="end">18 ×</text>
+          <text x="648" y="348" font-size="12" font-weight="600" fill="#FF6B00" text-anchor="end">$126.00</text>
+          <rect x="50" y="353" width="204" height="3" rx="2" fill="#FF6B00" opacity="0.35"/>
+
+          <text x="30" y="376" font-size="13" font-weight="700" fill="#888">3</text>
+          <text x="50" y="376" font-size="13" fill="#FFF">Mango Lassi</text>
+          <text x="480" y="376" font-size="12" fill="#888" text-anchor="end">15 ×</text>
+          <text x="648" y="376" font-size="12" font-weight="600" fill="#FF6B00" text-anchor="end">$82.50</text>
+          <rect x="50" y="381" width="170" height="3" rx="2" fill="#FF6B00" opacity="0.25"/>
+
+          <text x="30" y="404" font-size="13" font-weight="700" fill="#555">4</text>
+          <text x="50" y="404" font-size="13" fill="#888">Tandoori Fries</text>
+          <text x="480" y="404" font-size="12" fill="#555" text-anchor="end">11 ×</text>
+          <text x="648" y="404" font-size="12" fill="#555" text-anchor="end">$71.50</text>
+          <rect x="50" y="409" width="124" height="3" rx="2" fill="#555" opacity="0.4"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ── 9. INVENTORY ───────────────────────────────────────────── -->
+    <section class="section" id="inventory">
+      <div class="sec-hd">
+        <div class="sec-num">9</div>
+        <h2>Managing Inventory</h2>
+        <span class="tier-pill tier-pro">PRO</span>
+      </div>
+      <div class="locked-notice">
+        <span class="ln-icon">🔒</span>
+        <span>This feature requires the <strong style="color:#FF6B00">Pro</strong> plan. <a href="index.html#pricing">View pricing</a> to upgrade.</span>
+      </div>
+      <p class="sec-desc">
+        Track your ingredients, set minimum stock thresholds, and link each ingredient to menu items to calculate your cost of goods automatically. The app flags anything below your minimum so you reorder before you run out.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open <strong>Inventory</strong>. On the <strong>Ingredients</strong> tab, tap <strong>+ Add Ingredient</strong>. Enter the name, unit (kg, L, pcs), cost per unit, current stock, and minimum stock.</span></li>
+        <li><span class="sn">2</span><span>Switch to the <strong>Recipe Costs</strong> tab to link ingredients to menu items. The app calculates your cost per item and margin automatically.</span></li>
+        <li><span class="sn">3</span><span>Use the <strong>Variance</strong> tab to compare expected versus actual stock and find where product is being lost.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="400" fill="#111111"/>
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Inventory</text>
+          <rect x="556" y="12" width="106" height="28" rx="8" fill="#FF6B00"/>
+          <text x="609" y="30" font-size="11" font-weight="700" fill="#000" text-anchor="middle">+ Add Ingredient</text>
+          <!-- Tabs -->
+          <rect x="16" y="60" width="104" height="28" rx="7" fill="#FF6B00"/>
+          <text x="68" y="78" font-size="11" font-weight="700" fill="#000" text-anchor="middle">Ingredients</text>
+          <rect x="128" y="60" width="108" height="28" rx="7" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="182" y="78" font-size="11" fill="#888" text-anchor="middle">Recipe Costs</text>
+          <rect x="244" y="60" width="80" height="28" rx="7" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="284" y="78" font-size="11" fill="#888" text-anchor="middle">Variance</text>
+          <!-- Low stock banner -->
+          <rect x="16" y="98" width="648" height="30" rx="8" fill="#2A0D0D" stroke="#ef444422" stroke-width="1"/>
+          <text x="30" y="117" font-size="11" font-weight="600" fill="#ef4444">⚠  2 items below minimum stock</text>
+          <!-- Ingredient rows -->
+          <!-- Headers -->
+          <text x="20" y="148" font-size="9" font-weight="700" fill="#333" letter-spacing="1">INGREDIENT</text>
+          <text x="370" y="148" font-size="9" font-weight="700" fill="#333" letter-spacing="1">STOCK</text>
+          <text x="490" y="148" font-size="9" font-weight="700" fill="#333" letter-spacing="1">COST / UNIT</text>
+
+          <rect x="16" y="154" width="648" height="46" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="176" font-size="13" font-weight="600" fill="#FFF">Chicken Thigh</text>
+          <text x="30" y="191" font-size="10" fill="#555">Protein</text>
+          <text x="370" y="176" font-size="13" fill="#FFF">2.4 kg</text>
+          <rect x="430" y="163" width="36" height="16" rx="4" fill="#2A0D0D"/>
+          <text x="448" y="174" font-size="8" font-weight="700" fill="#ef4444" text-anchor="middle">LOW</text>
+          <text x="490" y="176" font-size="13" fill="#888">$8.50 / kg</text>
+          <text x="640" y="176" font-size="16" fill="#555" text-anchor="middle">›</text>
+
+          <rect x="16" y="206" width="648" height="46" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="228" font-size="13" font-weight="600" fill="#FFF">Poutine Gravy</text>
+          <text x="30" y="243" font-size="10" fill="#555">Sauce</text>
+          <text x="370" y="228" font-size="13" fill="#FFF">4.8 L</text>
+          <text x="490" y="228" font-size="13" fill="#888">$4.00 / L</text>
+          <text x="640" y="228" font-size="16" fill="#555" text-anchor="middle">›</text>
+
+          <rect x="16" y="258" width="648" height="46" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="280" font-size="13" font-weight="600" fill="#FFF">Mango Pulp</text>
+          <text x="30" y="295" font-size="10" fill="#555">Produce</text>
+          <text x="370" y="280" font-size="13" fill="#FFF">0.8 kg</text>
+          <rect x="430" y="267" width="36" height="16" rx="4" fill="#2A0D0D"/>
+          <text x="448" y="278" font-size="8" font-weight="700" fill="#ef4444" text-anchor="middle">LOW</text>
+          <text x="490" y="280" font-size="13" fill="#888">$3.20 / kg</text>
+          <text x="640" y="280" font-size="16" fill="#555" text-anchor="middle">›</text>
+
+          <rect x="16" y="310" width="648" height="46" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="332" font-size="13" font-weight="600" fill="#FFF">Cheese Curds</text>
+          <text x="30" y="347" font-size="10" fill="#555">Dairy</text>
+          <text x="370" y="332" font-size="13" fill="#FFF">3.0 kg</text>
+          <text x="490" y="332" font-size="13" fill="#888">$12.00 / kg</text>
+          <text x="640" y="332" font-size="16" fill="#555" text-anchor="middle">›</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ── 10. EXPENSES ───────────────────────────────────────────── -->
+    <section class="section" id="expenses">
+      <div class="sec-hd">
+        <div class="sec-num">10</div>
+        <h2>Logging Expenses</h2>
+        <span class="tier-pill tier-pro">PRO</span>
+      </div>
+      <div class="locked-notice">
+        <span class="ln-icon">🔒</span>
+        <span>This feature requires the <strong style="color:#FF6B00">Pro</strong> plan. <a href="index.html#pricing">View pricing</a> to upgrade.</span>
+      </div>
+      <p class="sec-desc">
+        Log any business cost here as it happens: fuel, permits, supplies, equipment repairs. Every expense feeds directly into your Profit and Loss report so your net profit number is always accurate.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open <strong>Expenses</strong>. Tap <strong>+ Add Expense</strong>.</span></li>
+        <li><span class="sn">2</span><span>Enter the <strong>Amount</strong>, pick a <strong>Category</strong> (Fuel, Permits, Equipment, Supplies, and more), and write a brief <strong>Description</strong>.</span></li>
+        <li><span class="sn">3</span><span>Tap <strong>Add Expense</strong>. The total updates immediately and rolls into your P&amp;L automatically.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="420" fill="#111111"/>
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Expenses</text>
+          <rect x="554" y="12" width="108" height="28" rx="8" fill="#FF6B00"/>
+          <text x="608" y="30" font-size="11" font-weight="700" fill="#000" text-anchor="middle">+ Add Expense</text>
+          <!-- Period -->
+          <rect x="16" y="60" width="62" height="28" rx="7" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="47" y="78" font-size="11" fill="#888" text-anchor="middle">Today</text>
+          <rect x="86" y="60" width="58" height="28" rx="7" fill="#FF6B00"/>
+          <text x="115" y="78" font-size="11" font-weight="700" fill="#000" text-anchor="middle">Week</text>
+          <rect x="152" y="60" width="68" height="28" rx="7" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="186" y="78" font-size="11" fill="#888" text-anchor="middle">Month</text>
+          <!-- Total card -->
+          <rect x="16" y="100" width="648" height="66" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="30" y="122" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">TOTAL EXPENSES</text>
+          <text x="30" y="152" font-size="26" font-weight="800" fill="#ef4444">$387.40</text>
+          <text x="648" y="140" font-size="11" fill="#555" text-anchor="end">4 expenses this week</text>
+          <!-- Expense list -->
+          <rect x="16" y="178" width="648" height="52" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="200" font-size="16">⛽</text>
+          <text x="54" y="200" font-size="13" font-weight="600" fill="#FFF">Generator Diesel</text>
+          <text x="54" y="216" font-size="11" fill="#555">Fuel · Mon Jun 23</text>
+          <text x="648" y="204" font-size="13" font-weight="700" fill="#FFF" text-anchor="end">$85.00</text>
+
+          <rect x="16" y="236" width="648" height="52" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="258" font-size="16">🧴</text>
+          <text x="54" y="258" font-size="13" font-weight="600" fill="#FFF">Packaging and Napkins</text>
+          <text x="54" y="274" font-size="11" fill="#555">Supplies · Mon Jun 23</text>
+          <text x="648" y="262" font-size="13" font-weight="700" fill="#FFF" text-anchor="end">$42.00</text>
+
+          <rect x="16" y="294" width="648" height="52" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="316" font-size="16">📋</text>
+          <text x="54" y="316" font-size="13" font-weight="600" fill="#FFF">Weekend Market Permit</text>
+          <text x="54" y="332" font-size="11" fill="#555">Permits · Sun Jun 22</text>
+          <text x="648" y="320" font-size="13" font-weight="700" fill="#FFF" text-anchor="end">$150.00</text>
+
+          <rect x="16" y="352" width="648" height="52" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="374" font-size="16">🔧</text>
+          <text x="54" y="374" font-size="13" font-weight="600" fill="#FFF">Deep Fryer Maintenance</text>
+          <text x="54" y="390" font-size="11" fill="#555">Equipment · Sat Jun 21</text>
+          <text x="648" y="378" font-size="13" font-weight="700" fill="#FFF" text-anchor="end">$110.40</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ── 11. P&L ─────────────────────────────────────────────────── -->
+    <section class="section" id="profit-loss">
+      <div class="sec-hd">
+        <div class="sec-num">11</div>
+        <h2>Profit and Loss</h2>
+        <span class="tier-pill tier-pro">PRO</span>
+      </div>
+      <div class="locked-notice">
+        <span class="ln-icon">🔒</span>
+        <span>This feature requires the <strong style="color:#FF6B00">Pro</strong> plan. <a href="index.html#pricing">View pricing</a> to upgrade.</span>
+      </div>
+      <p class="sec-desc">
+        The P&amp;L screen pulls together your revenue, cost of goods, labor, and expenses into one statement. Read it at the end of each month to understand whether your truck is profitable and where costs are eating into your margin.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Open <strong>Profit and Loss</strong>. Select <strong>This Month</strong> or <strong>Last 30 Days</strong> for a meaningful view.</span></li>
+        <li><span class="sn">2</span><span>Read the <strong>Net Profit</strong> card. Green means profitable, red means costs exceeded revenue for that period.</span></li>
+        <li><span class="sn">3</span><span>Drill into the Statement section to see exactly which cost category is largest: goods, labor, or expenses.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="460" fill="#111111"/>
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Profit and Loss</text>
+          <!-- Period tabs -->
+          <rect x="16" y="60" width="62" height="26" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="47" y="77" font-size="10" fill="#888" text-anchor="middle">Today</text>
+          <rect x="86" y="60" width="80" height="26" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="126" y="77" font-size="10" fill="#888" text-anchor="middle">This Week</text>
+          <rect x="174" y="60" width="88" height="26" rx="6" fill="#FF6B00"/>
+          <text x="218" y="77" font-size="10" font-weight="700" fill="#000" text-anchor="middle">This Month</text>
+          <rect x="270" y="60" width="96" height="26" rx="6" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="318" y="77" font-size="10" fill="#888" text-anchor="middle">Last 30 Days</text>
+          <!-- Summary cards -->
+          <rect x="16" y="98" width="152" height="70" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="28" y="118" font-size="9" font-weight="700" fill="#555" letter-spacing="0.5">GROSS REVENUE</text>
+          <text x="28" y="150" font-size="18" font-weight="800" fill="#22c55e">$8,432</text>
+
+          <rect x="176" y="98" width="152" height="70" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="188" y="118" font-size="9" font-weight="700" fill="#555" letter-spacing="0.5">TOTAL COSTS</text>
+          <text x="188" y="150" font-size="18" font-weight="800" fill="#ef4444">$6,118</text>
+
+          <rect x="336" y="98" width="152" height="70" rx="10" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="348" y="118" font-size="9" font-weight="700" fill="#555" letter-spacing="0.5">MARGIN</text>
+          <text x="348" y="150" font-size="18" font-weight="800" fill="#22c55e">27.4%</text>
+
+          <rect x="496" y="98" width="168" height="70" rx="10" fill="#0D1F0D" stroke="#22c55e22" stroke-width="1"/>
+          <text x="508" y="118" font-size="9" font-weight="700" fill="#22c55e44" letter-spacing="0.5">NET PROFIT</text>
+          <text x="508" y="150" font-size="22" font-weight="800" fill="#22c55e">$2,313</text>
+
+          <!-- Statement -->
+          <rect x="16" y="182" width="648" height="266" rx="12" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="30" y="206" font-size="11" font-weight="700" fill="#FFF">P&amp;L Statement</text>
+          <text x="648" y="206" font-size="11" fill="#888" text-anchor="end">Gross margin 27.4%</text>
+          <rect x="16" y="213" width="648" height="1" fill="#2A2A2A"/>
+          <!-- Revenue section -->
+          <text x="30" y="234" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">REVENUE</text>
+          <text x="30" y="254" font-size="12" fill="#888">Gross Sales</text>
+          <text x="648" y="254" font-size="12" fill="#FFF" text-anchor="end">$8,432.00</text>
+          <text x="30" y="272" font-size="12" fill="#888">Tax Collected</text>
+          <text x="648" y="272" font-size="12" fill="#ef4444" text-anchor="end">($978.52)</text>
+          <rect x="30" y="278" width="618" height="1" fill="#2A2A2A"/>
+          <text x="30" y="294" font-size="12" font-weight="600" fill="#FFF">Net Revenue</text>
+          <text x="648" y="294" font-size="13" font-weight="700" fill="#FFF" text-anchor="end">$7,453.48</text>
+          <!-- Costs section -->
+          <text x="30" y="316" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">COSTS</text>
+          <text x="30" y="336" font-size="12" fill="#888">Cost of Goods</text>
+          <text x="648" y="336" font-size="12" fill="#FFF" text-anchor="end">$3,284.00</text>
+          <text x="30" y="354" font-size="12" fill="#888">Labor</text>
+          <text x="648" y="354" font-size="12" fill="#FFF" text-anchor="end">$1,920.00</text>
+          <text x="30" y="372" font-size="12" fill="#888">Expenses</text>
+          <text x="648" y="372" font-size="12" fill="#FFF" text-anchor="end">$914.40</text>
+          <rect x="30" y="378" width="618" height="1" fill="#2A2A2A"/>
+          <text x="30" y="394" font-size="12" font-weight="600" fill="#FFF">Total Costs</text>
+          <text x="648" y="394" font-size="13" font-weight="700" fill="#ef4444" text-anchor="end">$6,118.40</text>
+          <!-- Net profit -->
+          <rect x="16" y="404" width="648" height="44" rx="0" fill="#0D1F0D"/>
+          <rect x="16" y="406" width="648" height="42" fill="#0D1F0D"/>
+          <rect x="16" y="404" width="648" height="44" rx="12" fill="#0D1F0D"/>
+          <!-- fix bottom corners -->
+          <rect x="16" y="416" width="648" height="32" fill="#0D1F0D"/>
+          <text x="30" y="430" font-size="13" font-weight="700" fill="#22c55e">Net Profit</text>
+          <text x="648" y="430" font-size="15" font-weight="800" fill="#22c55e" text-anchor="end">$2,313.60</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ── 12. CLOSING YOUR DAY ───────────────────────────────────── -->
+    <section class="section" id="closing">
+      <div class="sec-hd">
+        <div class="sec-num">12</div>
+        <h2>Closing Your Day</h2>
+      </div>
+      <p class="sec-desc">
+        When service is over, close your shift in Reports. On Pro and Enterprise an end of day email report is sent to your inbox automatically. Then count your closing till to reconcile the day's cash.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Go to <strong>Reports</strong> and tap <strong>End of Day</strong>. Confirm when prompted.</span></li>
+        <li><span class="sn">2</span><span>On Pro and Enterprise, a report is emailed to your account address instantly. It includes total orders, revenue, tax, and top items.</span></li>
+        <li><span class="sn">3</span><span>Count your cash drawer and enter the <strong>Closing Count</strong>. The app compares it to your expected cash total and shows any variance.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="360" fill="#111111"/>
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Reports</text>
+          <!-- End of Day button highlighted -->
+          <rect x="554" y="12" width="108" height="28" rx="8" fill="#4488FF"/>
+          <text x="608" y="30" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">End of Day</text>
+
+          <!-- EOD confirmation card -->
+          <rect x="16" y="62" width="648" height="100" rx="12" fill="#0D1428" stroke="#4488FF22" stroke-width="1"/>
+          <circle cx="46" cy="112" r="16" fill="#4488FF22"/>
+          <text x="46" y="116" font-size="14" fill="#4488FF" text-anchor="middle">✉</text>
+          <text x="72" y="100" font-size="13" font-weight="700" fill="#FFF">End of Day Report Sent</text>
+          <text x="72" y="116" font-size="11" fill="#888">Delivered to owner@streetfeast.ca</text>
+          <text x="72" y="134" font-size="11" fill="#555">Includes orders, revenue, tax collected, and top items.</text>
+          <rect x="566" y="78" width="82" height="22" rx="5" fill="#1A2A3A"/>
+          <text x="607" y="93" font-size="9" font-weight="700" fill="#4488FF" text-anchor="middle">PRO + ENT</text>
+
+          <!-- Closing till card -->
+          <rect x="16" y="176" width="648" height="166" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="30" y="200" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">CLOSING TILL COUNT</text>
+          <!-- Bill rows -->
+          <text x="30" y="224" font-size="12" fill="#888">$50 bills</text>
+          <text x="180" y="224" font-size="12" fill="#FFF">× 3</text>
+          <text x="350" y="224" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$150.00</text>
+          <text x="30" y="244" font-size="12" fill="#888">$20 bills</text>
+          <text x="180" y="244" font-size="12" fill="#FFF">× 4</text>
+          <text x="350" y="244" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$80.00</text>
+          <text x="30" y="264" font-size="12" fill="#888">$10 bills</text>
+          <text x="180" y="264" font-size="12" fill="#FFF">× 2</text>
+          <text x="350" y="264" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$20.00</text>
+          <text x="30" y="284" font-size="12" fill="#888">Coins</text>
+          <text x="350" y="284" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$7.50</text>
+          <rect x="30" y="292" width="320" height="1" fill="#2A2A2A"/>
+          <text x="30" y="316" font-size="13" font-weight="700" fill="#FFF">Closing Total</text>
+          <text x="350" y="316" font-size="15" font-weight="800" fill="#22c55e" text-anchor="end">$257.50</text>
+          <text x="400" y="316" font-size="11" fill="#888">Expected  $250.00</text>
+          <rect x="530" y="294" width="118" height="36" rx="9" fill="#22c55e"/>
+          <text x="589" y="316" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Confirm Close</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> If your closing count does not match the expected cash, the variance is logged in the daily report so you can investigate. A small difference is normal due to rounding on coins.</div>
+    </section>
+
+    <!-- ── 13. STAFF AND PIN LOCK ───────────────────────────────────── -->
+    <section class="section" id="staff-pin">
+      <div class="sec-hd">
+        <div class="sec-num">13</div>
+        <h2>Staff and PIN Lock</h2>
+      </div>
+      <p class="sec-desc">
+        Each staff member gets a personal 4-digit PIN. When they enter it the app clocks them in and shows their name in the sidebar. Tapping <strong>Sign Out</strong> clocks them out and relocks the screen for the next person. The screen also locks automatically after a configurable period of inactivity.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Go to <strong>Labor</strong> in the sidebar. Tap <strong>Staff</strong> tab. Tap a staff member to assign or change their 4-digit PIN.</span></li>
+        <li><span class="sn">2</span><span>When the app is locked, the PIN entry screen appears. Staff enter their PIN to clock in instantly. Owner and manager PINs always work as an override on any device.</span></li>
+        <li><span class="sn">3</span><span>To sign out, tap <strong>Sign Out</strong> on the staff card in the sidebar. The app clocks them out and returns to the PIN lock screen for the next person.</span></li>
+        <li><span class="sn">4</span><span>To change how long before the screen auto-locks, go to <strong>Settings</strong> and choose an option under <strong>Staff</strong>: 15 min, 30 min, 1 hr, or 2 hr.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="420" fill="#0A0A0A"/>
+          <!-- PIN lock overlay -->
+          <rect width="680" height="420" fill="#0A0A0A"/>
+          <!-- Lock icon -->
+          <circle cx="340" cy="90" r="34" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="340" y="100" font-size="24" text-anchor="middle" fill="#FF6B00">🔒</text>
+          <text x="340" y="140" font-size="18" font-weight="800" fill="#FFFFFF" text-anchor="middle">Enter Your PIN</text>
+          <text x="340" y="160" font-size="12" fill="#555555" text-anchor="middle">Tap your 4-digit staff PIN to clock in</text>
+          <!-- PIN dots -->
+          <circle cx="296" cy="188" r="10" fill="#FF6B00"/>
+          <circle cx="320" cy="188" r="10" fill="#FF6B00"/>
+          <circle cx="344" cy="188" r="10" fill="#333333" stroke="#444444" stroke-width="1"/>
+          <circle cx="368" cy="188" r="10" fill="#333333" stroke="#444444" stroke-width="1"/>
+          <!-- Numpad -->
+          <rect x="210" y="210" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="250" y="242" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">1</text>
+          <rect x="300" y="210" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="340" y="242" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">2</text>
+          <rect x="390" y="210" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="430" y="242" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">3</text>
+          <rect x="210" y="270" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="250" y="302" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">4</text>
+          <rect x="300" y="270" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="340" y="302" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">5</text>
+          <rect x="390" y="270" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="430" y="302" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">6</text>
+          <rect x="210" y="330" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="250" y="362" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">7</text>
+          <rect x="300" y="330" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="340" y="362" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">8</text>
+          <rect x="390" y="330" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="430" y="362" font-size="20" font-weight="600" fill="#FFFFFF" text-anchor="middle">9</text>
+          <rect x="300" y="390" width="80" height="24" rx="8" fill="#FF6B00"/>
+          <text x="340" y="406" font-size="12" font-weight="700" fill="#000000" text-anchor="middle">0</text>
+          <text x="430" y="406" font-size="11" fill="#555555" text-anchor="middle">⌫</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> If no staff PINs have been set up yet, a <strong>Continue as Owner</strong> button appears on the lock screen so you are never locked out during initial setup.</div>
+    </section>
+
+    <!-- ── 14. SETTINGS ─────────────────────────────────────────────── -->
+    <section class="section" id="app-settings">
+      <div class="sec-hd">
+        <div class="sec-num">14</div>
+        <h2>Settings</h2>
+      </div>
+      <p class="sec-desc">
+        Settings covers your business profile, tax configuration, currency, payment processor, promo codes, and staff auto-lock. Changes take effect immediately and persist across app restarts.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span><strong>Tax Region:</strong> Under <strong>Tax Configuration</strong>, tap <strong>Change</strong> next to Tax Region. Pick your country and then your province, state, or region. The correct rate is applied instantly. You can still override it manually with the toggle below.</span></li>
+        <li><span class="sn">2</span><span><strong>Business Logo:</strong> Under <strong>Business Profile</strong>, paste a URL to your truck logo image (JPEG or PNG). The logo appears on receipts and the sidebar header. You can also edit your truck description and receipt footer message here.</span></li>
+        <li><span class="sn">3</span><span><strong>Currency:</strong> Tap your currency (CAD, USD, INR, PKR) in the Currency section. All prices and reports switch instantly.</span></li>
+        <li><span class="sn">4</span><span><strong>Promo Codes:</strong> Tap <strong>Add Code</strong> in the Promo Codes section to create discount codes. Set the code text, a percentage or fixed discount, and toggle each code active or inactive at any time.</span></li>
+      </ul>
+      <div class="mockup">
+        <svg viewBox="0 0 680 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="440" fill="#111111"/>
+          <rect width="680" height="48" fill="#0D0D0D"/>
+          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Settings</text>
+
+          <!-- Tax Configuration -->
+          <text x="20" y="72" font-size="9" font-weight="700" fill="#404040" letter-spacing="0.5" text-transform="uppercase">TAX CONFIGURATION</text>
+          <rect x="16" y="80" width="648" height="130" rx="12" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <!-- Tax Region row -->
+          <text x="32" y="106" font-size="13" font-weight="600" fill="#FFF">Tax Region</text>
+          <text x="32" y="122" font-size="11" fill="#555">Canada - Ontario</text>
+          <rect x="578" y="92" width="70" height="26" rx="8" fill="#FF6B0020" stroke="#FF6B0050" stroke-width="1"/>
+          <text x="613" y="109" font-size="11" font-weight="600" fill="#FF6B00" text-anchor="middle">Change</text>
+          <!-- Divider -->
+          <rect x="16" y="134" width="648" height="1" fill="#222"/>
+          <!-- Manual override row -->
+          <text x="32" y="156" font-size="13" font-weight="600" fill="#FFF">Manual Override</text>
+          <text x="32" y="172" font-size="11" fill="#555">Using region rate</text>
+          <rect x="618" y="148" width="34" height="18" rx="9" fill="#333333"/>
+          <circle cx="625" cy="157" r="7" fill="#FFFFFF"/>
+          <!-- Current rate -->
+          <rect x="16" y="194" width="648" height="1" fill="#222"/>
+          <text x="32" y="214" font-size="12" fill="#888">Current Rate</text>
+          <text x="648" y="214" font-size="12" font-weight="700" fill="#FF6B00" text-anchor="end">13%</text>
+
+          <!-- Business Profile -->
+          <text x="20" y="240" font-size="9" font-weight="700" fill="#404040" letter-spacing="0.5">BUSINESS PROFILE</text>
+          <rect x="16" y="248" width="648" height="130" rx="12" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="32" y="270" font-size="9" font-weight="700" fill="#404040" letter-spacing="0.5">LOGO URL</text>
+          <rect x="32" y="278" width="460" height="30" rx="8" fill="#111111" stroke="#333" stroke-width="1"/>
+          <text x="44" y="297" font-size="11" fill="#444">https://example.com/logo.png</text>
+          <rect x="504" y="278" width="140" height="30" rx="8" fill="#FF6B0020" stroke="#FF6B0050" stroke-width="1"/>
+          <text x="574" y="297" font-size="11" font-weight="600" fill="#FF6B00" text-anchor="middle">Save Logo URL</text>
+          <!-- Divider -->
+          <rect x="16" y="318" width="648" height="1" fill="#222"/>
+          <text x="32" y="340" font-size="9" font-weight="700" fill="#404040" letter-spacing="0.5">BUSINESS DESCRIPTION</text>
+          <rect x="32" y="348" width="460" height="22" rx="6" fill="#111111" stroke="#333" stroke-width="1"/>
+          <text x="44" y="362" font-size="11" fill="#888">Authentic street food since 2019</text>
+          <rect x="504" y="348" width="140" height="22" rx="6" fill="#FF6B0020" stroke="#FF6B0050" stroke-width="1"/>
+          <text x="574" y="362" font-size="10" font-weight="600" fill="#FF6B00" text-anchor="middle">Save Description</text>
+
+          <!-- Staff section hint -->
+          <text x="20" y="400" font-size="9" font-weight="700" fill="#404040" letter-spacing="0.5">STAFF</text>
+          <rect x="16" y="408" width="648" height="26" rx="8" fill="#1A1A1A" stroke="#222" stroke-width="1"/>
+          <text x="32" y="424" font-size="11" fill="#888">Auto Lock After Inactivity</text>
+          <text x="648" y="424" font-size="11" font-weight="600" fill="#FF6B00" text-anchor="end">30 min</text>
+        </svg>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Your tax region setting persists across restarts. You only need to set it once. If your jurisdiction changes rates you can update it here in seconds.</div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // ── Active sidebar link via IntersectionObserver ──────────────────
+  const sections  = document.querySelectorAll('.section[id]');
+  const sbLinks   = document.querySelectorAll('#sidebar .sb-link[href]');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        sbLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`#sidebar .sb-link[href="#${e.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+  sections.forEach(s => io.observe(s));
+
+  // ── Mobile nav ────────────────────────────────────────────────────
+  const menuBtn   = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  menuBtn.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    menuBtn.textContent = open ? '✕' : '☰';
+  });
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+    menuBtn.textContent = '☰';
+  }
+</script>
+</body>
+</html>
