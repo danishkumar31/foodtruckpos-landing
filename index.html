@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Food Truck POS · The smarter way to run your truck.</title>
-  <meta name="description" content="Complete iPad POS for food trucks. Take orders, run your kitchen, accept every payment, and track your business from one iPad. No proprietary hardware." />
+  <meta name="description" content="Complete POS for food trucks on iPad and Android tablet. Take orders, run your kitchen, accept every payment, and track your business. No proprietary hardware." />
   <meta property="og:title" content="Food Truck POS" />
   <meta property="og:description" content="The smarter way to run your truck." />
   <meta property="og:type" content="website" />
@@ -16,19 +16,19 @@
   <style>
     /* ── Variables ─────────────────────────────────────────────── */
     :root {
-      --bg:           #0a0a0a;
-      --card-bg:      #141414;
-      --card-bg-2:    #111111;
-      --border:       #222222;
-      --border-hover: rgba(255,107,0,0.4);
-      --accent:       #FF6B00;
-      --accent-dim:   rgba(255,107,0,0.12);
-      --accent-glow:  rgba(255,107,0,0.06);
-      --text-primary: #ffffff;
+      --bg:             #0a0a0a;
+      --card-bg:        #141414;
+      --card-bg-2:      #111111;
+      --border:         #222222;
+      --border-hover:   rgba(255,107,0,0.4);
+      --accent:         #FF6B00;
+      --accent-dim:     rgba(255,107,0,0.12);
+      --accent-glow:    rgba(255,107,0,0.06);
+      --text-primary:   #ffffff;
       --text-secondary: #888888;
       --text-tertiary:  #444444;
-      --green:        #22c55e;
-      --green-dim:    rgba(34,197,94,0.12);
+      --green:          #22c55e;
+      --green-dim:      rgba(34,197,94,0.12);
     }
 
     /* ── Reset ─────────────────────────────────────────────────── */
@@ -55,6 +55,35 @@
     }
     .section { padding: 100px 0; }
     .section-header { text-align: center; margin-bottom: 60px; }
+
+    /* ── Section Divider ───────────────────────────────────────── */
+    .sec-div {
+      position: relative;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+      overflow: visible;
+    }
+    .sec-div::before,
+    .sec-div::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .sec-div::before {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .sec-div::after {
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(255,107,0,0.3);
+      border-radius: 50%;
+    }
 
     /* ── Typography ────────────────────────────────────────────── */
     .section-badge {
@@ -147,13 +176,19 @@
       33%       { transform: translate(-50px,35px) scale(1.08); }
       66%       { transform: translate(40px,-25px) scale(0.92); }
     }
+    @keyframes pulse-cta {
+      0%   { box-shadow: 0 0 0 0 rgba(255,107,0,0.5); }
+      70%  { box-shadow: 0 0 0 14px rgba(255,107,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,107,0,0); }
+    }
+    .btn-pulse {
+      animation: pulse-cta 2.2s ease-in-out infinite;
+    }
 
     /* ── Navigation ────────────────────────────────────────────── */
     #nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 1000;
       transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
       border-bottom: 1px solid transparent;
@@ -179,6 +214,15 @@
       color: var(--text-primary);
       letter-spacing: -0.01em;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo img {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      object-fit: cover;
     }
     .nav-links {
       display: flex;
@@ -231,32 +275,27 @@
     .nav-mobile a:last-child { border-bottom: none; }
     .nav-mobile a:hover { color: var(--text-primary); }
 
-    /* ── Hero ──────────────────────────────────────────────────── */
+    /* ── Hero — Split Layout ───────────────────────────────────── */
     #hero {
       position: relative;
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
       overflow: hidden;
       padding: 120px 24px 80px;
     }
     .hero-orb1 {
       position: absolute;
-      width: 900px;
-      height: 900px;
-      bottom: -350px;
-      left: -250px;
+      width: 900px; height: 900px;
+      bottom: -350px; left: -250px;
       background: radial-gradient(circle, rgba(255,107,0,0.13) 0%, transparent 62%);
       animation: orb1 14s ease-in-out infinite;
       pointer-events: none;
     }
     .hero-orb2 {
       position: absolute;
-      width: 700px;
-      height: 700px;
-      top: -200px;
-      right: -150px;
+      width: 700px; height: 700px;
+      top: -200px; right: -150px;
       background: radial-gradient(circle, rgba(100,60,210,0.09) 0%, transparent 62%);
       animation: orb2 18s ease-in-out infinite;
       pointer-events: none;
@@ -271,11 +310,17 @@
       pointer-events: none;
       mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
     }
-    .hero-content {
+    .hero-split {
       position: relative;
-      text-align: center;
-      max-width: 780px;
+      max-width: 1160px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
     }
+    .hero-content { text-align: left; }
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -290,15 +335,14 @@
       margin-bottom: 32px;
     }
     .badge-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       background: var(--accent);
       border-radius: 50%;
       flex-shrink: 0;
       animation: pulse-dot 2.4s ease-in-out infinite;
     }
     .hero-headline {
-      font-size: clamp(48px, 6.5vw, 72px);
+      font-size: clamp(42px, 5.5vw, 68px);
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1.0;
@@ -310,13 +354,12 @@
       font-size: 18px;
       color: var(--text-secondary);
       line-height: 1.75;
-      max-width: 600px;
-      margin: 0 auto 40px;
+      max-width: 500px;
+      margin: 0 0 40px;
     }
     .hero-btns {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
       margin-bottom: 24px;
@@ -326,12 +369,30 @@
       color: var(--text-tertiary);
       letter-spacing: 0.01em;
     }
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual-glow {
+      position: absolute;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(255,107,0,0.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-mockup-svg {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.7));
+    }
 
     /* ── Social Proof ──────────────────────────────────────────── */
     #social-proof {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 32px 0;
+      padding: 36px 0;
     }
     .social-proof-inner {
       display: flex;
@@ -342,10 +403,10 @@
     }
     .social-proof-label {
       font-size: 13px;
-      color: var(--text-tertiary);
+      color: var(--text-secondary);
       font-weight: 500;
-      max-width: 200px;
-      line-height: 1.4;
+      max-width: 220px;
+      line-height: 1.5;
     }
     .social-proof-pills {
       display: flex;
@@ -355,48 +416,42 @@
     .proof-pill {
       display: flex;
       align-items: center;
-      gap: 7px;
-      padding: 8px 16px;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+      gap: 8px;
+      padding: 10px 18px;
+      background: #1A1A1A;
+      border: 1px solid #2A2A2A;
       border-radius: 100px;
       font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
+      font-weight: 600;
+      color: var(--text-primary);
     }
     .proof-pill svg { color: var(--accent); flex-shrink: 0; }
 
-    /* ── Features ──────────────────────────────────────────────── */
+    /* ── Features Bento Grid ───────────────────────────────────── */
     #features { background: var(--bg); }
-    .features-grid {
+    .bento-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
+      grid-template-rows: auto auto auto;
+      gap: 12px;
+    }
+    .bento-card {
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 20px;
+      padding: 32px 28px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      position: relative;
       overflow: hidden;
     }
-    .feature-card {
-      background: var(--card-bg);
-      padding: 32px 28px;
-      transition: background 0.2s ease;
-      position: relative;
+    .bento-card:hover {
+      border-color: rgba(255,107,0,0.3);
+      background: #181818;
     }
-    .feature-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 1px solid transparent;
-      border-radius: 0;
-      transition: border-color 0.2s ease;
-      pointer-events: none;
-    }
-    .feature-card:hover { background: #181818; }
-    .feature-card:hover::after { border-color: rgba(255,107,0,0.25); }
+    .bento-card.span2 { grid-column: span 2; }
+    .bento-card.span3 { grid-column: span 3; }
     .feature-icon {
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       background: var(--accent-dim);
       color: var(--accent);
       border-radius: 12px;
@@ -418,57 +473,90 @@
       color: var(--text-secondary);
       line-height: 1.65;
     }
-
-    /* ── How It Works ──────────────────────────────────────────── */
-    #how-it-works { background: var(--bg); }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      position: relative;
-    }
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: calc(16.66% + 12px);
-      right: calc(16.66% + 12px);
-      height: 1px;
-      border-top: 1px dashed var(--border);
-      pointer-events: none;
-    }
-    .step {
-      padding: 0 32px;
-      text-align: center;
-    }
-    .step:first-child { padding-left: 0; }
-    .step:last-child  { padding-right: 0; }
-    .step-number {
-      display: inline-flex;
+    .bento-card.span2 .feature-title { font-size: 20px; margin-bottom: 12px; }
+    .bento-card.span2 .feature-body  { font-size: 15px; max-width: 380px; }
+    .bento-card.span3 {
+      background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
+      border-color: #2a2a2a;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      width: 56px;
-      height: 56px;
+      gap: 40px;
+    }
+    .bento-card.span3 .feature-title { font-size: 18px; }
+    .bento-mini-order {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .bento-order-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,107,0,0.07);
+      border: 1px solid rgba(255,107,0,0.15);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #ccc;
+      white-space: nowrap;
+    }
+    .bento-order-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── How It Works — Horizontal Cards ──────────────────────── */
+    #how-it-works { background: var(--bg); }
+    .steps-horizontal {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .step-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 50%;
-      font-size: 15px;
-      font-weight: 800;
+      border-radius: 20px;
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 28px;
+      align-items: center;
+      transition: border-color 0.2s ease;
+    }
+    .step-card:hover { border-color: rgba(255,107,0,0.25); }
+    .step-num {
+      font-size: 56px;
+      font-weight: 900;
       color: var(--accent);
-      margin-bottom: 24px;
+      letter-spacing: -0.04em;
+      line-height: 1;
       font-variant-numeric: tabular-nums;
     }
+    .step-text {}
     .step-title {
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       letter-spacing: -0.01em;
     }
     .step-body {
       font-size: 14px;
       color: var(--text-secondary);
       line-height: 1.7;
+      max-width: 480px;
+    }
+    .step-illo {
+      flex-shrink: 0;
+      width: 80px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
     }
 
     /* ── Pricing ───────────────────────────────────────────────── */
@@ -483,22 +571,22 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 32px 28px;
+      padding: 36px 28px;
       position: relative;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .pricing-card:hover {
-      border-color: #333;
-    }
+    .pricing-card:hover { border-color: #333; }
     .pricing-card.featured {
       border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(255,107,0,0.15), 0 24px 64px rgba(255,107,0,0.07);
       background: #161616;
+      box-shadow:
+        0 0 0 1px rgba(255,107,0,0.15),
+        0 0 80px rgba(255,107,0,0.12),
+        0 24px 64px rgba(255,107,0,0.07);
     }
     .popular-badge {
       position: absolute;
-      top: -13px;
-      left: 50%;
+      top: -13px; left: 50%;
       transform: translateX(-50%);
       background: var(--accent);
       color: #000;
@@ -524,20 +612,26 @@
       gap: 4px;
       margin-bottom: 8px;
     }
-    .pricing-dollar { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .pricing-dollar { font-size: 22px; font-weight: 700; color: var(--text-primary); }
     .pricing-amount {
-      font-size: 48px;
+      font-size: 64px;
       font-weight: 900;
       color: var(--text-primary);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       line-height: 1;
     }
     .pricing-period { font-size: 14px; color: var(--text-secondary); }
     .pricing-desc {
       font-size: 13px;
       color: var(--text-tertiary);
-      margin-bottom: 28px;
+      margin-bottom: 8px;
       min-height: 20px;
+    }
+    .pricing-savings {
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+      margin-bottom: 24px;
     }
     .pricing-divider {
       height: 1px;
@@ -558,10 +652,21 @@
       color: var(--text-secondary);
     }
     .pricing-feature svg { color: var(--accent); flex-shrink: 0; }
-    .pricing-cta { width: 100%; }
+    .pricing-cta {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
     .pricing-cta.primary { background: var(--accent); color: #000; }
-    .pricing-cta.outline { border: 1px solid var(--border); color: var(--text-primary); background: transparent; }
-    .pricing-cta.outline:hover { background: rgba(255,255,255,0.03); border-color: #444; }
+    .pricing-cta.primary:hover { background: #ff8533; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,107,0,0.3); }
+    .pricing-cta.dark { background: #1A1A1A; color: var(--text-primary); border: 1px solid #333333; }
+    .pricing-cta.dark:hover { background: #222222; border-color: #444444; transform: translateY(-1px); }
     .pricing-note {
       text-align: center;
       margin-top: 32px;
@@ -570,7 +675,7 @@
     }
 
     /* ── Kitchen Callout ───────────────────────────────────────── */
-    #kitchen { background: var(--bg); padding: 0 0 100px; }
+    #kitchen { background: var(--bg); }
     .kitchen-card {
       background: linear-gradient(135deg, rgba(255,107,0,0.03) 0%, transparent 50%);
       border: 1px solid var(--border);
@@ -611,7 +716,7 @@
     }
     .kitchen-feature svg { color: var(--green); flex-shrink: 0; }
 
-    /* KDS Mockup */
+    /* KDS Mockup — Enhanced ─────────────────────────────────────*/
     .kds-mockup {
       display: flex;
       justify-content: center;
@@ -623,7 +728,7 @@
       border: 1px solid #2a2a3e;
       box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
       width: 100%;
-      max-width: 300px;
+      max-width: 340px;
     }
     .kds-screen {
       background: #0c0c1a;
@@ -644,11 +749,8 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-    .kds-app-time {
-      font-size: 11px;
-      color: #444;
-    }
-    .kds-tickets { padding: 12px; }
+    .kds-app-time { font-size: 11px; color: #444; }
+    .kds-tickets { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
     .kds-ticket {
       background: #181828;
       border: 1px solid #2a2a3e;
@@ -659,65 +761,69 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      padding: 14px 14px 12px;
+      padding: 12px 14px 10px;
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .kds-order-meta {}
     .kds-order-num {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: #fff;
       letter-spacing: -0.02em;
       line-height: 1;
     }
-    .kds-customer-name {
-      font-size: 12px;
-      color: #555;
-      margin-top: 3px;
-    }
+    .kds-customer-name { font-size: 11px; color: #555; margin-top: 3px; }
     .kds-timer {
-      background: var(--green-dim);
-      color: var(--green);
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
       font-variant-numeric: tabular-nums;
-      padding: 8px 12px;
-      border-radius: 9px;
-      border: 1px solid rgba(34,197,94,0.18);
+      padding: 6px 10px;
+      border-radius: 8px;
       letter-spacing: -0.02em;
     }
-    .kds-items { padding: 10px 14px; }
+    .kds-timer.green {
+      background: var(--green-dim);
+      color: var(--green);
+      border: 1px solid rgba(34,197,94,0.18);
+    }
+    .kds-timer.orange {
+      background: rgba(255,107,0,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(255,107,0,0.2);
+    }
+    .kds-items { padding: 8px 14px; }
     .kds-item-row {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 0;
-      font-size: 13px;
+      padding: 6px 0;
+      font-size: 12px;
       color: #ccc;
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .kds-item-row:last-child { border-bottom: none; }
-    .kds-qty {
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 12px;
-      min-width: 20px;
-    }
+    .kds-qty { color: var(--accent); font-weight: 700; font-size: 11px; min-width: 18px; }
     .kds-ready-btn {
       display: block;
-      width: calc(100% - 28px);
-      margin: 10px 14px 14px;
+      width: calc(100% - 24px);
+      margin: 8px 12px 12px;
+      border-radius: 8px;
+      padding: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      cursor: default;
+      font-family: inherit;
+    }
+    .kds-ready-btn.green {
       background: var(--green-dim);
       color: var(--green);
       border: 1px solid rgba(34,197,94,0.2);
-      border-radius: 9px;
-      padding: 11px;
-      font-size: 13px;
-      font-weight: 700;
-      text-align: center;
-      letter-spacing: 0.01em;
-      cursor: default;
-      font-family: inherit;
+    }
+    .kds-ready-btn.orange {
+      background: rgba(255,107,0,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(255,107,0,0.2);
     }
 
     /* ── Testimonials ──────────────────────────────────────────── */
@@ -728,14 +834,16 @@
       gap: 16px;
     }
     .testimonial-card {
-      background: var(--card-bg);
+      background: linear-gradient(160deg, #111111, #1a1a1a);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 28px;
+      padding: 32px;
       display: flex;
       flex-direction: column;
       gap: 20px;
+      transition: border-color 0.2s ease;
     }
+    .testimonial-card:hover { border-color: rgba(255,107,0,0.2); }
     .testimonial-stars {
       display: flex;
       gap: 3px;
@@ -754,17 +862,15 @@
       gap: 12px;
     }
     .testimonial-avatar {
-      width: 40px;
-      height: 40px;
-      background: var(--accent-dim);
-      border: 1px solid rgba(255,107,0,0.2);
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #FF6B00, #CC4400);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 14px;
       font-weight: 700;
-      color: var(--accent);
+      color: #fff;
       flex-shrink: 0;
     }
     .testimonial-name {
@@ -790,8 +896,12 @@
     }
     .faq-item {
       border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.25s ease;
     }
     .faq-item:last-child { border-bottom: none; }
+    .faq-item.open {
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
     .faq-question {
       display: flex;
       align-items: center;
@@ -808,8 +918,7 @@
     }
     .faq-question:hover { background: #181818; }
     .faq-icon {
-      width: 22px;
-      height: 22px;
+      width: 22px; height: 22px;
       color: var(--accent);
       flex-shrink: 0;
       transition: transform 0.3s ease;
@@ -838,17 +947,15 @@
     }
     .cta-orb {
       position: absolute;
-      width: 700px;
-      height: 700px;
-      left: 50%;
-      top: 50%;
+      width: 1000px; height: 1000px;
+      left: 50%; top: 50%;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 60%);
+      background: radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 55%);
       pointer-events: none;
     }
     .cta-content { position: relative; }
     .cta-title {
-      font-size: clamp(32px, 5vw, 56px);
+      font-size: clamp(36px, 5.5vw, 64px);
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1.05;
@@ -869,9 +976,87 @@
       flex-wrap: wrap;
       margin-bottom: 20px;
     }
-    .cta-trust {
+    .cta-trust { font-size: 13px; color: var(--text-tertiary); }
+
+    /* ── Geo Selector ─────────────────────────────────────────── */
+    .geo-selector {
+      position: relative;
+    }
+    .geo-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+    .geo-btn:hover {
+      border-color: rgba(255,107,0,0.35);
+      background: rgba(255,107,0,0.05);
+      color: var(--text-primary);
+    }
+    .geo-chevron {
+      width: 12px;
+      height: 12px;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .geo-selector.open .geo-chevron { transform: rotate(180deg); }
+    .geo-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      overflow: hidden;
+      min-width: 160px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+      z-index: 200;
+    }
+    .geo-selector.open .geo-dropdown { display: block; }
+    .geo-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s ease, color 0.15s ease;
+      font-family: inherit;
+    }
+    .geo-option:hover { background: rgba(255,107,0,0.08); color: var(--text-primary); }
+    .geo-option.active { color: var(--accent); background: rgba(255,107,0,0.06); }
+    .geo-option-flag { font-size: 16px; }
+    .pricing-local-note {
+      font-size: 11px;
       color: var(--text-tertiary);
+      line-height: 1.5;
+      min-height: 0;
+      margin-bottom: 0;
+      transition: opacity 0.2s ease;
+    }
+    .footer-serving {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
     }
 
     /* ── Footer ────────────────────────────────────────────────── */
@@ -886,11 +1071,7 @@
       gap: 20px;
       flex-wrap: wrap;
     }
-    .footer-logo {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
+    .footer-logo { font-size: 15px; font-weight: 700; color: var(--text-primary); }
     .footer-links {
       display: flex;
       align-items: center;
@@ -903,15 +1084,8 @@
       transition: color 0.2s ease;
     }
     .footer-links a:hover { color: var(--text-secondary); }
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .footer-copy {
-      font-size: 12px;
-      color: var(--text-tertiary);
-    }
+    .footer-right { display: flex; align-items: center; gap: 16px; }
+    .footer-copy { font-size: 12px; color: var(--text-tertiary); }
     .footer-social a {
       display: flex;
       align-items: center;
@@ -920,24 +1094,101 @@
     }
     .footer-social a:hover { color: var(--text-secondary); }
 
+    /* ── Platform Cards ────────────────────────────────────────── */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .platform-card {
+      background: #111111;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      transition: border-color 0.2s ease;
+    }
+    .platform-card:hover { border-color: rgba(255,107,0,0.35); }
+    .platform-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    .platform-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .platform-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .platform-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 8px;
+      background: var(--accent);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 9px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .platform-btn:hover { background: #ff8533; transform: translateY(-1px); }
+    .platform-soon {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 100px;
+      padding: 3px 10px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
     /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .hero-split { grid-template-columns: 1fr; gap: 48px; }
+      .hero-content { text-align: center; }
+      .hero-sub { margin: 0 auto 40px; }
+      .hero-btns { justify-content: center; }
+      .hero-trust { text-align: center; }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-card.span2 { grid-column: span 2; }
+      .bento-card.span3 { grid-column: span 2; flex-direction: column; gap: 20px; }
+    }
     @media (max-width: 900px) {
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
       .pricing-grid  { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
       .kitchen-card  { grid-template-columns: 1fr; gap: 40px; padding: 40px 28px; }
       .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-      .steps { grid-template-columns: 1fr; gap: 40px; }
-      .steps::before { display: none; }
-      .step { padding: 0; text-align: left; display: flex; gap: 20px; align-items: flex-start; }
-      .step-number { flex-shrink: 0; margin-bottom: 0; }
+      .step-card { grid-template-columns: 60px 1fr; }
+      .step-illo { display: none; }
       .kds-mockup { display: none; }
     }
-
     @media (max-width: 768px) {
       .section { padding: 72px 0; }
       .nav-links, .nav-right .btn { display: none; }
       .nav-hamburger { display: flex; }
-      .features-grid { grid-template-columns: 1fr; border-radius: 16px; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.span2, .bento-card.span3 { grid-column: span 1; }
+      .bento-card.span3 { display: block; }
       .social-proof-inner { flex-direction: column; align-items: flex-start; }
       .social-proof-label { max-width: none; }
       .hero-btns { flex-direction: column; align-items: stretch; }
@@ -945,6 +1196,10 @@
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
       .footer-right { flex-direction: column; align-items: flex-start; gap: 8px; }
       .kitchen-card { padding: 28px 20px; }
+      .step-card { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+      .step-num { font-size: 40px; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .footer-store-badges { flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
@@ -953,13 +1208,30 @@
 <!-- ── Navigation ───────────────────────────────────────────────── -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">🚚 Food Truck POS</a>
+    <a href="#" class="nav-logo">
+      <img src="assets/images/icon.png" alt="" onerror="this.style.display='none'">
+      🚚 Food Truck POS
+    </a>
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
+      <a href="manual.html">User Guide</a>
     </div>
     <div class="nav-right">
+      <div class="geo-selector" id="geo-selector">
+        <button class="geo-btn" id="geo-btn" aria-label="Select country and currency">
+          <span id="geo-flag">🇨🇦</span>
+          <span id="geo-label">CA · CAD</span>
+          <svg class="geo-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="geo-dropdown" id="geo-dropdown" role="listbox">
+          <button class="geo-option active" data-country="CA" role="option"><span class="geo-option-flag">🇨🇦</span> Canada · CAD</button>
+          <button class="geo-option" data-country="US" role="option"><span class="geo-option-flag">🇺🇸</span> USA · USD</button>
+          <button class="geo-option" data-country="IN" role="option"><span class="geo-option-flag">🇮🇳</span> India · INR</button>
+          <button class="geo-option" data-country="PK" role="option"><span class="geo-option-flag">🇵🇰</span> Pakistan · PKR</button>
+        </div>
+      </div>
       <a href="https://apps.apple.com" class="btn btn-primary btn-sm">Download Free</a>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -970,6 +1242,7 @@
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
+    <a href="manual.html">User Guide</a>
     <a href="https://apps.apple.com">Download Free</a>
   </div>
 </nav>
@@ -979,33 +1252,120 @@
   <div class="hero-orb1"></div>
   <div class="hero-orb2"></div>
   <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge fade-in">
-      <span class="badge-dot"></span>
-      Now available on iPad
+  <div class="hero-split">
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <span class="badge-dot"></span>
+        Available on&nbsp;<span style="background:#1a1a1a;color:#fff;font-weight:600;padding:2px 10px;border-radius:100px;font-size:12px;border:1px solid #333;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="display:inline;vertical-align:middle;margin-right:4px;" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>iPad</span>&nbsp;and&nbsp;<span style="background:#1A1A1A;color:#FF6B00;font-weight:700;padding:2px 10px;border-radius:100px;font-size:12px;border:1px solid rgba(255,107,0,0.25);">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="display:inline;vertical-align:middle;margin-right:4px;" aria-hidden="true"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5l1.02-1.02c.15-.15.15-.4 0-.55-.15-.15-.4-.15-.55 0l-1.17 1.17C14.37 2.22 13.21 2 12 2s-2.37.22-3.43.6L7.5 1.43c-.15-.15-.4-.15-.55 0-.15.15-.15.4 0 .55L8 3.04C5.64 4.4 4 6.96 4 8h16c0-2.04-1.64-4.6-4.47-5z"/></svg>Android Tablet</span>
+      </div>
+      <h1 class="hero-headline fade-in">The POS built for<br><span class="accent">food trucks.</span></h1>
+      <p class="hero-sub fade-in" id="hero-tagline">
+        The smarter way to run your food truck. Take orders, run your kitchen, accept every payment,
+        and track your business from one iPad or Android tablet. No proprietary hardware. No monthly surprises.
+      </p>
+      <div class="hero-btns fade-in">
+        <a href="https://apps.apple.com" class="btn btn-primary">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          Download on the App Store
+        </a>
+        <a href="https://play.google.com/store" class="btn" style="background:#1A1A1A;color:#fff;border:1px solid #333333;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3 20.5v-17c0-.83 1-.83 1.5-.5L20 12l-15.5 8.5c-.5.33-1.5.33-1.5-.5z"/>
+          </svg>
+          Get it on Google Play
+        </a>
+      </div>
+      <p class="hero-trust fade-in">Free 14 day trial. No credit card required. iPad and Android tablet.</p>
     </div>
-    <h1 class="hero-headline fade-in">The POS built for<br><span class="accent">food trucks.</span></h1>
-    <p class="hero-sub fade-in">
-      Take orders, run your kitchen, accept every payment, and track your business
-      all from one iPad. No proprietary hardware. No monthly surprises.
-    </p>
-    <div class="hero-btns fade-in">
-      <a href="https://apps.apple.com" class="btn btn-primary">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-        </svg>
-        Download on the App Store
-      </a>
-      <a href="https://foodtruckpos-dashboard.vercel.app" class="btn btn-outline">
-        View Live Dashboard
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M7 17L17 7M17 7H7M17 7v10"/>
-        </svg>
-      </a>
+    <div class="hero-visual fade-in">
+      <div class="hero-visual-glow"></div>
+      <!-- Tablet mockup SVG -->
+      <svg class="hero-mockup-svg" viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Tablet body -->
+        <rect x="4" y="4" width="512" height="332" rx="22" fill="#1a1a2e" stroke="#2a2a3e" stroke-width="1.5"/>
+        <!-- Screen bezel -->
+        <rect x="14" y="14" width="492" height="312" rx="16" fill="#0c0c1a"/>
+        <!-- Left panel background -->
+        <rect x="14" y="14" width="155" height="312" rx="16" fill="#111120"/>
+        <rect x="155" y="14" width="1" height="312" fill="#1e1e30"/>
+        <!-- Header bar -->
+        <rect x="14" y="14" width="492" height="44" rx="16" fill="#14142a"/>
+        <rect x="14" y="44" width="492" height="1" fill="#1e1e30"/>
+        <!-- App title -->
+        <text x="30" y="36" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#FF6B00" letter-spacing="0.06em">FOOD TRUCK POS</text>
+        <text x="418" y="36" font-family="Inter, sans-serif" font-size="10" fill="#444">2:34 PM</text>
+        <!-- Left panel: category tabs -->
+        <text x="30" y="80" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#888" letter-spacing="0.06em">MENU</text>
+        <!-- Category pills -->
+        <rect x="22" y="88" width="56" height="22" rx="11" fill="#FF6B00"/>
+        <text x="50" y="103" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#000" text-anchor="middle">All Items</text>
+        <rect x="84" y="88" width="48" height="22" rx="11" fill="#1e1e30" stroke="#2a2a3e" stroke-width="1"/>
+        <text x="108" y="103" font-family="Inter, sans-serif" font-size="9" fill="#888" text-anchor="middle">Drinks</text>
+        <!-- Menu item cards -->
+        <rect x="22" y="120" width="131" height="46" rx="10" fill="#181828" stroke="#2a2a3e" stroke-width="1"/>
+        <rect x="22" y="120" width="4" height="46" rx="2" fill="#FF6B00"/>
+        <text x="32" y="138" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#fff">Chai Latte</text>
+        <text x="32" y="153" font-family="Inter, sans-serif" font-size="9" fill="#FF6B00" font-weight="700">CA$3.99</text>
+
+        <rect x="22" y="173" width="131" height="46" rx="10" fill="#181828" stroke="#2a2a3e" stroke-width="1"/>
+        <rect x="22" y="173" width="4" height="46" rx="2" fill="#FF6B00"/>
+        <text x="32" y="191" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#fff">Butter Chicken</text>
+        <text x="32" y="203" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#fff">Poutine</text>
+        <text x="32" y="215" font-family="Inter, sans-serif" font-size="9" fill="#FF6B00" font-weight="700">CA$14.99</text>
+
+        <rect x="22" y="226" width="131" height="46" rx="10" fill="#181828" stroke="#2a2a3e" stroke-width="1"/>
+        <rect x="22" y="226" width="4" height="46" rx="2" fill="#888"/>
+        <text x="32" y="244" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#fff">Mango Lassi</text>
+        <text x="32" y="259" font-family="Inter, sans-serif" font-size="9" fill="#FF6B00" font-weight="700">CA$5.49</text>
+
+        <rect x="22" y="279" width="131" height="37" rx="10" fill="#181828" stroke="#2a2a3e" stroke-width="1"/>
+        <rect x="22" y="279" width="4" height="37" rx="2" fill="#888"/>
+        <text x="32" y="297" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#fff">Samosa (2 pcs)</text>
+        <text x="32" y="310" font-family="Inter, sans-serif" font-size="9" fill="#FF6B00" font-weight="700">CA$6.99</text>
+
+        <!-- Right panel: order panel -->
+        <text x="175" y="80" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#888" letter-spacing="0.06em">ORDER #1</text>
+        <!-- Order items -->
+        <rect x="168" y="88" width="328" height="36" rx="8" fill="#181828" stroke="#2a2a3e" stroke-width="1"/>
+        <text x="180" y="110" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Chai Latte</text>
+        <text x="450" y="110" font-family="Inter, sans-serif" font-size="11" fill="#fff" font-weight="600" text-anchor="end">CA$3.99</text>
+        <rect x="430" y="95" width="22" height="22" rx="6" fill="#FF6B00" opacity="0.15"/>
+        <text x="441" y="110" font-family="Inter, sans-serif" font-size="10" fill="#FF6B00" font-weight="700" text-anchor="middle">1</text>
+
+        <rect x="168" y="132" width="328" height="36" rx="8" fill="#181828" stroke="#2a2a3e" stroke-width="1"/>
+        <text x="180" y="154" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Butter Chicken Poutine</text>
+        <text x="450" y="154" font-family="Inter, sans-serif" font-size="11" fill="#fff" font-weight="600" text-anchor="end">CA$14.99</text>
+        <rect x="430" y="139" width="22" height="22" rx="6" fill="#FF6B00" opacity="0.15"/>
+        <text x="441" y="154" font-family="Inter, sans-serif" font-size="10" fill="#FF6B00" font-weight="700" text-anchor="middle">1</text>
+
+        <!-- Divider line -->
+        <line x1="168" y1="182" x2="496" y2="182" stroke="#1e1e30" stroke-width="1"/>
+
+        <!-- Totals -->
+        <text x="180" y="202" font-family="Inter, sans-serif" font-size="12" fill="#888">Subtotal</text>
+        <text x="490" y="202" font-family="Inter, sans-serif" font-size="12" fill="#888" text-anchor="end">CA$18.98</text>
+        <text x="180" y="222" font-family="Inter, sans-serif" font-size="12" fill="#888">Tax (13%)</text>
+        <text x="490" y="222" font-family="Inter, sans-serif" font-size="12" fill="#888" text-anchor="end">CA$2.47</text>
+        <line x1="168" y1="234" x2="496" y2="234" stroke="#1e1e30" stroke-width="1"/>
+        <text x="180" y="256" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#fff">Total</text>
+        <text x="490" y="256" font-family="Inter, sans-serif" font-size="16" font-weight="900" fill="#fff" text-anchor="end">CA$21.45</text>
+
+        <!-- Payment buttons -->
+        <rect x="168" y="270" width="157" height="40" rx="10" fill="#1e1e30" stroke="#2a2a3e" stroke-width="1"/>
+        <text x="247" y="295" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">Cash</text>
+
+        <rect x="335" y="270" width="161" height="40" rx="10" fill="#FF6B00"/>
+        <text x="416" y="295" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Charge CA$21.45</text>
+      </svg>
     </div>
-    <p class="hero-trust fade-in">Free 14 day trial · No credit card required · Cancel any time</p>
   </div>
 </section>
+
+<div class="sec-div"></div>
 
 <!-- ── Social Proof ──────────────────────────────────────────────── -->
 <section id="social-proof">
@@ -1043,6 +1403,59 @@
   </div>
 </section>
 
+<div class="sec-div"></div>
+
+<!-- ── Platform ─────────────────────────────────────────────────── -->
+<section id="platforms" class="section" style="padding:72px 0;">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:40px;">
+      <div class="section-badge fade-in">Platforms</div>
+      <h2 class="section-title fade-in">Available on your tablet of choice.</h2>
+    </div>
+    <div class="platform-grid fade-in">
+
+      <div class="platform-card">
+        <div class="platform-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="2" width="16" height="20" rx="3"/>
+            <line x1="9" y1="22" x2="15" y2="22"/>
+            <circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="platform-name">iOS for iPad</div>
+        <div class="platform-sub">iPad mini, iPad Air, iPad Pro, and standard iPad. iOS 16 or later.</div>
+        <a href="https://apps.apple.com" class="platform-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          Download on the App Store
+        </a>
+        <span class="platform-soon">Coming soon</span>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5l1.02-1.02c.15-.15.15-.4 0-.55-.15-.15-.4-.15-.55 0l-1.17 1.17C14.37 2.22 13.21 2 12 2s-2.37.22-3.43.6L7.5 1.43c-.15-.15-.4-.15-.55 0-.15.15-.15.4 0 .55L8 3.04C5.64 4.4 4 6.96 4 8h16c0-2.04-1.64-4.6-4.47-5z"/>
+          </svg>
+        </div>
+        <div class="platform-name">Android Tablet</div>
+        <div class="platform-sub">Any Android tablet running Android 8 or later. No specific model required.</div>
+        <a href="https://play.google.com/store" class="platform-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3 20.5v-17c0-.83 1-.83 1.5-.5L20 12l-15.5 8.5c-.5.33-1.5.33-1.5-.5z"/>
+          </svg>
+          Get it on Google Play
+        </a>
+        <span class="platform-soon">Coming soon</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="sec-div"></div>
+
 <!-- ── Features ─────────────────────────────────────────────────── -->
 <section id="features" class="section">
   <div class="container">
@@ -1051,9 +1464,10 @@
       <h2 class="section-title fade-in">Everything your truck needs.</h2>
       <p class="section-sub fade-in">Built specifically for mobile food service, not adapted from restaurant software.</p>
     </div>
-    <div class="features-grid fade-in">
+    <div class="bento-grid fade-in">
 
-      <div class="feature-card">
+      <!-- Row 1: Large (span 2) + Small -->
+      <div class="bento-card span2">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
@@ -1062,9 +1476,19 @@
         </div>
         <h3 class="feature-title">Fast Order Taking</h3>
         <p class="feature-body">Build orders in seconds with your full menu. Category filters, item modifiers, and customer lookup built in.</p>
+        <div class="bento-mini-order" style="margin-top:20px;">
+          <div class="bento-order-row">
+            <span class="bento-order-dot"></span>
+            Butter Chicken Poutine &nbsp;<strong style="color:#FF6B00;">CA$14.99</strong>
+          </div>
+          <div class="bento-order-row">
+            <span class="bento-order-dot"></span>
+            Chai Latte &nbsp;<strong style="color:#FF6B00;">CA$3.99</strong>
+          </div>
+        </div>
       </div>
 
-      <div class="feature-card">
+      <div class="bento-card">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="1" y1="1" x2="23" y2="23"/>
@@ -1077,10 +1501,11 @@
           </svg>
         </div>
         <h3 class="feature-title">Genuine Offline Mode</h3>
-        <p class="feature-body">Keep selling when connectivity drops. Card payments queue automatically and sync to Stripe when you are back online.</p>
+        <p class="feature-body">Works on iPad and Android tablets. Keep selling when connectivity drops. Card payments queue automatically and sync to Stripe when you are back online.</p>
       </div>
 
-      <div class="feature-card">
+      <!-- Row 2: Three equal cards -->
+      <div class="bento-card">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
@@ -1089,10 +1514,10 @@
           </svg>
         </div>
         <h3 class="feature-title">Wireless Kitchen Display</h3>
-        <p class="feature-body">Send orders to a second iPad in the kitchen instantly. No cables, no extra hardware. Just two iPads on the same network.</p>
+        <p class="feature-body">Send orders to a second tablet in the kitchen instantly. No cables, no extra hardware. Just two tablets on the same network.</p>
       </div>
 
-      <div class="feature-card">
+      <div class="bento-card">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="20" x2="18" y2="10"/>
@@ -1105,7 +1530,7 @@
         <p class="feature-body">Revenue by day and hour, top selling items, kitchen speed metrics, and a 30 day revenue forecast.</p>
       </div>
 
-      <div class="feature-card">
+      <div class="bento-card">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
@@ -1116,62 +1541,113 @@
         <p class="feature-body">Cash, Tap to Pay, Square Reader, or any external terminal. Stripe Terminal integration built in.</p>
       </div>
 
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
+      <!-- Row 3: Full width dashboard card -->
+      <div class="bento-card span3">
+        <div>
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Owner Web Dashboard</h3>
+          <p class="feature-body">Check your revenue from any browser. Stats sync automatically as your team takes orders throughout the day.</p>
         </div>
-        <h3 class="feature-title">Owner Web Dashboard</h3>
-        <p class="feature-body">Check your revenue from any browser. Stats sync automatically as your team takes orders throughout the day.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-left:auto;">
+          <div style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:12px;padding:16px 20px;min-width:120px;">
+            <div style="font-size:10px;color:#888;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">Today</div>
+            <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.03em;">CA$847</div>
+            <div style="font-size:11px;color:#22c55e;font-weight:600;margin-top:4px;">+12% vs yesterday</div>
+          </div>
+          <div style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:12px;padding:16px 20px;min-width:120px;">
+            <div style="font-size:10px;color:#888;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">Orders</div>
+            <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.03em;">43</div>
+            <div style="font-size:11px;color:#FF6B00;font-weight:600;margin-top:4px;">Avg CA$19.70</div>
+          </div>
+          <div style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:12px;padding:16px 20px;min-width:120px;">
+            <div style="font-size:10px;color:#888;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">Top Item</div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-top:4px;">Butter Chicken</div>
+            <div style="font-size:11px;color:#888;margin-top:4px;">18 sold today</div>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
 
+<div class="sec-div"></div>
+
 <!-- ── How It Works ──────────────────────────────────────────────── -->
-<section id="how-it-works" class="section" style="border-top:1px solid var(--border);">
+<section id="how-it-works" class="section">
   <div class="container">
     <div class="section-header">
       <div class="section-badge fade-in">Setup</div>
       <h2 class="section-title fade-in">Up and running in 2 minutes.</h2>
     </div>
-    <div class="steps">
-      <div class="step fade-in">
-        <div class="step-number">01</div>
-        <div>
-          <h3 class="step-title">Download the app</h3>
-          <p class="step-body">Install FoodTruckPOS on your iPad from the App Store. Sign in with your demo account or create a new one.</p>
+    <div class="steps-horizontal">
+
+      <div class="step-card fade-in">
+        <div class="step-num">01</div>
+        <div class="step-text">
+          <div class="step-title">Download the app</div>
+          <p class="step-body">Install FoodTruckPOS on your iPad from the App Store or on your Android tablet from Google Play. Sign in with your demo account or create a new one.</p>
+        </div>
+        <div class="step-illo">
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+            <rect x="15" y="8" width="30" height="44" rx="5" stroke="#FF6B00" stroke-width="1.5"/>
+            <circle cx="30" cy="45" r="2" fill="#FF6B00" opacity="0.6"/>
+            <path d="M22 24 L30 32 L38 22" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
       </div>
-      <div class="step fade-in">
-        <div class="step-number">02</div>
-        <div>
-          <h3 class="step-title">Add your menu</h3>
+
+      <div class="step-card fade-in">
+        <div class="step-num">02</div>
+        <div class="step-text">
+          <div class="step-title">Add your menu</div>
           <p class="step-body">Enter your items, set prices, add modifiers and categories. Takes about 5 minutes for a typical food truck menu.</p>
         </div>
-      </div>
-      <div class="step fade-in">
-        <div class="step-number">03</div>
-        <div>
-          <h3 class="step-title">Start taking orders</h3>
-          <p class="step-body">Tap items to build an order, select a payment method, and you are done. Your first order in under a minute.</p>
+        <div class="step-illo">
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+            <rect x="10" y="12" width="40" height="36" rx="5" stroke="#FF6B00" stroke-width="1.5"/>
+            <line x1="18" y1="24" x2="42" y2="24" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="18" y1="32" x2="34" y2="32" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+            <circle cx="44" cy="40" r="8" fill="#0a0a0a" stroke="#FF6B00" stroke-width="1.5"/>
+            <line x1="44" y1="36" x2="44" y2="44" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="40" y1="40" x2="48" y2="40" stroke="#FF6B00" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
         </div>
       </div>
+
+      <div class="step-card fade-in">
+        <div class="step-num">03</div>
+        <div class="step-text">
+          <div class="step-title">Start taking orders</div>
+          <p class="step-body">Tap items to build an order, select a payment method, and you are done. Your first order in under a minute.</p>
+        </div>
+        <div class="step-illo">
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+            <circle cx="30" cy="30" r="18" stroke="#FF6B00" stroke-width="1.5"/>
+            <path d="M22 30 L27 35 L38 24" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
+<div class="sec-div"></div>
+
 <!-- ── Pricing ───────────────────────────────────────────────────── -->
-<section id="pricing" class="section" style="border-top:1px solid var(--border);">
+<section id="pricing" class="section">
   <div class="container">
     <div class="section-header">
       <div class="section-badge fade-in">Pricing</div>
       <h2 class="section-title fade-in">Simple, honest pricing.</h2>
-      <p class="section-sub fade-in">One price per iPad. No hidden fees, no transaction cuts, no proprietary hardware required.</p>
+      <p class="section-sub fade-in">One price per device. No hidden fees, no transaction cuts, no proprietary hardware required.</p>
     </div>
     <div class="pricing-grid fade-in">
 
@@ -1179,20 +1655,22 @@
       <div class="pricing-card">
         <p class="pricing-tier">Starter</p>
         <div class="pricing-price">
-          <span class="pricing-dollar">$</span>
-          <span class="pricing-amount">29</span>
-          <span class="pricing-period">/month</span>
+          <span class="pricing-dollar" id="price-sym-starter">$</span>
+          <span class="pricing-amount" id="price-amt-starter">29</span>
+          <span class="pricing-period" id="price-per-starter">/ month CAD</span>
         </div>
-        <p class="pricing-desc">1 iPad · Perfect for solo operators</p>
+        <p class="pricing-desc">1 device · Perfect for solo operators</p>
+        <p class="pricing-local-note" id="note-starter"></p>
+        <div class="pricing-savings">&nbsp;</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            1 iPad
+            Order taking
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Full POS features
+            Menu management
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1200,47 +1678,53 @@
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Analytics dashboard
-          </li>
-          <li class="pricing-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Email support
+            All data stored and ready to unlock
           </li>
         </ul>
-        <a href="https://apps.apple.com" class="btn pricing-cta outline">Start Free Trial</a>
+        <a href="https://apps.apple.com" class="btn pricing-cta dark">Start Free Trial</a>
       </div>
 
-      <!-- Professional -->
+      <!-- Pro -->
       <div class="pricing-card featured">
         <div class="popular-badge">Most Popular</div>
-        <p class="pricing-tier">Professional</p>
+        <p class="pricing-tier">Pro</p>
         <div class="pricing-price">
-          <span class="pricing-dollar">$</span>
-          <span class="pricing-amount">59</span>
-          <span class="pricing-period">/month</span>
+          <span class="pricing-dollar" id="price-sym-pro">$</span>
+          <span class="pricing-amount" id="price-amt-pro">59</span>
+          <span class="pricing-period" id="price-per-pro">/ month CAD</span>
         </div>
-        <p class="pricing-desc">Up to 3 iPads · Best for growing trucks</p>
+        <p class="pricing-desc">Up to 3 devices · Best for growing trucks</p>
+        <p class="pricing-local-note" id="note-pro"></p>
+        <div class="pricing-savings">&nbsp;</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
-          <li class="pricing-feature">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Up to 3 iPads
-          </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
             Everything in Starter
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Web owner dashboard
+            Customer tracking
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Priority support
+            Sales reports
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            SMS order notifications
+            Inventory management
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Expenses and P&amp;L
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            End of day email reports
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Staff roles and permissions
           </li>
         </ul>
         <a href="https://apps.apple.com" class="btn pricing-cta primary">Start Free Trial</a>
@@ -1250,40 +1734,51 @@
       <div class="pricing-card">
         <p class="pricing-tier">Enterprise</p>
         <div class="pricing-price">
-          <span class="pricing-dollar">$</span>
-          <span class="pricing-amount">99</span>
-          <span class="pricing-period">/month</span>
+          <span class="pricing-dollar" id="price-sym-enterprise">$</span>
+          <span class="pricing-amount" id="price-amt-enterprise">75</span>
+          <span class="pricing-period" id="price-per-enterprise">/ month CAD</span>
         </div>
-        <p class="pricing-desc">Unlimited iPads · Fleets and franchises</p>
+        <p class="pricing-desc">Unlimited devices · Fleets and franchises</p>
+        <p class="pricing-local-note" id="note-enterprise"></p>
+        <div class="pricing-savings">Save vs hiring extra staff</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Unlimited iPads
+            Everything in Pro
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Everything in Professional
+            <span>
+              SMS customer notifications
+              <span style="display:block;font-size:11px;color:var(--text-tertiary);margin-top:2px;">Bring your own Twilio account, no extra markup from us</span>
+            </span>
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Custom onboarding
+            Multiple trucks
           </li>
           <li class="pricing-feature">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Dedicated support
+            Priority support
           </li>
         </ul>
-        <a href="mailto:hello@foodtruckpos.app" class="btn pricing-cta outline">Contact Us</a>
+        <a href="https://apps.apple.com" class="btn pricing-cta dark">Start Free Trial</a>
       </div>
 
     </div>
+
+    <p class="pricing-note fade-in" style="margin-top:24px;font-size:14px;color:var(--text-secondary);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;">
+      All plans store your full business data. Upgrading instantly unlocks your history with no data loss.
+    </p>
     <p class="pricing-note fade-in">All plans include a 14 day free trial. No credit card required to start.</p>
   </div>
 </section>
 
+<div class="sec-div"></div>
+
 <!-- ── Kitchen Display ───────────────────────────────────────────── -->
-<section id="kitchen" class="section" style="border-top:1px solid var(--border);">
+<section id="kitchen" class="section">
   <div class="container">
     <div class="kitchen-card fade-in">
       <div class="kitchen-text">
@@ -1321,13 +1816,14 @@
               <span class="kds-app-time">2:34 PM</span>
             </div>
             <div class="kds-tickets">
+              <!-- Ticket 1 -->
               <div class="kds-ticket">
                 <div class="kds-ticket-header">
                   <div class="kds-order-meta">
                     <div class="kds-order-num">#1030</div>
                     <div class="kds-customer-name">Danish</div>
                   </div>
-                  <div class="kds-timer">1:17</div>
+                  <div class="kds-timer green">1:17</div>
                 </div>
                 <div class="kds-items">
                   <div class="kds-item-row">
@@ -1339,7 +1835,28 @@
                     <span>Paneer Tikki Burger</span>
                   </div>
                 </div>
-                <button class="kds-ready-btn" tabindex="-1">Mark Ready</button>
+                <button class="kds-ready-btn green" tabindex="-1">Mark Ready</button>
+              </div>
+              <!-- Ticket 2 -->
+              <div class="kds-ticket">
+                <div class="kds-ticket-header">
+                  <div class="kds-order-meta">
+                    <div class="kds-order-num">#1031</div>
+                    <div class="kds-customer-name">Sarah</div>
+                  </div>
+                  <div class="kds-timer orange">4:52</div>
+                </div>
+                <div class="kds-items">
+                  <div class="kds-item-row">
+                    <span class="kds-qty">2×</span>
+                    <span>Butter Chicken Poutine</span>
+                  </div>
+                  <div class="kds-item-row">
+                    <span class="kds-qty">1×</span>
+                    <span>Chai Latte</span>
+                  </div>
+                </div>
+                <button class="kds-ready-btn orange" tabindex="-1">Mark Ready</button>
               </div>
             </div>
           </div>
@@ -1349,8 +1866,10 @@
   </div>
 </section>
 
+<div class="sec-div"></div>
+
 <!-- ── Testimonials ──────────────────────────────────────────────── -->
-<section id="testimonials" class="section" style="border-top:1px solid var(--border);">
+<section id="testimonials" class="section">
   <div class="container">
     <div class="section-header">
       <div class="section-badge fade-in">Testimonials</div>
@@ -1398,8 +1917,10 @@
   </div>
 </section>
 
+<div class="sec-div"></div>
+
 <!-- ── FAQ ───────────────────────────────────────────────────────── -->
-<section id="faq" class="section" style="border-top:1px solid var(--border);">
+<section id="faq" class="section">
   <div class="container">
     <div class="section-header">
       <div class="section-badge fade-in">FAQ</div>
@@ -1409,13 +1930,13 @@
 
       <div class="faq-item">
         <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
-          Does this work on any iPad?
+          Does this work on iPad and Android tablets?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
         </div>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Yes. FoodTruckPOS runs on any iPad with iOS 16 or later. That includes iPad mini, iPad Air, iPad Pro, and the standard iPad. No specific model required.</div>
+          <div class="faq-answer-inner">Yes. On iOS, FoodTruckPOS runs on any iPad with iOS 16 or later — including iPad mini, iPad Air, iPad Pro, and the standard iPad. On Android, it runs on any Android tablet with Android 10 or later. No specific model required on either platform.</div>
         </div>
       </div>
 
@@ -1475,7 +1996,31 @@
           </svg>
         </div>
         <div class="faq-answer">
-          <div class="faq-answer-inner">All data is stored on your device using Apple CoreData. Payment processing goes through Stripe, which is PCI DSS Level 1 certified. We never store card numbers.</div>
+          <div class="faq-answer-inner">All data is stored locally on your device using SQLite. Payment processing goes through Stripe, which is PCI DSS Level 1 certified. We never store card numbers.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Is there an Android version?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. FoodTruck POS is available on Android tablets running Android 8 or later. Download it from Google Play. The same account works on both iPad and Android.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Can I use both iPad and Android at the same time?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. Pro and Enterprise plans support multiple devices. Your owner can use an iPad while your cashier uses an Android tablet, all on the same account.</div>
         </div>
       </div>
 
@@ -1483,17 +2028,20 @@
   </div>
 </section>
 
+<div class="sec-div"></div>
+
 <!-- ── Final CTA ─────────────────────────────────────────────────── -->
-<section id="cta" style="border-top:1px solid var(--border);">
+<section id="cta">
   <div class="cta-orb"></div>
   <div class="cta-content container">
     <h2 class="cta-title fade-in">Ready to modernize<br>your truck?</h2>
     <p class="cta-sub fade-in">Join food truck operators who have switched to a POS that actually works for mobile food service.</p>
     <div class="cta-btns fade-in">
-      <a href="https://apps.apple.com" class="btn btn-primary">Download Free</a>
+      <a href="https://apps.apple.com" class="btn btn-primary btn-pulse">Download Free</a>
       <a href="https://foodtruckpos-dashboard.vercel.app" class="btn btn-outline">View Dashboard</a>
     </div>
-    <p class="cta-trust fade-in">14 day free trial · No credit card · Works on any iPad</p>
+    <p class="cta-trust fade-in">14 day free trial · No credit card · Works on iPad &amp; Android tablets</p>
+    <p style="font-size:12px;color:var(--text-tertiary);margin-top:10px;">iOS App Store and Google Play — coming soon</p>
   </div>
 </section>
 
@@ -1510,19 +2058,154 @@
       </div>
       <div class="footer-right">
         <span class="footer-copy">© 2026 Food Truck POS. Built for the road.</span>
-        <div class="footer-social">
-          <a href="https://github.com/danishkumar31" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
+        <div class="footer-store-badges" style="display:flex;align-items:center;gap:10px;">
+          <a href="https://apps.apple.com" title="Coming soon on the App Store" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;font-size:11px;font-weight:600;color:#888;transition:border-color 0.2s ease;" onmouseover="this.style.borderColor='rgba(255,107,0,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store
           </a>
+          <a href="https://play.google.com/store" title="Coming soon on Google Play" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;font-size:11px;font-weight:600;color:#888;transition:border-color 0.2s ease;" onmouseover="this.style.borderColor='rgba(255,107,0,0.3)'" onmouseout="this.style.borderColor='#2a2a2a'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5L20 12l-15.5 8.5c-.5.33-1.5.33-1.5-.5z"/></svg>
+            Google Play
+          </a>
+          <div class="footer-social">
+            <a href="https://github.com/danishkumar31" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
+    <p class="footer-serving">Serving food truck operators in 🇨🇦 Canada, 🇺🇸 USA, 🇮🇳 India, and 🇵🇰 Pakistan</p>
   </div>
 </footer>
 
 <script>
+  // ── Geo-based Pricing & Personalization ──────────────────────
+
+  const GEO_CONFIG = {
+    CA: {
+      flag: '🇨🇦', label: 'CA · CAD', currency: 'CAD', symbol: '$',
+      prices: { starter: 29, pro: 59, enterprise: 75 },
+      period: 'CAD', note: null,
+      tagline: 'The smarter way to run your food truck in Canada. Take orders, run your kitchen, accept every payment, and track your business from one iPad or Android tablet. No proprietary hardware. No monthly surprises.'
+    },
+    US: {
+      flag: '🇺🇸', label: 'US · USD', currency: 'USD', symbol: '$',
+      prices: { starter: 22, pro: 44, enterprise: 56 },
+      period: 'USD', note: 'Billed in CAD equivalent. Approximate USD price shown for reference.',
+      tagline: 'The smarter way to run your food truck in the USA. Take orders, run your kitchen, accept every payment, and track your business from one iPad or Android tablet. No proprietary hardware. No monthly surprises.'
+    },
+    IN: {
+      flag: '🇮🇳', label: 'IN · INR', currency: 'INR', symbol: '₹',
+      prices: { starter: 299, pro: 599, enterprise: 999 },
+      period: 'INR', note: 'Billed in CAD equivalent. Approximate INR price shown for reference.',
+      tagline: 'The smarter way to run your food truck in India. Take orders, run your kitchen, accept every payment, and track your business from one iPad or Android tablet. No proprietary hardware. No monthly surprises.'
+    },
+    PK: {
+      flag: '🇵🇰', label: 'PK · PKR', currency: 'PKR', symbol: 'Rs',
+      prices: { starter: 499, pro: 999, enterprise: 1499 },
+      period: 'PKR', note: 'Billed in CAD equivalent. Approximate PKR price shown for reference.',
+      tagline: 'The smarter way to run your food truck in Pakistan. Take orders, run your kitchen, accept every payment, and track your business from one iPad or Android tablet. No proprietary hardware. No monthly surprises.'
+    }
+  };
+
+  const GEO_DEFAULT = 'CA';
+  const GEO_LS_KEY  = 'ftpos_country';
+
+  function applyCountry(code) {
+    const cfg = GEO_CONFIG[code] || GEO_CONFIG[GEO_DEFAULT];
+    const tiers = ['starter', 'pro', 'enterprise'];
+
+    // Update nav selector display
+    const flagEl  = document.getElementById('geo-flag');
+    const labelEl = document.getElementById('geo-label');
+    if (flagEl)  flagEl.textContent  = cfg.flag;
+    if (labelEl) labelEl.textContent = cfg.label;
+
+    // Highlight active option in dropdown
+    document.querySelectorAll('.geo-option').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.country === code);
+    });
+
+    // Update hero tagline
+    const taglineEl = document.getElementById('hero-tagline');
+    if (taglineEl) taglineEl.textContent = cfg.tagline;
+
+    // Update pricing cards
+    tiers.forEach(tier => {
+      const symEl  = document.getElementById('price-sym-' + tier);
+      const amtEl  = document.getElementById('price-amt-' + tier);
+      const perEl  = document.getElementById('price-per-' + tier);
+      const noteEl = document.getElementById('note-' + tier);
+
+      if (symEl) symEl.textContent = cfg.symbol;
+      if (amtEl) amtEl.textContent = cfg.prices[tier];
+      if (perEl) perEl.textContent = '/ month ' + cfg.period;
+      if (noteEl) {
+        noteEl.textContent = cfg.note || '';
+        noteEl.style.marginBottom = cfg.note ? '8px' : '0';
+      }
+    });
+  }
+
+  async function detectCountry() {
+    // Check manual override or cached detection first
+    const saved = localStorage.getItem(GEO_LS_KEY);
+    if (saved && GEO_CONFIG[saved]) {
+      applyCountry(saved);
+      return;
+    }
+
+    // Default renders immediately (CA). Fetch in background.
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 4000);
+      const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+      clearTimeout(timer);
+      if (!res.ok) return;
+      const data = await res.json();
+      const detected = (data.country_code || '').toUpperCase();
+      const code = GEO_CONFIG[detected] ? detected : GEO_DEFAULT;
+      // Only store if not already manually set by user
+      if (!localStorage.getItem(GEO_LS_KEY)) {
+        localStorage.setItem(GEO_LS_KEY, code);
+      }
+      applyCountry(code);
+    } catch {
+      // API timeout or error — keep default CA pricing
+    }
+  }
+
+  // Geo selector toggle
+  const geoSelector = document.getElementById('geo-selector');
+  const geoBtn      = document.getElementById('geo-btn');
+  const geoDropdown = document.getElementById('geo-dropdown');
+
+  geoBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    geoSelector.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!geoSelector.contains(e.target)) {
+      geoSelector.classList.remove('open');
+    }
+  });
+
+  document.querySelectorAll('.geo-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.dataset.country;
+      localStorage.setItem(GEO_LS_KEY, code);
+      applyCountry(code);
+      geoSelector.classList.remove('open');
+    });
+  });
+
+  // Run detection
+  detectCountry();
+
   // ── Sticky nav ────────────────────────────────────────────────
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
@@ -1530,8 +2213,8 @@
   }, { passive: true });
 
   // ── Mobile nav toggle ─────────────────────────────────────────
-  const hamburger  = document.getElementById('hamburger');
-  const navMobile  = document.getElementById('nav-mobile');
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('nav-mobile');
   hamburger.addEventListener('click', () => {
     const isOpen = navMobile.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', isOpen);
@@ -1579,9 +2262,9 @@
 
   document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
-  // Stagger children inside fade-in containers
-  document.querySelectorAll('.features-grid .feature-card, .testimonials-grid .testimonial-card, .steps .step').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 80}ms`;
+  // Stagger children inside containers
+  document.querySelectorAll('.bento-card, .testimonials-grid .testimonial-card, .steps-horizontal .step-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 60}ms`;
   });
 </script>
 
