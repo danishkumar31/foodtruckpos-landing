@@ -174,6 +174,21 @@
     .locked-notice a { color: var(--orange); }
     .locked-notice a:hover { text-decoration: underline; }
 
+    /* ── Platform switcher ───────────────────────────────────────── */
+    .plat-switch {
+      display: flex; gap: 6px; margin-bottom: 40px;
+    }
+    .plat-btn {
+      padding: 7px 20px; border-radius: 8px; border: 1px solid var(--border2);
+      background: var(--card); color: var(--text2);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .plat-btn:hover { color: var(--text); border-color: #444; }
+    .plat-btn.active { background: var(--orange-dim); color: var(--orange); border-color: rgba(255,107,0,0.3); }
+    .android-content { display: none; }
+    .ios-content { display: block; }
+
     /* Responsive */
     @media (max-width: 780px) {
       #sidebar { display: none; }
@@ -194,51 +209,98 @@
 
 <!-- Mobile nav dropdown -->
 <div id="mobile-nav">
-  <div class="sb-label">Before You Open</div>
-  <a href="#menu-setup" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
-  <a href="#staff-pin" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
-  <a href="#app-settings" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
-  <div class="sb-label">Every Day</div>
-  <a href="#starting-day" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
-  <a href="#taking-order" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
-  <a href="#kitchen" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
-  <a href="#payment" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
-  <a href="#closing" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
-  <div class="sb-label">Enterprise</div>
-  <a href="#sms" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
-  <div class="sb-label">Pro and Enterprise</div>
-  <a href="#customers" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
-  <a href="#reports" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
-  <a href="#inventory" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
-  <a href="#expenses" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
-  <a href="#profit-loss" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+  <!-- iOS mobile nav -->
+  <div class="mob-ios">
+    <div class="sb-label">Before You Open</div>
+    <a href="#menu-setup" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
+    <a href="#staff-pin" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
+    <a href="#app-settings" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
+    <div class="sb-label">Every Day</div>
+    <a href="#starting-day" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
+    <a href="#taking-order" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
+    <a href="#kitchen" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
+    <a href="#payment" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
+    <a href="#closing" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
+    <div class="sb-label">Enterprise</div>
+    <a href="#sms" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
+    <div class="sb-label">Pro and Enterprise</div>
+    <a href="#customers" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#reports" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#inventory" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#expenses" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#profit-loss" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+  </div>
+  <!-- Android mobile nav -->
+  <div class="mob-android" style="display:none">
+    <div class="sb-label">Before You Open</div>
+    <a href="#and-menu-setup" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
+    <a href="#and-staff-pin" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
+    <a href="#and-app-settings" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
+    <div class="sb-label">Every Day</div>
+    <a href="#and-starting-day" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
+    <a href="#and-taking-order" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
+    <a href="#and-kitchen" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
+    <a href="#and-payment" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
+    <a href="#and-order-history" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">12b</span><span class="lbl">Order History</span></a>
+    <a href="#and-closing" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
+    <div class="sb-label">Enterprise</div>
+    <a href="#and-sms" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
+    <div class="sb-label">Pro and Enterprise</div>
+    <a href="#and-customers" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#and-reports" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#and-inventory" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#and-expenses" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
+    <a href="#and-profit-loss" class="sb-link" onclick="closeMobileNav()"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+  </div>
 </div>
 
 <div class="layout">
 
   <!-- Sidebar -->
   <aside id="sidebar">
-    <div class="sb-label">Before You Open</div>
-    <a href="#menu-setup" class="sb-link"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
-    <a href="#staff-pin" class="sb-link"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
-    <a href="#app-settings" class="sb-link"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
-
-    <div class="sb-label">Every Day</div>
-    <a href="#starting-day" class="sb-link"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
-    <a href="#taking-order" class="sb-link"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
-    <a href="#kitchen" class="sb-link"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
-    <a href="#payment" class="sb-link"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
-    <a href="#closing" class="sb-link"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
-
-    <div class="sb-label">Enterprise</div>
-    <a href="#sms" class="sb-link"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
-
-    <div class="sb-label">Pro and Enterprise</div>
-    <a href="#customers" class="sb-link"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
-    <a href="#reports" class="sb-link"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
-    <a href="#inventory" class="sb-link"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
-    <a href="#expenses" class="sb-link"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
-    <a href="#profit-loss" class="sb-link"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+    <!-- iOS nav -->
+    <div class="sb-ios">
+      <div class="sb-label">Before You Open</div>
+      <a href="#menu-setup" class="sb-link"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
+      <a href="#staff-pin" class="sb-link"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
+      <a href="#app-settings" class="sb-link"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
+      <div class="sb-label">Every Day</div>
+      <a href="#starting-day" class="sb-link"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
+      <a href="#taking-order" class="sb-link"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
+      <a href="#kitchen" class="sb-link"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
+      <a href="#payment" class="sb-link"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
+      <a href="#closing" class="sb-link"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
+      <div class="sb-label">Enterprise</div>
+      <a href="#sms" class="sb-link"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
+      <div class="sb-label">Pro and Enterprise</div>
+      <a href="#customers" class="sb-link"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#reports" class="sb-link"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#inventory" class="sb-link"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#expenses" class="sb-link"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#profit-loss" class="sb-link"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+    </div>
+    <!-- Android nav -->
+    <div class="sb-android" style="display:none">
+      <div class="sb-label">Before You Open</div>
+      <a href="#and-menu-setup" class="sb-link"><span class="sb-num">1</span><span class="lbl">Setting Up Your Menu</span></a>
+      <a href="#and-staff-pin" class="sb-link"><span class="sb-num">13</span><span class="lbl">Staff and PIN Lock</span></a>
+      <a href="#and-app-settings" class="sb-link"><span class="sb-num">14</span><span class="lbl">Settings</span></a>
+      <div class="sb-label">Every Day</div>
+      <a href="#and-starting-day" class="sb-link"><span class="sb-num">2</span><span class="lbl">Starting Your Day</span></a>
+      <a href="#and-taking-order" class="sb-link"><span class="sb-num">3</span><span class="lbl">Taking a Customer Order</span></a>
+      <a href="#and-kitchen" class="sb-link"><span class="sb-num">4</span><span class="lbl">Kitchen Display</span></a>
+      <a href="#and-payment" class="sb-link"><span class="sb-num">5</span><span class="lbl">Taking Payment</span></a>
+      <a href="#and-order-history" class="sb-link"><span class="sb-num">12b</span><span class="lbl">Order History</span></a>
+      <a href="#and-closing" class="sb-link"><span class="sb-num">12</span><span class="lbl">Closing Your Day</span></a>
+      <div class="sb-label">Enterprise</div>
+      <a href="#and-sms" class="sb-link"><span class="sb-num">6</span><span class="lbl">SMS Notifications</span><span class="bp bp-ent">ENT</span></a>
+      <div class="sb-label">Pro and Enterprise</div>
+      <a href="#and-customers" class="sb-link"><span class="sb-num">7</span><span class="lbl">Tracking Customers</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#and-reports" class="sb-link"><span class="sb-num">8</span><span class="lbl">Daily Reports</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#and-inventory" class="sb-link"><span class="sb-num">9</span><span class="lbl">Managing Inventory</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#and-expenses" class="sb-link"><span class="sb-num">10</span><span class="lbl">Logging Expenses</span><span class="bp bp-pro">PRO</span></a>
+      <a href="#and-profit-loss" class="sb-link"><span class="sb-num">11</span><span class="lbl">Profit and Loss</span><span class="bp bp-pro">PRO</span></a>
+    </div>
   </aside>
 
   <!-- Main -->
@@ -248,6 +310,15 @@
       <h1>User Guide</h1>
       <p>A step by step walkthrough of your food truck day from first setup to close. Jump to any section using the sidebar.</p>
     </div>
+
+    <!-- Platform switcher -->
+    <div class="plat-switch">
+      <button class="plat-btn active" onclick="switchPlatform('ios')">iOS (iPad)</button>
+      <button class="plat-btn" onclick="switchPlatform('android')">Android</button>
+    </div>
+
+    <!-- ═══ iOS CONTENT ═══ -->
+    <div class="ios-content">
 
     <!-- ── 1. MENU SETUP ──────────────────────────────────────────── -->
     <section class="section" id="menu-setup">
@@ -260,10 +331,10 @@
       </p>
       <ul class="steps">
         <li><span class="sn">1</span><span>Open <strong>Menu</strong> from the sidebar. Tap <strong>Add Item</strong> in the top right corner.</span></li>
-        <li><span class="sn">2</span><span>Enter the <strong>Item Name</strong>, <strong>Category</strong>, <strong>Price</strong>, and <strong>Prep Time</strong> in minutes. The default categories are Mains, Sides, and Drinks.</span></li>
+        <li><span class="sn">2</span><span>Enter the <strong>Item Name</strong>, <strong>Category</strong>, <strong>Price</strong>, and <strong>Prep Time</strong> in minutes. Default categories include Mains, Sides, Drinks, Specials, Desserts, and Snacks.</span></li>
         <li><span class="sn">3</span><span>Toggle <strong>Available for ordering</strong> on. Items toggled off will not appear on the order screen until you switch them back on.</span></li>
         <li><span class="sn">4</span><span>Tap <strong>Save</strong>. Repeat for each item on your menu.</span></li>
-        <li><span class="sn">5</span><span>Tap <strong>Categories</strong> in the menu header to create custom categories beyond the defaults. Tap the pencil icon on any custom category to rename it. A custom category with no items can be deleted by tapping the trash icon.</span></li>
+        <li><span class="sn">5</span><span>To add a custom category directly while creating an item, tap the <strong>+</strong> chip at the end of the category row. Type your new category name in the prompt and tap Add. You can also tap <strong>Categories</strong> in the menu header to manage all categories at once, rename them, or delete empty ones.</span></li>
       </ul>
       <div class="mockup">
         <svg viewBox="0 0 680 430" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
@@ -333,72 +404,53 @@
         <h2>Starting Your Day</h2>
       </div>
       <p class="sec-desc">
-        The app shows a PIN lock screen whenever no staff member is active. Enter your personal 4-digit PIN to clock in and unlock the POS. Once signed in, open your shift before taking any orders so cash can be reconciled at close.
+        When the app opens and the day has not been started, a <strong>Start of Day</strong> screen appears automatically. It asks who is starting the shift so the right flow opens: the owner counts the opening float, employees clock in. The sidebar tracks the session status all day.
       </p>
       <ul class="steps">
-        <li><span class="sn">1</span><span>Open the app. The <strong>PIN lock screen</strong> appears. Enter your <strong>4-digit staff PIN</strong> to clock in. Your name and role appear in the sidebar while you are active. If no PINs have been set yet, tap <strong>Continue as Owner</strong> to proceed.</span></li>
-        <li><span class="sn">2</span><span>Go to <strong>Reports</strong> in the sidebar. Tap <strong>Start Day</strong> to open your shift.</span></li>
-        <li><span class="sn">3</span><span>Count the cash in your drawer and enter the total as your <strong>Opening Count</strong>. Tap <strong>Confirm</strong>.</span></li>
+        <li><span class="sn">1</span><span>Open the app. The <strong>Start of Day</strong> screen appears automatically if the till has not been opened yet. Choose <strong>I'm the Owner</strong> to count your opening float, or <strong>I'm an Employee</strong> to clock in for your shift.</span></li>
+        <li><span class="sn">2</span><span>On the Opening Float screen, tap <strong>+</strong> next to each denomination to count your bills and coins. The total calculates automatically as you tap.</span></li>
+        <li><span class="sn">3</span><span>Tap <strong>Start Day with $XX.XX</strong>. The sidebar card switches from the orange <strong>Day Not Started</strong> state to a green <strong>Day Active</strong> banner showing your float.</span></li>
+        <li><span class="sn">4</span><span>If an employee is starting, they tap <strong>I'm an Employee</strong> and select their name from the staff roster to clock in. The float count is not required for employee clock-in.</span></li>
+        <li><span class="sn">5</span><span>If you tap <strong>Skip</strong>, the orange Day Not Started card stays in the sidebar. Tap <strong>Start Day</strong> there anytime, or from the orange banner that appears at the top of the Orders screen.</span></li>
       </ul>
       <div class="mockup">
-        <svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
-          <rect width="680" height="380" fill="#111111"/>
-          <!-- Sidebar strip -->
-          <rect width="200" height="380" fill="#0D0D0D"/>
-          <rect x="200" y="0" width="1" height="380" fill="#222"/>
-          <!-- Brand -->
-          <text x="20" y="34" font-size="13" font-weight="800" fill="#FFFFFF">🚚 Street Feast</text>
-          <rect x="0" y="48" width="200" height="1" fill="#222"/>
-          <!-- Staff card -->
-          <rect x="10" y="58" width="180" height="52" rx="8" fill="#1A1A1A" stroke="#252525" stroke-width="1"/>
-          <circle cx="32" cy="84" r="13" fill="#FF6B00"/>
-          <text x="32" y="88" font-size="10" font-weight="700" fill="#000" text-anchor="middle">D</text>
-          <text x="52" y="80" font-size="12" font-weight="600" fill="#FFF">Danish Kumar</text>
-          <text x="52" y="94" font-size="10" fill="#888888">owner</text>
-          <text x="172" y="87" font-size="10" fill="#FF6B00" font-weight="600" text-anchor="end">Switch</text>
-          <!-- Nav items -->
-          <text x="20" y="134" font-size="9" font-weight="700" fill="#333" letter-spacing="1.5">CASHIER</text>
-          <rect x="8" y="141" width="184" height="32" rx="8" fill="transparent"/>
-          <text x="36" y="161" font-size="12" fill="#888">🛒  Orders</text>
-          <rect x="8" y="176" width="184" height="32" rx="8" fill="transparent"/>
-          <text x="36" y="196" font-size="12" fill="#888">🍽️  Menu</text>
-          <text x="20" y="224" font-size="9" font-weight="700" fill="#333" letter-spacing="1.5">CASHIER</text>
-          <rect x="8" y="231" width="184" height="32" rx="8" fill="rgba(255,107,0,0.12)"/>
-          <rect x="0" y="231" width="3" height="32" rx="2" fill="#FF6B00"/>
-          <text x="36" y="251" font-size="12" font-weight="600" fill="#FF6B00">📊  Reports</text>
-          <rect x="8" y="267" width="184" height="32" rx="8" fill="transparent"/>
-          <text x="36" y="287" font-size="12" fill="#888">⚙️  Settings</text>
-
-          <!-- Main content area -->
-          <rect x="200" y="0" width="480" height="380" fill="#111"/>
-          <!-- Header -->
-          <rect x="200" y="0" width="480" height="48" fill="#0D0D0D"/>
-          <text x="220" y="30" font-size="15" font-weight="700" fill="#FFF">Reports</text>
-          <!-- Start Day button -->
-          <rect x="534" y="12" width="128" height="28" rx="8" fill="#22c55e"/>
-          <text x="598" y="30" font-size="11" font-weight="700" fill="#000" text-anchor="middle">Start Day</text>
-
-          <!-- Opening till card -->
-          <rect x="220" y="68" width="440" height="130" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
-          <text x="240" y="94" font-size="12" font-weight="700" fill="#888" letter-spacing="0.5">OPENING TILL COUNT</text>
-          <text x="240" y="118" font-size="13" fill="#888">Count the cash in your drawer before your first order.</text>
-          <rect x="240" y="132" width="200" height="36" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
-          <text x="256" y="155" font-size="13" fill="#FFF">$</text>
-          <text x="272" y="155" font-size="13" fill="#FFF">250.00</text>
-          <rect x="458" y="132" width="90" height="36" rx="8" fill="#FF6B00"/>
-          <text x="503" y="155" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Confirm</text>
-
-          <!-- Status row -->
-          <rect x="220" y="218" width="440" height="56" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
-          <circle cx="244" cy="246" r="6" fill="#22c55e"/>
-          <text x="258" y="251" font-size="13" font-weight="600" fill="#FFF">Shift open</text>
-          <text x="258" y="265" font-size="11" fill="#888">Started at 10:32 AM · Jun 23, 2026</text>
-
-          <!-- Hint -->
-          <text x="220" y="310" font-size="12" fill="#444">Shift must be open before you can place orders.</text>
+        <svg viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="420" fill="#111111"/>
+          <!-- App behind the modal (dimmed) -->
+          <rect width="200" height="420" fill="#0A0A0A" opacity="0.7"/>
+          <rect x="200" y="0" width="480" height="420" fill="#0A0A0A" opacity="0.7"/>
+          <!-- Modal card -->
+          <rect x="130" y="30" width="420" height="360" rx="18" fill="#F2F2F7"/>
+          <!-- Nav title bar inside modal -->
+          <rect x="130" y="30" width="420" height="48" rx="18" fill="#F2F2F7"/>
+          <rect x="130" y="58" width="420" height="20" fill="#F2F2F7"/>
+          <text x="340" y="62" font-size="13" font-weight="700" fill="#1C1C1E" text-anchor="middle">Start of Day</text>
+          <text x="156" y="62" font-size="12" fill="#FF6B00" text-anchor="start">Skip</text>
+          <!-- Sun icon -->
+          <circle cx="340" cy="120" r="26" fill="#FFF3E8"/>
+          <text x="340" y="128" font-size="24" text-anchor="middle" fill="#FF6B00">☀</text>
+          <!-- Header text -->
+          <text x="340" y="168" font-size="17" font-weight="800" fill="#1C1C1E" text-anchor="middle">Good morning!</text>
+          <text x="340" y="188" font-size="12" fill="#6C6C70" text-anchor="middle">Who's starting today's shift?</text>
+          <!-- Owner card -->
+          <rect x="158" y="206" width="364" height="62" rx="14" fill="#FFFFFF"/>
+          <circle cx="192" cy="237" r="18" fill="#FFF3E8"/>
+          <text x="192" y="242" font-size="16" text-anchor="middle" fill="#FF6B00">🔑</text>
+          <text x="220" y="229" font-size="13" font-weight="700" fill="#1C1C1E">I'm the Owner</text>
+          <text x="220" y="246" font-size="11" fill="#6C6C70">Count the opening float and start the day</text>
+          <text x="506" y="241" font-size="14" fill="#C7C7CC" text-anchor="middle">›</text>
+          <!-- Employee card -->
+          <rect x="158" y="278" width="364" height="62" rx="14" fill="#FFFFFF"/>
+          <circle cx="192" cy="309" r="18" fill="#E8F0FF"/>
+          <text x="192" y="314" font-size="16" text-anchor="middle" fill="#4488FF">👤</text>
+          <text x="220" y="301" font-size="13" font-weight="700" fill="#1C1C1E">I'm an Employee</text>
+          <text x="220" y="318" font-size="11" fill="#6C6C70">Select your name and clock in for your shift</text>
+          <text x="506" y="313" font-size="14" fill="#C7C7CC" text-anchor="middle">›</text>
+          <!-- Skip for now -->
+          <text x="340" y="370" font-size="12" fill="#6C6C70" text-anchor="middle">Skip for now</text>
         </svg>
       </div>
-      <div class="tip"><strong>Tip:</strong> You must tap Start Day each morning. Orders placed without an open shift will still be saved but the daily report will not include a cash reconciliation.</div>
+      <div class="tip"><strong>Tip:</strong> Set a business opening time in Settings under Start Time. The Start of Day screen will only appear automatically at or after that time, which is useful for trucks with fixed opening hours.</div>
     </section>
 
     <!-- ── 3. TAKING AN ORDER ─────────────────────────────────────── -->
@@ -1167,56 +1219,69 @@
         <h2>Closing Your Day</h2>
       </div>
       <p class="sec-desc">
-        When service is over, close your shift in Reports. On Pro and Enterprise an end of day email report is sent to your inbox automatically. Then count your closing till to reconcile the day's cash.
+        When service is over, close the session from the sidebar. The till resets overnight so the next app launch prompts you to start a fresh day. On Pro and Enterprise an end of day email report is sent to your inbox automatically.
       </p>
       <ul class="steps">
-        <li><span class="sn">1</span><span>Go to <strong>Reports</strong> and tap <strong>End of Day</strong>. Confirm when prompted.</span></li>
-        <li><span class="sn">2</span><span>On Pro and Enterprise, a report is emailed to your account address instantly. It includes total orders, revenue, tax, and top items.</span></li>
-        <li><span class="sn">3</span><span>Count your cash drawer and enter the <strong>Closing Count</strong>. The app compares it to your expected cash total and shows any variance.</span></li>
+        <li><span class="sn">1</span><span>Tap <strong>End Day</strong> on the green <strong>Day Active</strong> card in the sidebar. You can also reach this from <strong>Settings → Day Controls → End of Day Report</strong>.</span></li>
+        <li><span class="sn">2</span><span>The end of day screen shows today's total orders, gross revenue, and payment breakdown.</span></li>
+        <li><span class="sn">3</span><span>Count your closing cash drawer by denomination. The app compares your count to the expected total (opening float plus cash sales) and shows any overage or shortage.</span></li>
+        <li><span class="sn">4</span><span>Tap <strong>Close Day</strong> to finalize. On Pro and Enterprise, a summary report is emailed to your account address automatically. The next app launch will prompt you to start the day again.</span></li>
       </ul>
       <div class="mockup">
-        <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
-          <rect width="680" height="360" fill="#111111"/>
-          <rect width="680" height="48" fill="#0D0D0D"/>
-          <text x="20" y="30" font-size="15" font-weight="700" fill="#FFF">Reports</text>
-          <!-- End of Day button highlighted -->
-          <rect x="554" y="12" width="108" height="28" rx="8" fill="#4488FF"/>
-          <text x="608" y="30" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">End of Day</text>
-
-          <!-- EOD confirmation card -->
-          <rect x="16" y="62" width="648" height="100" rx="12" fill="#0D1428" stroke="#4488FF22" stroke-width="1"/>
-          <circle cx="46" cy="112" r="16" fill="#4488FF22"/>
-          <text x="46" y="116" font-size="14" fill="#4488FF" text-anchor="middle">✉</text>
-          <text x="72" y="100" font-size="13" font-weight="700" fill="#FFF">End of Day Report Sent</text>
-          <text x="72" y="116" font-size="11" fill="#888">Delivered to owner@streetfeast.ca</text>
-          <text x="72" y="134" font-size="11" fill="#555">Includes orders, revenue, tax collected, and top items.</text>
-          <rect x="566" y="78" width="82" height="22" rx="5" fill="#1A2A3A"/>
-          <text x="607" y="93" font-size="9" font-weight="700" fill="#4488FF" text-anchor="middle">PRO + ENT</text>
-
-          <!-- Closing till card -->
-          <rect x="16" y="176" width="648" height="166" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
-          <text x="30" y="200" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">CLOSING TILL COUNT</text>
-          <!-- Bill rows -->
-          <text x="30" y="224" font-size="12" fill="#888">$50 bills</text>
-          <text x="180" y="224" font-size="12" fill="#FFF">× 3</text>
-          <text x="350" y="224" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$150.00</text>
-          <text x="30" y="244" font-size="12" fill="#888">$20 bills</text>
-          <text x="180" y="244" font-size="12" fill="#FFF">× 4</text>
-          <text x="350" y="244" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$80.00</text>
-          <text x="30" y="264" font-size="12" fill="#888">$10 bills</text>
-          <text x="180" y="264" font-size="12" fill="#FFF">× 2</text>
-          <text x="350" y="264" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$20.00</text>
-          <text x="30" y="284" font-size="12" fill="#888">Coins</text>
-          <text x="350" y="284" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$7.50</text>
-          <rect x="30" y="292" width="320" height="1" fill="#2A2A2A"/>
-          <text x="30" y="316" font-size="13" font-weight="700" fill="#FFF">Closing Total</text>
-          <text x="350" y="316" font-size="15" font-weight="800" fill="#22c55e" text-anchor="end">$257.50</text>
-          <text x="400" y="316" font-size="11" fill="#888">Expected  $250.00</text>
-          <rect x="530" y="294" width="118" height="36" rx="9" fill="#22c55e"/>
-          <text x="589" y="316" font-size="12" font-weight="700" fill="#000" text-anchor="middle">Confirm Close</text>
+        <svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+          <rect width="680" height="380" fill="#111111"/>
+          <!-- Sidebar strip -->
+          <rect width="200" height="380" fill="#0D0D0D"/>
+          <rect x="200" y="0" width="1" height="380" fill="#222"/>
+          <text x="20" y="34" font-size="13" font-weight="800" fill="#FFFFFF">🚚 Street Feast</text>
+          <rect x="0" y="48" width="200" height="1" fill="#222"/>
+          <!-- Day Active card (highlighted) -->
+          <rect x="10" y="58" width="180" height="64" rx="8" fill="#0D1F0D" stroke="#22c55e33" stroke-width="1"/>
+          <text x="32" y="78" font-size="13" fill="#22c55e">☀</text>
+          <text x="50" y="76" font-size="12" font-weight="700" fill="#FFFFFF">Day Active</text>
+          <text x="50" y="90" font-size="10" fill="#888">Float: $250.00</text>
+          <!-- End Day button highlighted -->
+          <rect x="26" y="98" width="148" height="18" rx="6" fill="#FF6B00"/>
+          <text x="100" y="111" font-size="10" font-weight="700" fill="#000" text-anchor="middle">End Day</text>
+          <!-- Nav items -->
+          <text x="20" y="142" font-size="9" font-weight="700" fill="#333" letter-spacing="1.5">CASHIER</text>
+          <rect x="8" y="149" width="184" height="28" rx="8" fill="transparent"/>
+          <text x="36" y="167" font-size="12" fill="#888">🛒  Orders</text>
+          <rect x="8" y="180" width="184" height="28" rx="8" fill="transparent"/>
+          <text x="36" y="198" font-size="12" fill="#888">🍽️  Menu</text>
+          <rect x="8" y="212" width="184" height="28" rx="8" fill="transparent"/>
+          <text x="36" y="230" font-size="12" fill="#888">📊  Reports</text>
+          <rect x="8" y="244" width="184" height="28" rx="8" fill="transparent"/>
+          <text x="36" y="262" font-size="12" fill="#888">⚙️  Settings</text>
+          <!-- Main content: EOD sheet -->
+          <rect x="200" y="0" width="480" height="380" fill="#111"/>
+          <rect x="200" y="0" width="480" height="48" fill="#0D0D0D"/>
+          <text x="340" y="30" font-size="15" font-weight="700" fill="#FFF" text-anchor="middle">End of Day</text>
+          <!-- Summary card -->
+          <rect x="220" y="62" width="440" height="80" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="238" y="86" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">TODAY'S SUMMARY</text>
+          <text x="238" y="110" font-size="12" fill="#888">47 orders</text>
+          <text x="380" y="110" font-size="14" font-weight="800" fill="#FF6B00">$1,284.50</text>
+          <text x="238" y="128" font-size="11" fill="#555">Cash $480.00 · Card $804.50</text>
+          <!-- Closing count -->
+          <rect x="220" y="156" width="440" height="130" rx="12" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+          <text x="238" y="178" font-size="10" font-weight="700" fill="#555" letter-spacing="0.5">CLOSING TILL COUNT</text>
+          <text x="238" y="202" font-size="12" fill="#888">$100 bills × 4</text>
+          <text x="640" y="202" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$400.00</text>
+          <text x="238" y="222" font-size="12" fill="#888">$20 bills × 3</text>
+          <text x="640" y="222" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$60.00</text>
+          <text x="238" y="242" font-size="12" fill="#888">Coins</text>
+          <text x="640" y="242" font-size="12" font-weight="600" fill="#FFF" text-anchor="end">$20.50</text>
+          <rect x="238" y="252" width="402" height="1" fill="#2A2A2A"/>
+          <text x="238" y="272" font-size="13" font-weight="700" fill="#FFF">Closing Total</text>
+          <text x="640" y="272" font-size="15" font-weight="800" fill="#22c55e" text-anchor="end">$480.50</text>
+          <text x="420" y="272" font-size="10" fill="#555">Expected $480.00 · +$0.50</text>
+          <!-- Close button -->
+          <rect x="220" y="300" width="440" height="38" rx="10" fill="#22c55e"/>
+          <text x="440" y="323" font-size="13" font-weight="700" fill="#000" text-anchor="middle">Close Day</text>
         </svg>
       </div>
-      <div class="tip"><strong>Tip:</strong> If your closing count does not match the expected cash, the variance is logged in the daily report so you can investigate. A small difference is normal due to rounding on coins.</div>
+      <div class="tip"><strong>Tip:</strong> Closing the day resets the session so the next app launch triggers the Start of Day screen automatically. If the variance in your closing count is consistently off, check whether all cash payments were recorded correctly.</div>
     </section>
 
     <!-- ── 13. STAFF AND PIN LOCK ───────────────────────────────────── -->
@@ -1226,28 +1291,26 @@
         <h2>Staff and PIN Lock</h2>
       </div>
       <p class="sec-desc">
-        Each staff member gets a personal 4-digit PIN. When they enter it the app clocks them in and shows their name in the sidebar. Tapping <strong>Sign Out</strong> clocks them out and relocks the screen for the next person. The screen also locks automatically after a configurable period of inactivity.
+        The iOS app uses a single device PIN stored in Settings. After the inactivity timeout expires the PIN screen appears and anyone who knows the code can unlock the device. Employee clock in happens at the start of each day through the Start of Day screen, not through individual PINs.
       </p>
       <ul class="steps">
-        <li><span class="sn">1</span><span>Go to <strong>Labor</strong> in the sidebar. Tap <strong>Staff</strong> tab. Tap a staff member to assign or change their 4-digit PIN.</span></li>
-        <li><span class="sn">2</span><span>When the app is locked, the PIN entry screen appears. Staff enter their PIN to clock in instantly. Owner and manager PINs always work as an override on any device.</span></li>
-        <li><span class="sn">3</span><span>To sign out, tap <strong>Sign Out</strong> on the staff card in the sidebar. The app clocks them out and returns to the PIN lock screen for the next person.</span></li>
-        <li><span class="sn">4</span><span>To change how long before the screen auto-locks, go to <strong>Settings</strong> and choose an option under <strong>Staff</strong>: 15 min, 30 min, 1 hr, or 2 hr.</span></li>
+        <li><span class="sn">1</span><span>Go to <strong>Settings → Security</strong>. Enable PIN Lock and enter a 4-digit device PIN. This PIN protects the whole app when it is left unattended.</span></li>
+        <li><span class="sn">2</span><span>After the configured inactivity period the PIN lock screen appears. Enter the device PIN to return to the app. Tap <strong>Use account password instead</strong> if you forget the PIN.</span></li>
+        <li><span class="sn">3</span><span>To clock employees in for their shift, use the <strong>Start of Day</strong> screen (which appears automatically each morning). Tap <strong>I am an Employee</strong>, select the staff member, and confirm. Their name appears in the sidebar for the session.</span></li>
+        <li><span class="sn">4</span><span>To change how long before the screen auto-locks, go to <strong>Settings → Security</strong> and choose an inactivity timeout: 15 min, 30 min, 1 hr, or 2 hr.</span></li>
       </ul>
       <div class="mockup">
         <svg viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
           <rect width="680" height="420" fill="#0A0A0A"/>
-          <!-- PIN lock overlay -->
-          <rect width="680" height="420" fill="#0A0A0A"/>
-          <!-- Lock icon -->
+          <!-- Device PIN lock screen -->
           <circle cx="340" cy="90" r="34" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
           <text x="340" y="100" font-size="24" text-anchor="middle" fill="#FF6B00">🔒</text>
-          <text x="340" y="140" font-size="18" font-weight="800" fill="#FFFFFF" text-anchor="middle">Enter Your PIN</text>
-          <text x="340" y="160" font-size="12" fill="#555555" text-anchor="middle">Tap your 4-digit staff PIN to clock in</text>
+          <text x="340" y="140" font-size="18" font-weight="800" fill="#FFFFFF" text-anchor="middle">Device PIN</text>
+          <text x="340" y="160" font-size="12" fill="#555555" text-anchor="middle">Enter PIN to unlock the app</text>
           <!-- PIN dots -->
           <circle cx="296" cy="188" r="10" fill="#FF6B00"/>
           <circle cx="320" cy="188" r="10" fill="#FF6B00"/>
-          <circle cx="344" cy="188" r="10" fill="#333333" stroke="#444444" stroke-width="1"/>
+          <circle cx="344" cy="188" r="10" fill="#FF6B00"/>
           <circle cx="368" cy="188" r="10" fill="#333333" stroke="#444444" stroke-width="1"/>
           <!-- Numpad -->
           <rect x="210" y="210" width="80" height="50" rx="10" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
@@ -1271,9 +1334,11 @@
           <rect x="300" y="390" width="80" height="24" rx="8" fill="#FF6B00"/>
           <text x="340" y="406" font-size="12" font-weight="700" fill="#000000" text-anchor="middle">0</text>
           <text x="430" y="406" font-size="11" fill="#555555" text-anchor="middle">⌫</text>
+          <!-- Use password link -->
+          <text x="340" y="416" font-size="10" fill="#FF6B00" text-anchor="middle" dy="0">Use account password instead</text>
         </svg>
       </div>
-      <div class="tip"><strong>Tip:</strong> If no staff PINs have been set up yet, a <strong>Continue as Owner</strong> button appears on the lock screen so you are never locked out during initial setup.</div>
+      <div class="tip"><strong>Tip:</strong> If you forget the device PIN, tap <strong>Use account password instead</strong> on the lock screen to authenticate with your app account credentials and then reset the PIN in Settings → Security.</div>
     </section>
 
     <!-- ── 14. SETTINGS ─────────────────────────────────────────────── -->
@@ -1343,10 +1408,295 @@
       <div class="tip"><strong>Tip:</strong> Your tax region setting persists across restarts. You only need to set it once. If your jurisdiction changes rates you can update it here in seconds.</div>
     </section>
 
+    </div> <!-- /ios-content -->
+
+    <!-- ═══ ANDROID CONTENT ═══ -->
+    <div class="android-content" style="display:none">
+
+    <!-- ── AND-1. MENU SETUP ─────────────────────────────────────── -->
+    <section class="section" id="and-menu-setup">
+      <div class="sec-hd">
+        <div class="sec-num">1</div>
+        <h2>Setting Up Your Menu</h2>
+      </div>
+      <p class="sec-desc">
+        Build your menu before your first service. Add items with prices, choose categories, and set up modifier groups so customers can customize their orders exactly the way they want.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Menu</strong> in the bottom navigation. Tap the <strong>+</strong> button to add a new item.</span></li>
+        <li><span class="sn">2</span><span>Enter the item name, price, and choose or create a category. Categories appear as filter tabs on the order screen.</span></li>
+        <li><span class="sn">3</span><span>To add modifiers (like size, toppings, or extras), tap <strong>Modifier Groups</strong> on the item and create or attach a group. Mark groups as required or optional.</span></li>
+        <li><span class="sn">4</span><span>Toggle <strong>Available</strong> off for items that are sold out. They become greyed out on the order screen and cannot be added to orders.</span></li>
+        <li><span class="sn">5</span><span>Tap <strong>Save</strong> to publish the item immediately.</span></li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> Modifier groups are shared across items. Create a "Protein choice" group once and attach it to every item that offers it.</div>
+    </section>
+
+    <!-- ── AND-2. STARTING YOUR DAY ──────────────────────────────── -->
+    <section class="section" id="and-starting-day">
+      <div class="sec-hd">
+        <div class="sec-num">2</div>
+        <h2>Starting Your Day</h2>
+      </div>
+      <p class="sec-desc">
+        On Android, you start each day from the Reports screen. This records your opening float and officially opens the till for the day.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Reports</strong> in the bottom navigation, then tap <strong>Start Day</strong>.</span></li>
+        <li><span class="sn">2</span><span>Count your opening cash drawer by denomination. Enter each amount. The total appears at the bottom as your opening float.</span></li>
+        <li><span class="sn">3</span><span>Tap <strong>Open Till</strong> to confirm. The day is now live and the order screen is ready for the first customer.</span></li>
+        <li><span class="sn">4</span><span>Staff clock in using their individual PINs on the lock screen (see section 13).</span></li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> You must start the day before any orders can be placed. The order screen shows a banner prompting you to open the till if you try to take an order before starting.</div>
+    </section>
+
+    <!-- ── AND-3. TAKING AN ORDER ─────────────────────────────────── -->
+    <section class="section" id="and-taking-order">
+      <div class="sec-hd">
+        <div class="sec-num">3</div>
+        <h2>Taking a Customer Order</h2>
+      </div>
+      <p class="sec-desc">
+        The order screen is your main selling surface. Tap items to add them, configure modifiers, apply discounts, and send to the kitchen in one smooth flow.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>On the <strong>Orders</strong> tab, tap a menu item to add it to the current order. Use the category tabs at the top to filter items.</span></li>
+        <li><span class="sn">2</span><span>If the item has required modifiers, a sheet slides up automatically. Make the required selections and tap <strong>Add to Order</strong>.</span></li>
+        <li><span class="sn">3</span><span>Adjust quantities by tapping the item in the order list. Swipe left to remove an item.</span></li>
+        <li><span class="sn">4</span><span>Tap <strong>Promo Code</strong> to apply a discount, or <strong>Custom Discount</strong> for a one-off percentage or fixed amount.</span></li>
+        <li><span class="sn">5</span><span>Tap <strong>Charge</strong> to proceed to payment.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-4. KITCHEN DISPLAY ─────────────────────────────────── -->
+    <section class="section" id="and-kitchen">
+      <div class="sec-hd">
+        <div class="sec-num">4</div>
+        <h2>Kitchen Display</h2>
+      </div>
+      <p class="sec-desc">
+        Paid orders flow to the Kitchen Display automatically. The cook sees each ticket with its items, modifiers, and order number so nothing gets missed.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Kitchen</strong> in the bottom navigation to view the live ticket queue.</span></li>
+        <li><span class="sn">2</span><span>Tap a ticket to mark individual items as prepared. When all items on a ticket are done, tap <strong>Complete</strong> to archive it.</span></li>
+        <li><span class="sn">3</span><span>Completed tickets move out of the active queue. The cashier is notified the order is ready.</span></li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> Run the Kitchen screen on a second device or tablet mounted in the cooking area. It updates in real time as orders come in.</div>
+    </section>
+
+    <!-- ── AND-5. TAKING PAYMENT ──────────────────────────────────── -->
+    <section class="section" id="and-payment">
+      <div class="sec-hd">
+        <div class="sec-num">5</div>
+        <h2>Taking Payment</h2>
+      </div>
+      <p class="sec-desc">
+        Accept cash, card, or tap-to-pay. The app tracks the split and calculates change for cash payments automatically.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>On the payment screen, choose <strong>Cash</strong>, <strong>Card</strong>, or <strong>Split</strong>.</span></li>
+        <li><span class="sn">2</span><span>For cash, enter the amount tendered. The app shows the change due instantly.</span></li>
+        <li><span class="sn">3</span><span>For card, follow the prompt to tap or swipe via your connected reader.</span></li>
+        <li><span class="sn">4</span><span>Tap <strong>Complete Sale</strong>. A receipt is generated and the order is sent to the kitchen (if not already done).</span></li>
+        <li><span class="sn">5</span><span>To send a digital receipt, enter the customer's email or phone number on the receipt screen.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-6. SMS NOTIFICATIONS ───────────────────────────────── -->
+    <section class="section" id="and-sms">
+      <div class="sec-hd">
+        <div class="sec-num">6</div>
+        <h2>SMS Notifications <span class="bp bp-ent">ENT</span></h2>
+      </div>
+      <p class="sec-desc">
+        Enterprise plan customers can send automated SMS order-ready notifications so customers know when to pick up without crowding the window.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>On the payment screen, enter the customer's phone number when prompted. The number is saved to the order.</span></li>
+        <li><span class="sn">2</span><span>When the kitchen marks the order complete, an SMS is sent automatically: "Your order #42 is ready for pickup!"</span></li>
+        <li><span class="sn">3</span><span>To enable or disable SMS notifications, go to <strong>Settings → Notifications</strong> and toggle <strong>Order Ready SMS</strong>.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-7. TRACKING CUSTOMERS ─────────────────────────────── -->
+    <section class="section" id="and-customers">
+      <div class="sec-hd">
+        <div class="sec-num">7</div>
+        <h2>Tracking Customers <span class="bp bp-pro">PRO</span></h2>
+      </div>
+      <p class="sec-desc">
+        Build a customer list with order history, lifetime spend, and visit counts so you can recognize regulars and run targeted promos.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Customers</strong> in the sidebar. Tap a customer to view their order history and total spend.</span></li>
+        <li><span class="sn">2</span><span>To link an order to a customer, tap <strong>Add Customer</strong> during checkout and search by name or phone.</span></li>
+        <li><span class="sn">3</span><span>Customers are added automatically when they provide a phone number or email for a receipt.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-8. DAILY REPORTS ───────────────────────────────────── -->
+    <section class="section" id="and-reports">
+      <div class="sec-hd">
+        <div class="sec-num">8</div>
+        <h2>Daily Reports <span class="bp bp-pro">PRO</span></h2>
+      </div>
+      <p class="sec-desc">
+        The Reports screen shows a live snapshot of today's sales, plus access to historical daily summaries and the Start Day and End of Day controls.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Reports</strong> in the bottom navigation. The summary card shows today's order count, gross revenue, and payment breakdown.</span></li>
+        <li><span class="sn">2</span><span>Scroll down to see a breakdown by category, top items, and an hourly sales chart.</span></li>
+        <li><span class="sn">3</span><span>Tap <strong>History</strong> to browse past daily reports. Tap any day to see full detail.</span></li>
+        <li><span class="sn">4</span><span>On Pro and Enterprise, the end of day report is emailed to your account address automatically when you close the day.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-9. INVENTORY ───────────────────────────────────────── -->
+    <section class="section" id="and-inventory">
+      <div class="sec-hd">
+        <div class="sec-num">9</div>
+        <h2>Managing Inventory <span class="bp bp-pro">PRO</span></h2>
+      </div>
+      <p class="sec-desc">
+        Track stock counts for ingredients or menu items. The app deducts from stock as orders are placed and alerts you when you are running low.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Inventory</strong> in the sidebar. Tap <strong>Add Item</strong> to create a tracked stock entry (e.g., "Burger Patties" with a count of 50).</span></li>
+        <li><span class="sn">2</span><span>Link menu items to inventory entries so each sale automatically deducts from stock.</span></li>
+        <li><span class="sn">3</span><span>Set a low stock threshold. When stock falls below the threshold, a warning badge appears in the sidebar.</span></li>
+        <li><span class="sn">4</span><span>To top up stock, tap the item and tap <strong>Adjust Count</strong>.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-10. EXPENSES ───────────────────────────────────────── -->
+    <section class="section" id="and-expenses">
+      <div class="sec-hd">
+        <div class="sec-num">10</div>
+        <h2>Logging Expenses <span class="bp bp-pro">PRO</span></h2>
+      </div>
+      <p class="sec-desc">
+        Record costs like fuel, supplies, and permits so your profit and loss report reflects the true cost of running your truck.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Expenses</strong> in the sidebar. Tap <strong>Add Expense</strong>.</span></li>
+        <li><span class="sn">2</span><span>Enter a name, amount, date, and category (Supplies, Fuel, Labor, Permits, Other).</span></li>
+        <li><span class="sn">3</span><span>Optionally attach a photo of the receipt by tapping the camera icon.</span></li>
+        <li><span class="sn">4</span><span>Saved expenses appear in the expense list and automatically flow into the Profit and Loss report.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-11. PROFIT AND LOSS ────────────────────────────────── -->
+    <section class="section" id="and-profit-loss">
+      <div class="sec-hd">
+        <div class="sec-num">11</div>
+        <h2>Profit and Loss <span class="bp bp-pro">PRO</span></h2>
+      </div>
+      <p class="sec-desc">
+        The Profit and Loss screen combines revenue from orders with your logged expenses to give you a clear picture of net profit for any period.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Reports → Profit and Loss</strong>. Select a date range: today, this week, this month, or custom.</span></li>
+        <li><span class="sn">2</span><span>The screen shows gross revenue, total costs by category, and net profit at the bottom.</span></li>
+        <li><span class="sn">3</span><span>Tap any cost category row to see the individual expense entries that make it up.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-12. CLOSING YOUR DAY ───────────────────────────────── -->
+    <section class="section" id="and-closing">
+      <div class="sec-hd">
+        <div class="sec-num">12</div>
+        <h2>Closing Your Day</h2>
+      </div>
+      <p class="sec-desc">
+        End of Day closes the till, records the closing cash count, and locks in the daily report. It is a multi-step flow you reach from the Reports screen.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Reports</strong> in the bottom navigation, then tap <strong>End of Day</strong>.</span></li>
+        <li><span class="sn">2</span><span>The summary screen shows today's total orders, gross revenue, and payment breakdown. Review it, then tap <strong>Next</strong>.</span></li>
+        <li><span class="sn">3</span><span>Count your closing cash drawer by denomination and enter each amount. The app shows expected cash (opening float plus all cash sales) and any variance.</span></li>
+        <li><span class="sn">4</span><span>Tap <strong>Close Day</strong> to finalize. On Pro and Enterprise a report is emailed to your account address automatically. The next app launch will prompt you to start a new day.</span></li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> If you are offline when closing, the end of day data is queued locally and syncs to the backend automatically when connectivity is restored.</div>
+    </section>
+
+    <!-- ── AND-12b. ORDER HISTORY ─────────────────────────────────── -->
+    <section class="section" id="and-order-history">
+      <div class="sec-hd">
+        <div class="sec-num">12b</div>
+        <h2>Order History</h2>
+      </div>
+      <p class="sec-desc">
+        Order History gives you a searchable log of every past order with filters for date range and payment method. You can void orders, view itemized receipts, and share receipt PDFs from here.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Reports → Order History</strong>. Use the <strong>Period</strong> filter to scope results to today, this week, or a custom range.</span></li>
+        <li><span class="sn">2</span><span>Use the <strong>Payment</strong> filter to show only cash, card, or split orders.</span></li>
+        <li><span class="sn">3</span><span>Tap any order to see the full itemized receipt with modifiers, discounts, tax, and total.</span></li>
+        <li><span class="sn">4</span><span>To void an order, open it and tap <strong>Void Order</strong>. Confirm the reason. The order is removed from the daily totals and a void record is logged.</span></li>
+        <li><span class="sn">5</span><span>Tap <strong>Share Receipt</strong> to send the receipt as a PDF via email, AirDrop, or any share target.</span></li>
+      </ul>
+    </section>
+
+    <!-- ── AND-13. STAFF AND PIN LOCK ─────────────────────────────── -->
+    <section class="section" id="and-staff-pin">
+      <div class="sec-hd">
+        <div class="sec-num">13</div>
+        <h2>Staff and PIN Lock</h2>
+      </div>
+      <p class="sec-desc">
+        Each staff member on Android has their own 4-digit PIN. When they enter it, the app clocks them in and shows their name in the header. The screen locks automatically after a configurable inactivity period and each person re-enters their own PIN to clock in for the next shift.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span>Tap <strong>Labor</strong> in the sidebar. Go to the <strong>Staff</strong> tab. Tap a staff member to assign or update their 4-digit PIN.</span></li>
+        <li><span class="sn">2</span><span>When the app is locked, the PIN entry screen appears. Staff tap their 4-digit PIN to clock in. Owner and manager PINs work as an override on any device.</span></li>
+        <li><span class="sn">3</span><span>To clock out, tap <strong>Sign Out</strong> on the staff badge in the header. The app returns to the PIN lock screen for the next person.</span></li>
+        <li><span class="sn">4</span><span>To change the auto-lock timeout, go to <strong>Settings → Staff</strong> and choose: 15 min, 30 min, 1 hr, or 2 hr.</span></li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> If no staff PINs have been set up yet, a <strong>Continue as Owner</strong> button appears on the lock screen so you are never locked out during initial setup.</div>
+    </section>
+
+    <!-- ── AND-14. SETTINGS ───────────────────────────────────────── -->
+    <section class="section" id="and-app-settings">
+      <div class="sec-hd">
+        <div class="sec-num">14</div>
+        <h2>Settings</h2>
+      </div>
+      <p class="sec-desc">
+        Settings covers your business profile, tax configuration, currency, payment processor, promo codes, and staff auto-lock. Changes take effect immediately and persist across app restarts.
+      </p>
+      <ul class="steps">
+        <li><span class="sn">1</span><span><strong>Tax Region:</strong> Under <strong>Tax Configuration</strong>, tap <strong>Change</strong> next to Tax Region. Pick your country and province, state, or region. The correct rate is applied instantly.</span></li>
+        <li><span class="sn">2</span><span><strong>Business Logo:</strong> Under <strong>Business Profile</strong>, upload your logo image. It appears on receipts and the top of the app.</span></li>
+        <li><span class="sn">3</span><span><strong>Currency:</strong> Tap your currency (CAD, USD, INR, PKR) in the Currency section. All prices and reports switch instantly.</span></li>
+        <li><span class="sn">4</span><span><strong>Promo Codes:</strong> Tap <strong>Add Code</strong> to create discount codes. Set the code text, a percentage or fixed discount, and toggle each code active or inactive at any time.</span></li>
+        <li><span class="sn">5</span><span><strong>Modifier Groups:</strong> Create shared modifier groups here and attach them to menu items. Toggle groups required or optional per item.</span></li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> Your tax region setting persists across restarts. You only need to set it once. If your jurisdiction changes rates you can update it here in seconds.</div>
+    </section>
+
+    </div> <!-- /android-content -->
+
   </main>
 </div>
 
 <script>
+  // ── Platform switcher ─────────────────────────────────────────────
+  function switchPlatform(plat) {
+    const isIOS = plat === 'ios';
+    document.querySelectorAll('.ios-content').forEach(el => el.style.display = isIOS ? '' : 'none');
+    document.querySelectorAll('.android-content').forEach(el => el.style.display = isIOS ? 'none' : '');
+    document.querySelectorAll('.sb-ios').forEach(el => el.style.display = isIOS ? '' : 'none');
+    document.querySelectorAll('.sb-android').forEach(el => el.style.display = isIOS ? 'none' : '');
+    document.querySelectorAll('.plat-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase().includes(plat));
+    });
+    // Update mobile nav
+    document.querySelectorAll('.mob-ios').forEach(el => el.style.display = isIOS ? '' : 'none');
+    document.querySelectorAll('.mob-android').forEach(el => el.style.display = isIOS ? 'none' : '');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   // ── Active sidebar link via IntersectionObserver ──────────────────
   const sections  = document.querySelectorAll('.section[id]');
   const sbLinks   = document.querySelectorAll('#sidebar .sb-link[href]');
