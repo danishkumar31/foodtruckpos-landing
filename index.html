@@ -44,6 +44,103 @@
   }
   </script>
 
+  <script type="application/ld+json" id="faq-ld-json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this work on iPad and Android tablets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. On iOS, FoodTruckPOS runs on any iPad with iOS 16 or later \u2014 including iPad mini, iPad Air, iPad Pro, and the standard iPad. On Android, it runs on any Android tablet with Android 8 or later. No specific model required on either platform."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need internet to take orders?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The app works fully offline. Cash payments process instantly. Card payments queue and sync automatically when connectivity returns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the kitchen display work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The cashier and kitchen iPads connect over your local WiFi or iPhone hotspot using peer to peer networking. No internet required between the two devices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment methods are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cash, or confirm card payments taken on your own Square Reader or any external card terminal with manual confirmation. Most operators use cash plus one card option."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use my existing Square reader?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Select Square Reader as your payment method. The app records the payment and prompts your staff to charge on the Square hardware separately."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All data is stored locally on your device using SQLite. Payment processing goes through Stripe, which is PCI DSS Level 1 certified. We never store card numbers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there an Android version?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 launching on Google Play July 26 for Android tablets running Android 8 or later. The same account works on both iPad and Android."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use both iPad and Android at the same time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Pro and Enterprise plans support multiple devices. Your owner can use an iPad while your cashier uses an Android tablet, all on the same account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best POS system for a food truck?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The best POS for a food truck is one built specifically for mobile food service rather than adapted from a general retail or restaurant platform. Look for genuine offline support, a kitchen display included at no extra cost, and pricing that scales per device rather than per location. Food Truck POS was built around those exact requirements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Food Truck POS different from Square or Toast?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Square and Toast are general-purpose platforms built to serve every kind of retail store and restaurant. Food Truck POS only serves mobile food vendors, so features like the wireless kitchen display, true offline mode, and per-device pricing are built in standard rather than sold as add-ons."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Food Truck POS work in the United States?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Food Truck POS is used by operators in Canada, the United States, India, and Pakistan, with local currency and tax rate support built in for each."
+      }
+    }
+  ]
+}
+  </script>
+
   <style>
     /* ── Variables ─────────────────────────────────────────────── */
     :root {
@@ -1999,6 +2096,62 @@
 
 <div class="sec-div"></div>
 
+<!-- ── Comparison ────────────────────────────────────────────────── -->
+<section id="comparison" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge fade-in">Square, Toast &amp; Moneris Alternative</div>
+      <h2 class="section-title fade-in">Looking for a POS built only for food trucks?</h2>
+      <p class="section-sub fade-in">Square, Toast, and Moneris serve every kind of retail and restaurant business. Food Truck POS serves one: yours.</p>
+    </div>
+    <div class="bento-grid fade-in">
+
+      <div class="bento-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Built only for food trucks</h3>
+        <p class="feature-body">Every screen is designed around one truck, one line, one rush. Not a general retail or restaurant platform with mobile food service bolted on.</p>
+      </div>
+
+      <div class="bento-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Kitchen display included</h3>
+        <p class="feature-body">No extra device rental, no monthly add-on fee. Use any spare tablet as your kitchen display at every pricing tier.</p>
+      </div>
+
+      <div class="bento-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M1 12h6m6 0h6M12 1v6m0 6v6"/><circle cx="12" cy="12" r="10"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">True offline mode</h3>
+        <p class="feature-body">Take cash and card orders with zero connectivity. Card payments queue automatically and sync the moment you are back online.</p>
+      </div>
+
+      <div class="bento-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Per-device pricing</h3>
+        <p class="feature-body">One flat price whether you run a single truck or a small fleet. No per-location fees, no transaction cuts on top.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="sec-div"></div>
+
 <!-- ── Testimonials ──────────────────────────────────────────────── -->
 <section id="testimonials" class="section">
   <div class="container">
@@ -2178,6 +2331,42 @@
         </div>
         <div class="faq-answer">
           <div class="faq-answer-inner">Yes. Pro and Enterprise plans support multiple devices. Your owner can use an iPad while your cashier uses an Android tablet, all on the same account.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          What is the best POS system for a food truck?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">The best POS for a food truck is one built specifically for mobile food service rather than adapted from a general retail or restaurant platform. Look for genuine offline support, a kitchen display included at no extra cost, and pricing that scales per device rather than per location. Food Truck POS was built around those exact requirements.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          How is Food Truck POS different from Square or Toast?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Square and Toast are general-purpose platforms built to serve every kind of retail store and restaurant. Food Truck POS only serves mobile food vendors, so features like the wireless kitchen display, true offline mode, and per-device pricing are built in standard rather than sold as add-ons.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          Does Food Truck POS work in the United States?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. Food Truck POS is used by operators in Canada, the United States, India, and Pakistan, with local currency and tax rate support built in for each.</div>
         </div>
       </div>
 
