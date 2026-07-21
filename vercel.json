@@ -6,6 +6,11 @@
   "routes": [
     { "src": "/privacy", "dest": "/privacy.html" },
     { "src": "/terms", "dest": "/terms.html" },
+    { "src": "/_next/(.*)", "dest": "https://foodtruckpos-dashboard.vercel.app/_next/$1" },
+    { "src": "/login", "dest": "https://foodtruckpos-dashboard.vercel.app/login" },
+    { "src": "/login/(.*)", "dest": "https://foodtruckpos-dashboard.vercel.app/login/$1" },
+    { "src": "/dashboard", "dest": "https://foodtruckpos-dashboard.vercel.app/dashboard" },
+    { "src": "/dashboard/(.*)", "dest": "https://foodtruckpos-dashboard.vercel.app/dashboard/$1" },
     { "src": "/", "dest": "/index.html" }
   ]
 }
