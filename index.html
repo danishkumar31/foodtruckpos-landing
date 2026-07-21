@@ -5,13 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Food Truck POS · The smarter way to run your truck.</title>
   <meta name="description" content="Complete POS for food trucks on iPad and Android tablet. Take orders, run your kitchen, accept every payment, and track your business. No proprietary hardware." />
+  <link rel="canonical" href="https://www.foodtruckpos.app/" />
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/assets/og-image.png" />
+
   <meta property="og:title" content="Food Truck POS" />
   <meta property="og:description" content="The smarter way to run your truck." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.foodtruckpos.app/" />
+  <meta property="og:site_name" content="Food Truck POS" />
+  <meta property="og:image" content="https://www.foodtruckpos.app/assets/og-image.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Food Truck POS" />
+  <meta name="twitter:description" content="The smarter way to run your truck." />
+  <meta name="twitter:image" content="https://www.foodtruckpos.app/assets/og-image.png" />
+
   <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" id="app-ld-json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Food Truck POS",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "iOS, Android",
+    "description": "Complete point of sale system built specifically for food trucks. Take orders, run your kitchen, accept every payment, and track your business on iPad and Android tablet. No proprietary hardware required.",
+    "url": "https://www.foodtruckpos.app/",
+    "offers": [
+      { "@type": "Offer", "name": "Starter", "price": "29", "priceCurrency": "CAD", "category": "subscription" },
+      { "@type": "Offer", "name": "Pro", "price": "59", "priceCurrency": "CAD", "category": "subscription" },
+      { "@type": "Offer", "name": "Enterprise", "price": "75", "priceCurrency": "CAD", "category": "subscription" }
+    ]
+  }
+  </script>
 
   <style>
     /* ── Variables ─────────────────────────────────────────────── */
@@ -883,6 +914,106 @@
       font-size: 12px;
       color: var(--text-tertiary);
       margin-top: 2px;
+    }
+
+    /* ── Review Modal ──────────────────────────────────────────── */
+    .review-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .review-modal-overlay.open { display: flex; }
+    .review-modal {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: linear-gradient(160deg, #111111, #1a1a1a);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+    }
+    .review-modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--card-bg-2);
+      color: var(--text-secondary);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .review-modal-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .review-modal-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .review-field { margin-bottom: 18px; }
+    .review-field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .review-field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .review-field input, .review-field textarea {
+      width: 100%;
+      background: var(--card-bg-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-primary);
+      resize: vertical;
+    }
+    .review-field input:focus, .review-field textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .review-stars-picker { display: flex; gap: 6px; }
+    .review-star-btn {
+      font-size: 30px;
+      line-height: 1;
+      color: var(--text-tertiary);
+      transition: color 0.15s ease, transform 0.1s ease;
+    }
+    .review-star-btn:hover { transform: scale(1.1); }
+    .review-star-btn.active, .review-star-btn.hover-preview { color: var(--accent); }
+    .review-error {
+      display: none;
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .review-error.visible { display: block; }
+    .testimonials-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 15px;
+      padding: 30px 0;
     }
 
     /* ── FAQ ───────────────────────────────────────────────────── */
@@ -1872,50 +2003,76 @@
 <section id="testimonials" class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-badge fade-in">Testimonials</div>
+      <div class="section-badge fade-in" id="testimonials-badge">Testimonials</div>
       <h2 class="section-title fade-in">What operators are saying.</h2>
+      <p class="section-sub fade-in" id="testimonials-sub" style="display:none;"></p>
     </div>
-    <div class="testimonials-grid">
 
-      <div class="testimonial-card fade-in">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"Finally a POS that does not require me to buy $800 of hardware. Set it up in 10 minutes on my existing iPad."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">SM</div>
-          <div>
-            <div class="testimonial-name">Sarah M.</div>
-            <div class="testimonial-biz">Butter Chicken Poutine Co. · Edmonton AB</div>
-          </div>
-        </div>
-      </div>
+    <div class="testimonials-grid" id="testimonials-grid">
+      <div class="testimonials-loading" style="grid-column: 1 / -1; text-align: center; color: var(--text-tertiary); font-size: 14px; padding: 20px 0;">Loading reviews…</div>
+    </div>
 
-      <div class="testimonial-card fade-in">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"The kitchen display alone is worth it. My kitchen staff can see every order the second it is placed."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">JT</div>
-          <div>
-            <div class="testimonial-name">James T.</div>
-            <div class="testimonial-biz">Smoke and Fire BBQ · Calgary AB</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card fade-in">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"I check my revenue from my phone while sourcing ingredients. The dashboard is genuinely useful."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">PK</div>
-          <div>
-            <div class="testimonial-name">Priya K.</div>
-            <div class="testimonial-biz">Masala Street Food · Toronto ON</div>
-          </div>
-        </div>
-      </div>
-
+    <div style="text-align:center; margin-top: 36px;">
+      <button type="button" class="btn btn-outline" id="open-review-modal">Leave a Review</button>
     </div>
   </div>
 </section>
+
+<!-- ── Review Modal ──────────────────────────────────────────────── -->
+<div id="review-modal-overlay" class="review-modal-overlay">
+  <div class="review-modal">
+    <button type="button" class="review-modal-close" id="close-review-modal" aria-label="Close">✕</button>
+
+    <div id="review-form-view">
+      <h3 class="review-modal-title">Leave a Review</h3>
+      <p class="review-modal-sub">Tell other food truck operators about your experience. Reviews are checked before they go live.</p>
+
+      <form id="review-form">
+        <div class="review-field">
+          <label for="review-rating-label">Your Rating</label>
+          <div class="review-stars-picker" id="review-stars-picker" role="radiogroup" aria-label="Rating">
+            <button type="button" class="review-star-btn" data-value="1" aria-label="1 star">★</button>
+            <button type="button" class="review-star-btn" data-value="2" aria-label="2 stars">★</button>
+            <button type="button" class="review-star-btn" data-value="3" aria-label="3 stars">★</button>
+            <button type="button" class="review-star-btn" data-value="4" aria-label="4 stars">★</button>
+            <button type="button" class="review-star-btn" data-value="5" aria-label="5 stars">★</button>
+          </div>
+        </div>
+
+        <div class="review-field">
+          <label for="review-name">Your Name</label>
+          <input type="text" id="review-name" maxlength="100" required placeholder="Sarah M." />
+        </div>
+
+        <div class="review-field-row">
+          <div class="review-field">
+            <label for="review-business">Truck Name (optional)</label>
+            <input type="text" id="review-business" maxlength="100" placeholder="Butter Chicken Poutine Co." />
+          </div>
+          <div class="review-field">
+            <label for="review-location">Location (optional)</label>
+            <input type="text" id="review-location" maxlength="100" placeholder="Edmonton AB" />
+          </div>
+        </div>
+
+        <div class="review-field">
+          <label for="review-text">Your Review</label>
+          <textarea id="review-text" maxlength="1000" rows="4" required placeholder="What's it like running your truck with Food Truck POS?"></textarea>
+        </div>
+
+        <p class="review-error" id="review-error"></p>
+
+        <button type="submit" class="btn btn-primary" id="review-submit-btn" style="width:100%;">Submit Review</button>
+      </form>
+    </div>
+
+    <div id="review-thanks-view" style="display:none; text-align:center; padding: 20px 0;">
+      <div style="font-size: 40px; margin-bottom: 12px;">🎉</div>
+      <h3 class="review-modal-title">Thanks!</h3>
+      <p class="review-modal-sub">Your review is in. It'll appear on the site once it's been checked.</p>
+    </div>
+  </div>
+</div>
 
 <div class="sec-div"></div>
 
@@ -2263,9 +2420,170 @@
   document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
   // Stagger children inside containers
-  document.querySelectorAll('.bento-card, .testimonials-grid .testimonial-card, .steps-horizontal .step-card').forEach((el, i) => {
+  document.querySelectorAll('.bento-card, .steps-horizontal .step-card').forEach((el, i) => {
     el.style.transitionDelay = `${i * 60}ms`;
   });
+</script>
+
+<!-- ── Reviews: load real reviews + submission form ─────────────── -->
+<script>
+(function () {
+  const API_BASE = 'https://api.foodtruckpos.app';
+
+  function initials(name) {
+    return name.trim().split(/\s+/).map(p => p[0]).join('').slice(0, 2).toUpperCase();
+  }
+
+  function starString(rating) {
+    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderReviews(reviews) {
+    const grid = document.getElementById('testimonials-grid');
+    if (reviews.length === 0) {
+      grid.innerHTML = '<div class="testimonials-empty">No reviews yet — be the first to share your experience!</div>';
+      return;
+    }
+    grid.innerHTML = reviews.map(r => `
+      <div class="testimonial-card">
+        <div class="testimonial-stars">${starString(r.rating)}</div>
+        <p class="testimonial-quote">"${escapeHtml(r.review_text)}"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">${escapeHtml(initials(r.reviewer_name))}</div>
+          <div>
+            <div class="testimonial-name">${escapeHtml(r.reviewer_name)}</div>
+            ${r.business_name ? `<div class="testimonial-biz">${escapeHtml(r.business_name)}${r.location ? ' · ' + escapeHtml(r.location) : ''}</div>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function updateSummary(averageRating, count) {
+    if (!count) return;
+    const badge = document.getElementById('testimonials-badge');
+    const sub   = document.getElementById('testimonials-sub');
+    if (badge) badge.textContent = `${averageRating.toFixed(1)} ★ · ${count} review${count === 1 ? '' : 's'}`;
+
+    // Reflect genuine ratings in the structured data once real reviews exist.
+    const ld = document.getElementById('app-ld-json');
+    if (ld) {
+      try {
+        const data = JSON.parse(ld.textContent);
+        data.aggregateRating = {
+          "@type": "AggregateRating",
+          "ratingValue": averageRating.toFixed(1),
+          "reviewCount": count
+        };
+        ld.textContent = JSON.stringify(data);
+      } catch { /* ignore malformed structured data */ }
+    }
+  }
+
+  async function loadReviews() {
+    try {
+      const res = await fetch(`${API_BASE}/reviews?limit=6`);
+      if (!res.ok) throw new Error('bad response');
+      const data = await res.json();
+      renderReviews(data.reviews || []);
+      updateSummary(data.averageRating || 0, data.count || 0);
+    } catch {
+      renderReviews([]);
+    }
+  }
+
+  loadReviews();
+
+  // ── Review submission modal ──────────────────────────────────
+  const overlay     = document.getElementById('review-modal-overlay');
+  const openBtn      = document.getElementById('open-review-modal');
+  const closeBtn      = document.getElementById('close-review-modal');
+  const form          = document.getElementById('review-form');
+  const formView      = document.getElementById('review-form-view');
+  const thanksView    = document.getElementById('review-thanks-view');
+  const errorEl       = document.getElementById('review-error');
+  const starsPicker    = document.getElementById('review-stars-picker');
+  const starButtons    = starsPicker.querySelectorAll('.review-star-btn');
+  const submitBtn      = document.getElementById('review-submit-btn');
+  let selectedRating  = 0;
+
+  function openModal() {
+    overlay.classList.add('open');
+    formView.style.display = 'block';
+    thanksView.style.display = 'none';
+    errorEl.classList.remove('visible');
+  }
+  function closeModal() { overlay.classList.remove('open'); }
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+  starButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedRating = parseInt(btn.dataset.value, 10);
+      starButtons.forEach(b => b.classList.toggle('active', parseInt(b.dataset.value, 10) <= selectedRating));
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.classList.remove('visible');
+
+    const reviewerName = document.getElementById('review-name').value.trim();
+    const businessName  = document.getElementById('review-business').value.trim();
+    const location      = document.getElementById('review-location').value.trim();
+    const reviewText     = document.getElementById('review-text').value.trim();
+
+    if (!selectedRating) {
+      errorEl.textContent = 'Please select a star rating.';
+      errorEl.classList.add('visible');
+      return;
+    }
+    if (!reviewerName || !reviewText) {
+      errorEl.textContent = 'Please fill in your name and review.';
+      errorEl.classList.add('visible');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+      const res = await fetch(`${API_BASE}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          reviewer_name: reviewerName,
+          business_name: businessName || undefined,
+          location: location || undefined,
+          rating: selectedRating,
+          review_text: reviewText,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Submission failed');
+
+      form.reset();
+      selectedRating = 0;
+      starButtons.forEach(b => b.classList.remove('active'));
+      formView.style.display = 'none';
+      thanksView.style.display = 'block';
+    } catch (err) {
+      errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+      errorEl.classList.add('visible');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Review';
+    }
+  });
+})();
 </script>
 
 </body>
