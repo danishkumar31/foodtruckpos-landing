@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceptable Use Policy — FoodTruck POS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0A0A0A;
+      color: #E5E5E5;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: #FF6B00; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid #1A1A1A;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #FF6B00;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .badge {
+      background: #FF6B00;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+      border-bottom: 1px solid #1A1A1A;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: #FF6B00; }
+    .hero p {
+      font-size: 17px;
+      color: #999;
+      max-width: 620px;
+    }
+    .meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #666;
+    }
+    .meta-item svg { color: #FF6B00; flex-shrink: 0; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      position: sticky;
+      top: 80px;
+      padding: 32px 0;
+    }
+    .toc-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+      margin-bottom: 16px;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      margin-bottom: 6px;
+    }
+    .toc ol li a {
+      font-size: 13px;
+      color: #666;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      transition: color 0.15s;
+    }
+    .toc ol li a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-size: 10px;
+      color: #444;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .toc ol li a:hover { color: #FF6B00; text-decoration: none; }
+
+    /* ── Content ── */
+    .content {
+      padding: 48px 0;
+    }
+    .section {
+      margin-bottom: 56px;
+      scroll-margin-top: 100px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-num {
+      width: 36px;
+      height: 36px;
+      background: #FF6B00;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .section h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    .section p {
+      margin-bottom: 14px;
+      color: #CCC;
+    }
+    .section ul, .section ol {
+      padding-left: 20px;
+      margin-bottom: 14px;
+      color: #CCC;
+    }
+    .section li { margin-bottom: 6px; }
+    .section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFF;
+      margin: 24px 0 10px;
+    }
+
+    /* ── Highlight boxes ── */
+    .highlight-box {
+      background: #111;
+      border: 1px solid #222;
+      border-left: 3px solid #FF6B00;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #BBB;
+    }
+    .highlight-box strong { color: #FF6B00; }
+
+    .warning-box {
+      background: rgba(255, 59, 48, 0.08);
+      border: 1px solid rgba(255, 59, 48, 0.2);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #CCC;
+    }
+    .warning-box strong { color: #FF4D4D; }
+
+    .info-box {
+      background: rgba(0, 122, 255, 0.08);
+      border: 1px solid rgba(0, 122, 255, 0.2);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #CCC;
+    }
+    .info-box strong { color: #4FA3FF; }
+
+    /* ── Prohibited grid ── */
+    .prohibited-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .prohibited-card {
+      background: rgba(255, 59, 48, 0.06);
+      border: 1px solid rgba(255, 59, 48, 0.15);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .prohibited-card .card-icon {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .prohibited-card .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #FF4D4D;
+      margin-bottom: 4px;
+    }
+    .prohibited-card .card-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    /* ── Consequence table ── */
+    .consequence-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    .consequence-table th {
+      background: #111;
+      color: #FF6B00;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid #222;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .consequence-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1A1A1A;
+      color: #CCC;
+      vertical-align: top;
+    }
+    .consequence-table tr:last-child td { border-bottom: none; }
+    .severity {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .severity-low { background: rgba(52,199,89,0.15); color: #34C759; }
+    .severity-med { background: rgba(255,159,10,0.15); color: #FF9F0A; }
+    .severity-high { background: rgba(255,59,48,0.15); color: #FF3B30; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid #1A1A1A; margin: 40px 0; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #1A1A1A;
+      margin-top: 80px;
+      padding: 40px 0;
+    }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: #555; }
+    .footer-links a:hover { color: #FF6B00; }
+    .footer-copy { font-size: 13px; color: #444; }
+
+    @media (max-width: 700px) {
+      .container { grid-template-columns: 1fr; gap: 0; }
+      .toc { display: none; }
+      .prohibited-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🚚</div>
+        FoodTruck POS
+      </a>
+      <span class="badge">Legal</span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Acceptable <span>Use Policy</span></h1>
+    <p>Rules governing how FoodTruck POS may be used and the consequences for violations.</p>
+    <div class="meta">
+      <div class="meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Last updated: June 25, 2026
+      </div>
+      <div class="meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        5 minute read
+      </div>
+      <div class="meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Applies to: All accounts
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="container">
+
+    <!-- TOC -->
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#permitted">Permitted Use</a></li>
+        <li><a href="#prohibited">Prohibited Conduct</a></li>
+        <li><a href="#data-integrity">Data Integrity</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#messaging">Messaging &amp; CASL</a></li>
+        <li><a href="#third-party">Third-Party Integrations</a></li>
+        <li><a href="#consequences">Enforcement &amp; Consequences</a></li>
+        <li><a href="#reporting">Reporting Violations</a></li>
+        <li><a href="#changes">Changes to This Policy</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+
+      <!-- 1. Overview -->
+      <section class="section" id="overview">
+        <div class="section-header">
+          <div class="section-num">01</div>
+          <h2>Overview</h2>
+        </div>
+        <p>This Acceptable Use Policy ("AUP") governs your use of FoodTruck POS ("Service"), operated by FoodTruck POS ("we," "us," or "our"). By accessing or using the Service, you agree to comply with this AUP in addition to our <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>.</p>
+        <p>FoodTruck POS is designed for lawful commercial use by food service businesses. Misuse of the platform — whether through abuse of features, harmful data practices, security violations, or illegal activity — undermines the reliability and safety of the Service for all users.</p>
+        <div class="highlight-box">
+          <strong>Scope:</strong> This AUP applies to all users of the FoodTruck POS iOS app, Android app, web dashboard, API, and any other services we provide, regardless of subscription tier.
+        </div>
+      </section>
+
+      <!-- 2. Permitted Use -->
+      <section class="section" id="permitted">
+        <div class="section-header">
+          <div class="section-num">02</div>
+          <h2>Permitted Use</h2>
+        </div>
+        <p>FoodTruck POS may be used for lawful commercial food service operations, including but not limited to:</p>
+        <ul>
+          <li>Processing customer orders and payments at food trucks, stalls, carts, and pop-up events</li>
+          <li>Managing menus, inventory, and business data for your own operation</li>
+          <li>Generating sales reports and analytics for your own business</li>
+          <li>Processing customer refunds and managing order history</li>
+          <li>Sending transactional SMS notifications to customers who have consented (Enterprise plan)</li>
+          <li>Integrating with approved third-party services for your own business purposes</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Business use only:</strong> FoodTruck POS is a business tool intended for commercial food service operations. Personal, non-commercial use is not a supported use case and may result in account suspension.
+        </div>
+      </section>
+
+      <!-- 3. Prohibited Conduct -->
+      <section class="section" id="prohibited">
+        <div class="section-header">
+          <div class="section-num">03</div>
+          <h2>Prohibited Conduct</h2>
+        </div>
+        <p>The following activities are strictly prohibited when using FoodTruck POS:</p>
+
+        <div class="prohibited-grid">
+          <div class="prohibited-card">
+            <div class="card-icon">🚫</div>
+            <div class="card-title">Resale &amp; Sublicensing</div>
+            <div class="card-desc">Reselling, sublicensing, or providing access to the Service to third parties not covered by your account.</div>
+          </div>
+          <div class="prohibited-card">
+            <div class="card-icon">🔓</div>
+            <div class="card-title">Reverse Engineering</div>
+            <div class="card-desc">Decompiling, disassembling, reverse engineering, or attempting to derive source code from the Service.</div>
+          </div>
+          <div class="prohibited-card">
+            <div class="card-icon">🤖</div>
+            <div class="card-title">Automated Scraping</div>
+            <div class="card-desc">Using bots, scrapers, or automated tools to extract data from the Service beyond permitted API use.</div>
+          </div>
+          <div class="prohibited-card">
+            <div class="card-icon">💥</div>
+            <div class="card-title">System Overloading</div>
+            <div class="card-desc">Sending excessive requests that stress or degrade performance of the Service for other users.</div>
+          </div>
+          <div class="prohibited-card">
+            <div class="card-icon">🧪</div>
+            <div class="card-title">Fraudulent Transactions</div>
+            <div class="card-desc">Processing fraudulent, fictitious, or unauthorized payment transactions through the Service.</div>
+          </div>
+          <div class="prohibited-card">
+            <div class="card-icon">🔐</div>
+            <div class="card-title">Credential Sharing</div>
+            <div class="card-desc">Sharing account credentials with unauthorized persons or operating the Service under another's identity.</div>
+          </div>
+          <div class="prohibited-card">
+            <div class="card-icon">📧</div>
+            <div class="card-title">Unsolicited Messaging</div>
+            <div class="card-desc">Sending spam, unsolicited commercial messages, or violating CASL using any messaging feature.</div>
+          </div>
+          <div class="prohibited-card">
+            <div class="card-icon">⚖️</div>
+            <div class="card-title">Illegal Activities</div>
+            <div class="card-desc">Using the Service in connection with illegal activity, money laundering, or tax evasion.</div>
+          </div>
+        </div>
+
+        <h3>Additional Prohibitions</h3>
+        <ul>
+          <li>Uploading malicious code, viruses, or malware through any Service input</li>
+          <li>Attempting to gain unauthorized access to other accounts, databases, or network resources</li>
+          <li>Using the Service to process payment card data in violation of PCI-DSS standards (all card processing must occur through Stripe)</li>
+          <li>Impersonating FoodTruck POS, its employees, or other users</li>
+          <li>Removing, obscuring, or altering any copyright, trademark, or proprietary rights notices</li>
+          <li>Using the Service in a way that violates any applicable Canadian federal, provincial, or local law or regulation</li>
+          <li>Interfering with or disrupting the integrity or performance of the Service or related systems</li>
+          <li>Collecting or harvesting any personally identifiable information from the Service without explicit consent</li>
+        </ul>
+      </section>
+
+      <!-- 4. Data Integrity -->
+      <section class="section" id="data-integrity">
+        <div class="section-header">
+          <div class="section-num">04</div>
+          <h2>Data Integrity</h2>
+        </div>
+        <p>You are responsible for the accuracy and integrity of data you enter into FoodTruck POS. Specifically, you must not:</p>
+        <ul>
+          <li>Enter false, misleading, or fabricated business data</li>
+          <li>Manipulate sales records or reports to misrepresent your business's financial position</li>
+          <li>Enter customer data without the customer's knowledge or consent</li>
+          <li>Use customer data collected through the Service for any purpose other than operating your food service business</li>
+          <li>Retain customer data beyond the periods required for legitimate business operations</li>
+        </ul>
+        <div class="info-box">
+          <strong>You are the data controller:</strong> For customer data you collect through FoodTruck POS (such as customer phone numbers for SMS notifications), you are acting as the data controller under PIPEDA. You are responsible for obtaining appropriate consent, handling data requests, and complying with applicable privacy law.
+        </div>
+        <p>We reserve the right to investigate and take action if we detect data manipulation or fraudulent record-keeping that violates applicable law or could expose us to legal liability.</p>
+      </section>
+
+      <!-- 5. Security -->
+      <section class="section" id="security">
+        <div class="section-header">
+          <div class="section-num">05</div>
+          <h2>Security</h2>
+        </div>
+        <p>You are responsible for maintaining the security of your account. Your obligations include:</p>
+        <ul>
+          <li>Using a strong, unique password for your FoodTruck POS account</li>
+          <li>Logging out of devices when no longer in use, particularly shared or public devices</li>
+          <li>Not sharing your credentials with employees or staff — each staff member should have their own access if multi-user access is available on your plan</li>
+          <li>Immediately notifying us at <a href="mailto:security@foodtruckpos.app">security@foodtruckpos.app</a> if you suspect unauthorized access to your account</li>
+          <li>Not attempting to bypass, disable, or circumvent any security controls in the Service</li>
+        </ul>
+        <div class="warning-box">
+          <strong>Security testing:</strong> Penetration testing, vulnerability scanning, or any other security testing of our infrastructure without prior written authorization is strictly prohibited and may constitute a criminal offence under the Criminal Code of Canada.
+        </div>
+        <p>We take security seriously. If you discover a potential security vulnerability, please report it responsibly to <a href="mailto:security@foodtruckpos.app">security@foodtruckpos.app</a> rather than exploiting it. We will acknowledge legitimate reports and work to address them promptly.</p>
+      </section>
+
+      <!-- 6. Messaging & CASL -->
+      <section class="section" id="messaging">
+        <div class="section-header">
+          <div class="section-num">06</div>
+          <h2>Messaging &amp; CASL</h2>
+        </div>
+        <p>The SMS messaging feature (available on the Enterprise plan via Twilio) is subject to Canada's Anti-Spam Legislation (CASL) and must be used as follows:</p>
+
+        <h3>Express Consent Required</h3>
+        <p>Before sending any commercial electronic message to a customer phone number, you must obtain the customer's express consent. Consent must be:</p>
+        <ul>
+          <li>Freely given — not bundled with other terms or made a condition of service</li>
+          <li>Informed — the customer must know what they are consenting to receive and from whom</li>
+          <li>Specific — consent for order confirmations does not imply consent for marketing messages</li>
+          <li>Documented — you must retain records of when and how consent was obtained</li>
+        </ul>
+
+        <h3>Transactional vs. Marketing Messages</h3>
+        <p>The messaging feature is designed for <strong>transactional messages only</strong> — for example, order ready notifications, receipt confirmations, or status updates. Using it to send unsolicited marketing, promotions, or bulk campaigns is a violation of this AUP and may constitute a CASL violation carrying fines of up to $1,000,000 per day.</p>
+
+        <h3>Unsubscribe</h3>
+        <ul>
+          <li>All commercial messages must include a simple, functional unsubscribe mechanism</li>
+          <li>Unsubscribe requests must be honoured within 10 business days</li>
+          <li>You must not send further messages to contacts who have unsubscribed</li>
+        </ul>
+
+        <div class="warning-box">
+          <strong>CASL compliance is your responsibility:</strong> FoodTruck POS provides the messaging infrastructure, but you are solely responsible for complying with CASL and all applicable messaging laws. We reserve the right to suspend messaging access for accounts we have reason to believe are violating CASL.
+        </div>
+      </section>
+
+      <!-- 7. Third-Party Integrations -->
+      <section class="section" id="third-party">
+        <div class="section-header">
+          <div class="section-num">07</div>
+          <h2>Third-Party Integrations</h2>
+        </div>
+        <p>FoodTruck POS integrates with third-party services including Stripe (payments), Resend (email), and Twilio (SMS). When using these integrations, you must:</p>
+        <ul>
+          <li>Comply with the terms of service of each third-party provider</li>
+          <li>Not use Stripe to process payments for prohibited businesses or products under <a href="https://stripe.com/legal/restricted-businesses" target="_blank" rel="noopener">Stripe's Restricted Businesses policy</a></li>
+          <li>Not attempt to circumvent Stripe's fraud detection, chargeback process, or dispute resolution</li>
+          <li>Ensure your business category and product descriptions accurately represent what you sell</li>
+        </ul>
+        <div class="info-box">
+          <strong>Payment processing:</strong> All payment card data is handled directly by Stripe. FoodTruck POS does not store raw card numbers. Attempting to capture, store, or transmit cardholder data outside of Stripe's secure systems is a serious PCI-DSS violation and is strictly prohibited.
+        </div>
+      </section>
+
+      <!-- 8. Enforcement & Consequences -->
+      <section class="section" id="consequences">
+        <div class="section-header">
+          <div class="section-num">08</div>
+          <h2>Enforcement &amp; Consequences</h2>
+        </div>
+        <p>We reserve the right to investigate any suspected violation of this AUP. When we detect or receive reports of potential violations, we will take appropriate action proportional to the severity and nature of the violation.</p>
+
+        <table class="consequence-table">
+          <thead>
+            <tr>
+              <th>Severity</th>
+              <th>Examples</th>
+              <th>Possible Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="severity severity-low">Minor</span></td>
+              <td>Accidental policy violation, minor data entry issues</td>
+              <td>Written warning, guidance provided</td>
+            </tr>
+            <tr>
+              <td><span class="severity severity-med">Moderate</span></td>
+              <td>Repeated violations, credential sharing, excessive API requests</td>
+              <td>Feature restriction, temporary suspension, formal notice</td>
+            </tr>
+            <tr>
+              <td><span class="severity severity-high">Severe</span></td>
+              <td>Fraudulent transactions, illegal activity, security attacks, CASL spam</td>
+              <td>Immediate account termination, data deletion, referral to law enforcement</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>No Refund on Termination for Cause</h3>
+        <p>If your account is terminated for violation of this AUP, you will not be entitled to a refund of any prepaid subscription fees. This is in addition to any other remedies available to us at law or in equity.</p>
+
+        <h3>Cooperation with Authorities</h3>
+        <p>We will cooperate fully with law enforcement agencies and regulators investigating violations of applicable law, including by disclosing account information in response to lawful requests, warrants, or court orders.</p>
+
+        <div class="warning-box">
+          <strong>Right to terminate:</strong> We reserve the right to terminate any account at our sole discretion if we determine that continued operation poses an unacceptable risk to the Service, other users, or the public, even in cases not expressly covered by this AUP.
+        </div>
+      </section>
+
+      <!-- 9. Reporting Violations -->
+      <section class="section" id="reporting">
+        <div class="section-header">
+          <div class="section-num">09</div>
+          <h2>Reporting Violations</h2>
+        </div>
+        <p>If you become aware of a violation of this AUP — whether by another user or by us — please report it promptly so we can investigate.</p>
+        <ul>
+          <li><strong>General AUP violations:</strong> <a href="mailto:support@foodtruckpos.app">support@foodtruckpos.app</a></li>
+          <li><strong>Security vulnerabilities:</strong> <a href="mailto:security@foodtruckpos.app">security@foodtruckpos.app</a></li>
+          <li><strong>Privacy concerns:</strong> <a href="mailto:privacy@foodtruckpos.app">privacy@foodtruckpos.app</a></li>
+        </ul>
+        <p>Please include as much detail as possible in your report, including the nature of the violation, relevant account information (if known), and any supporting evidence.</p>
+        <div class="highlight-box">
+          <strong>Good-faith reporters:</strong> We will not take adverse action against users who report violations in good faith, even if the reported activity turns out not to violate this AUP.
+        </div>
+      </section>
+
+      <!-- 10. Changes -->
+      <section class="section" id="changes">
+        <div class="section-header">
+          <div class="section-num">10</div>
+          <h2>Changes to This Policy</h2>
+        </div>
+        <p>We may update this Acceptable Use Policy from time to time to reflect changes to our practices, legal requirements, or the features of the Service. When we make material changes, we will:</p>
+        <ul>
+          <li>Post the updated policy at this URL</li>
+          <li>Update the "Last updated" date at the top of this page</li>
+          <li>Send an email notice to the primary account holder at least 14 days before material changes take effect</li>
+        </ul>
+        <p>Continued use of the Service after the effective date of any changes constitutes your acceptance of the revised AUP. If you disagree with material changes, you may cancel your subscription before the effective date.</p>
+      </section>
+
+      <!-- 11. Contact -->
+      <section class="section" id="contact">
+        <div class="section-header">
+          <div class="section-num">11</div>
+          <h2>Contact</h2>
+        </div>
+        <p>Questions about this Acceptable Use Policy can be directed to:</p>
+        <div class="highlight-box">
+          <strong>FoodTruck POS</strong><br />
+          Edmonton, Alberta, Canada<br />
+          Email: <a href="mailto:legal@foodtruckpos.app">legal@foodtruckpos.app</a><br />
+          Support: <a href="mailto:support@foodtruckpos.app">support@foodtruckpos.app</a>
+        </div>
+        <p>This AUP is governed by the laws of the Province of Alberta and the applicable federal laws of Canada. Any disputes arising from this AUP will be subject to the exclusive jurisdiction of the courts of Alberta.</p>
+      </section>
+
+      <hr />
+      <p style="font-size: 13px; color: #555; text-align: center;">
+        This Acceptable Use Policy was last updated on June 25, 2026.<br />
+        It forms part of the FoodTruck POS <a href="terms.html">Terms of Service</a>.
+      </p>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="aup.html">Acceptable Use</a>
+        <a href="cookies.html">Cookie Policy</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 FoodTruck POS. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

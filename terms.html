@@ -3,531 +3,457 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms of Service — Food Truck POS</title>
-  <meta name="description" content="Terms of Service for Food Truck POS. Simple, fair terms for food truck operators." />
+  <title>Terms of Service — FoodTruck POS</title>
+  <meta name="description" content="Terms of Service for FoodTruck POS. Read before using the service." />
   <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <style>
-    /* ── Variables ────────────────────────────────────────────── */
     :root {
-      --bg:             #0a0a0a;
-      --card-bg:        #141414;
-      --border:         #222222;
-      --accent:         #FF6B00;
-      --accent-dim:     rgba(255,107,0,0.12);
-      --text-primary:   #ffffff;
-      --text-secondary: #888888;
-      --text-tertiary:  #444444;
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --border: #222222;
+      --accent: #FF6B00;
+      --accent-dim: rgba(255,107,0,0.12);
+      --text-primary: #ffffff;
+      --text-secondary: #999999;
+      --text-tertiary: #555555;
     }
-
-    /* ── Reset ────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text-primary);
-      line-height: 1.6;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* ── Layout ───────────────────────────────────────────────── */
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-
-    /* ── Buttons ──────────────────────────────────────────────── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 24px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .btn-primary { background: var(--accent); color: #000; }
-    .btn-primary:hover {
-      background: #ff8533;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(255,107,0,0.3);
-    }
-    .btn-sm { padding: 10px 20px; font-size: 14px; }
-
-    /* ── Animations ───────────────────────────────────────────── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Navigation ───────────────────────────────────────────── */
     #nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
-      border-bottom: 1px solid transparent;
-    }
-    #nav.scrolled {
-      background: rgba(10,10,10,0.85);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(10,10,10,0.92);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-color: var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
     }
     .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      padding: 0 24px;
-      max-width: 1160px;
-      margin: 0 auto;
+      max-width: 900px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
     }
-    .nav-logo { font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-secondary); transition: color 0.2s ease; }
-    .nav-links a:hover { color: var(--text-primary); }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
-    .nav-hamburger span { display: block; width: 20px; height: 1.5px; background: var(--text-primary); transition: all 0.2s ease; }
-    .nav-mobile {
-      display: none;
-      flex-direction: column;
-      padding: 16px 24px 24px;
-      border-top: 1px solid var(--border);
-      background: rgba(10,10,10,0.95);
-      gap: 2px;
+    .nav-logo { font-size: 16px; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      font-size: 14px; color: var(--text-secondary); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color 0.2s;
     }
-    .nav-mobile.open { display: flex; }
-    .nav-mobile a { font-size: 15px; font-weight: 500; color: var(--text-secondary); padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color 0.2s ease; }
-    .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: var(--text-primary); }
+    .nav-back:hover { color: var(--text-primary); text-decoration: none; }
 
-    /* ── Page Hero ────────────────────────────────────────────── */
-    .page-hero {
-      position: relative;
-      padding: 144px 24px 72px;
-      text-align: center;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-    .page-hero-glow {
-      position: absolute;
-      width: 640px;
-      height: 440px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(ellipse, rgba(255,107,0,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .page-hero-badge {
-      display: inline-flex;
-      align-items: center;
-      background: var(--accent-dim);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 5px 14px;
-      border-radius: 100px;
-      border: 1px solid rgba(255,107,0,0.2);
-      margin-bottom: 20px;
-    }
-    .page-hero-title {
-      font-size: clamp(36px, 5vw, 58px);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      color: var(--text-primary);
-      margin-bottom: 14px;
-      position: relative;
-    }
-    .page-hero-date {
-      font-size: 13px;
-      color: var(--text-tertiary);
-      margin-bottom: 16px;
-    }
-    .page-hero-sub {
-      font-size: 17px;
-      color: var(--text-secondary);
-      max-width: 480px;
-      margin: 0 auto;
-      line-height: 1.7;
-      position: relative;
-    }
+    .legal-wrap { max-width: 900px; margin: 0 auto; padding: 100px 24px 80px; }
 
-    /* ── Policy Content ───────────────────────────────────────── */
-    .policy-content {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 72px 24px 112px;
+    .legal-header { margin-bottom: 48px; }
+    .legal-badge {
+      display: inline-block;
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid rgba(255,107,0,0.25); border-radius: 6px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 4px 10px; margin-bottom: 16px;
     }
-    .policy-section {
-      border-left: 2px solid rgba(255,107,0,0.22);
-      padding-left: 28px;
-      margin-bottom: 56px;
-    }
-    .policy-section:last-child { margin-bottom: 0; }
-    .policy-section-title {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-    .policy-section-body {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .policy-section-body p {
-      font-size: 16px;
-      color: var(--text-secondary);
-      line-height: 1.85;
-    }
-    .policy-section-body a {
-      color: var(--accent);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    .policy-section-body a:hover { color: #ff8533; }
-    .policy-subsection { margin-top: 4px; }
-    .policy-subsection-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 10px;
-      letter-spacing: -0.01em;
-    }
-    .policy-list {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      padding-left: 0;
-    }
-    .policy-list li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-    }
-    .policy-list li::before {
-      content: '·';
-      color: var(--accent);
-      font-weight: 900;
-      font-size: 20px;
-      line-height: 1.4;
-      flex-shrink: 0;
-    }
-    .policy-highlight {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 20px;
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-    }
+    .legal-title { font-size: 40px; font-weight: 800; line-height: 1.15; margin-bottom: 12px; }
+    .legal-meta { font-size: 14px; color: var(--text-secondary); }
+    .legal-meta strong { color: var(--text-primary); }
 
-    /* ── Footer ───────────────────────────────────────────────── */
-    footer { border-top: 1px solid var(--border); padding: 28px 0; }
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+    .toc {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px 32px; margin-bottom: 56px;
     }
-    .footer-logo { font-size: 15px; font-weight: 700; color: var(--text-primary); }
-    .footer-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .footer-links a { font-size: 13px; color: var(--text-tertiary); transition: color 0.2s ease; }
-    .footer-links a:hover { color: var(--text-secondary); }
-    .footer-right { display: flex; align-items: center; gap: 16px; }
-    .footer-copy { font-size: 12px; color: var(--text-tertiary); }
-    .footer-social a { display: flex; align-items: center; color: var(--text-tertiary); transition: color 0.2s ease; }
-    .footer-social a:hover { color: var(--text-secondary); }
+    .toc-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 16px; }
+    .toc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 32px; list-style: none; }
+    .toc-list a {
+      font-size: 14px; color: var(--text-secondary);
+      display: flex; gap: 8px; align-items: baseline; padding: 6px 0;
+      transition: color 0.15s; text-decoration: none;
+    }
+    .toc-list a:hover { color: var(--accent); }
+    .toc-num { font-size: 11px; font-weight: 700; color: var(--accent); min-width: 20px; }
+    @media (max-width: 600px) { .toc-list { grid-template-columns: 1fr; } .legal-title { font-size: 28px; } }
 
-    /* ── Responsive ───────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .nav-links, .nav-right .btn { display: none; }
-      .nav-hamburger { display: flex; }
-      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .footer-right { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .page-hero { padding: 120px 24px 56px; }
-      .policy-content { padding: 48px 24px 80px; }
-      .policy-section { padding-left: 20px; }
+    .legal-section { margin-bottom: 56px; scroll-margin-top: 80px; }
+    .section-num {
+      display: inline-block; background: var(--accent-dim); color: var(--accent);
+      border-radius: 6px; font-size: 11px; font-weight: 700; padding: 2px 8px; margin-bottom: 10px;
     }
+    .section-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+    .sub-title { font-size: 16px; font-weight: 600; margin: 24px 0 12px; color: #dddddd; }
+    .legal-text { font-size: 15px; color: #cccccc; margin-bottom: 14px; }
+    .legal-text:last-child { margin-bottom: 0; }
+    .legal-list { margin: 10px 0 14px; padding-left: 0; list-style: none; }
+    .legal-list li {
+      font-size: 15px; color: #cccccc;
+      padding: 7px 0 7px 22px; position: relative;
+      border-bottom: 1px solid rgba(34,34,34,0.6);
+    }
+    .legal-list li:last-child { border-bottom: none; }
+    .legal-list li::before {
+      content: ''; position: absolute; left: 0; top: 17px;
+      width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+    }
+    .highlight-box {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent); border-radius: 10px;
+      padding: 18px 20px; margin: 16px 0; font-size: 15px; color: #cccccc;
+    }
+    .highlight-box strong { color: var(--text-primary); }
+    .warning-box {
+      background: rgba(255,107,0,0.06); border: 1px solid rgba(255,107,0,0.2);
+      border-radius: 10px; padding: 18px 20px; margin: 16px 0;
+      font-size: 14px; color: #cccccc;
+    }
+    .warning-box strong { color: var(--accent); }
+
+    .pricing-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .pricing-table th, .pricing-table td { text-align: left; padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+    .pricing-table th { color: var(--text-secondary); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; background: var(--card-bg); }
+    .pricing-table td { color: #cccccc; }
+    .pricing-table tr:last-child td { border-bottom: none; }
+    .price-val { color: var(--text-primary); font-weight: 700; }
+
+    .legal-footer {
+      border-top: 1px solid var(--border); padding-top: 40px; margin-top: 80px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .legal-footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .legal-footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+    .legal-footer-links a:hover { color: var(--text-primary); }
+    .legal-footer-copy { font-size: 13px; color: var(--text-tertiary); }
   </style>
 </head>
 <body>
 
-<!-- ── Navigation ──────────────────────────────────────────────── -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">🚚 Food Truck POS</a>
-    <div class="nav-links">
-      <a href="/#features">Features</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/#faq">FAQ</a>
-    </div>
-    <div class="nav-right">
-      <a href="https://apps.apple.com" class="btn btn-primary btn-sm">Download Free</a>
-      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-  <div class="nav-mobile" id="nav-mobile">
-    <a href="/#features">Features</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/#faq">FAQ</a>
-    <a href="https://apps.apple.com">Download Free</a>
+    <a class="nav-logo" href="/">FoodTruck <span>POS</span></a>
+    <a class="nav-back" href="/">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+      Back to Home
+    </a>
   </div>
 </nav>
 
-<!-- ── Page Hero ────────────────────────────────────────────────── -->
-<div class="page-hero">
-  <div class="page-hero-glow"></div>
-  <div class="page-hero-badge fade-in">Legal</div>
-  <h1 class="page-hero-title fade-in">Terms of Service</h1>
-  <p class="page-hero-date fade-in">Last updated: June 20, 2026</p>
-  <p class="page-hero-sub fade-in">Simple, fair terms. Use Food Truck POS to run your business — we keep the fine print minimal.</p>
+<div class="legal-wrap">
+
+  <div class="legal-header">
+    <div class="legal-badge">Legal</div>
+    <h1 class="legal-title">Terms of Service</h1>
+    <p class="legal-meta">
+      Last updated: <strong>June 25, 2026</strong> &nbsp;&middot;&nbsp;
+      Effective: <strong>June 25, 2026</strong> &nbsp;&middot;&nbsp;
+      Governing law: <strong>Alberta, Canada</strong>
+    </p>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol class="toc-list">
+      <li><a href="#acceptance"><span class="toc-num">01</span> Acceptance of Terms</a></li>
+      <li><a href="#service"><span class="toc-num">02</span> Description of Service</a></li>
+      <li><a href="#billing"><span class="toc-num">03</span> Subscription and Billing</a></li>
+      <li><a href="#cancellation"><span class="toc-num">04</span> Cancellation</a></li>
+      <li><a href="#data"><span class="toc-num">05</span> Data and Privacy</a></li>
+      <li><a href="#twilio"><span class="toc-num">06</span> Twilio SMS Integration</a></li>
+      <li><a href="#acceptable-use"><span class="toc-num">07</span> Acceptable Use</a></li>
+      <li><a href="#uptime"><span class="toc-num">08</span> Uptime and Availability</a></li>
+      <li><a href="#liability"><span class="toc-num">09</span> Limitation of Liability</a></li>
+      <li><a href="#ip"><span class="toc-num">10</span> Intellectual Property</a></li>
+      <li><a href="#termination"><span class="toc-num">11</span> Termination</a></li>
+      <li><a href="#governing-law"><span class="toc-num">12</span> Governing Law</a></li>
+      <li><a href="#changes"><span class="toc-num">13</span> Changes to Terms</a></li>
+      <li><a href="#contact"><span class="toc-num">14</span> Contact</a></li>
+    </ol>
+  </nav>
+
+  <div class="warning-box">
+    <strong>Please read these Terms carefully.</strong> By creating an account or using FoodTruck POS, you agree to be bound by these terms in full. If you do not agree, do not use the service.
+  </div>
+
+  <section class="legal-section" id="acceptance">
+    <div class="section-num">01</div>
+    <h2 class="section-title">Acceptance of Terms</h2>
+    <p class="legal-text">These Terms of Service ("Terms") form a binding legal agreement between you ("you," "user," or "subscriber") and Danish Kumar, operating as FoodTruck POS ("FoodTruck POS," "we," "us," or "our"), located in Edmonton, Alberta, Canada.</p>
+    <p class="legal-text">By accessing or using FoodTruck POS at <a href="https://foodtruckpos.app">foodtruckpos.app</a>, the iOS app, or the Android app (collectively, the "Service"), you confirm that:</p>
+    <ul class="legal-list">
+      <li>You have read, understood, and agree to these Terms in full</li>
+      <li>You are at least 18 years of age</li>
+      <li>You have the legal authority to enter into this agreement on behalf of yourself or the business entity you represent</li>
+      <li>You are using the Service for lawful business purposes only and not for personal, family, or household use</li>
+      <li>If you accept these Terms on behalf of a company or legal entity, you represent that you have authority to bind that entity</li>
+    </ul>
+    <p class="legal-text">These Terms apply to all users of the Service including free trial users, paying subscribers, and any person who accesses any part of the Service. If you do not meet these requirements, you must not use the Service.</p>
+  </section>
+
+  <section class="legal-section" id="service">
+    <div class="section-num">02</div>
+    <h2 class="section-title">Description of Service</h2>
+    <p class="legal-text">FoodTruck POS is a cloud based point of sale (POS) software platform designed specifically for food truck operators. The Service enables you to manage orders, track sales, organize your menu, monitor your kitchen display, run end of day reports, and operate your food truck business more efficiently.</p>
+    <p class="legal-text">The Service is available on:</p>
+    <ul class="legal-list">
+      <li>iPad via the FoodTruck POS iOS app</li>
+      <li>Android tablet via the FoodTruck POS Android app</li>
+      <li>Web browser via the FoodTruck POS business dashboard</li>
+    </ul>
+    <p class="legal-text">Features available to you depend on your active subscription tier. We reserve the right to modify, add, or remove features at any time. We will communicate material changes in advance where reasonably practical.</p>
+    <p class="legal-text">The Service requires an active internet connection to synchronize data between devices and our cloud systems. FoodTruck POS is not responsible for data loss or sync failures resulting from connectivity issues on your end.</p>
+  </section>
+
+  <section class="legal-section" id="billing">
+    <div class="section-num">03</div>
+    <h2 class="section-title">Subscription and Billing</h2>
+
+    <h3 class="sub-title">3.1 Subscription Tiers</h3>
+    <p class="legal-text">FoodTruck POS offers the following subscription plans, billed in Canadian dollars (CAD):</p>
+    <table class="pricing-table">
+      <thead>
+        <tr><th>Plan</th><th>Monthly Price</th><th>Devices</th><th>Key Features</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Starter</td><td class="price-val">$29 CAD/month</td><td>1 device</td><td>Core POS features</td></tr>
+        <tr><td>Professional</td><td class="price-val">$59 CAD/month</td><td>3 devices</td><td>All Starter features plus analytics and reporting</td></tr>
+        <tr><td>Enterprise</td><td class="price-val">$75 CAD/month</td><td>Unlimited devices</td><td>All Pro features plus Twilio SMS integration</td></tr>
+      </tbody>
+    </table>
+    <p class="legal-text">All prices are in Canadian dollars. Applicable taxes (GST, HST, or PST) may be added depending on your province of registration.</p>
+
+    <h3 class="sub-title">3.2 Free Trial</h3>
+    <p class="legal-text">New accounts receive a 14 day free trial with full access to Professional tier features. No credit card is required to start your trial. At the end of the trial period, your account transitions to the Starter plan if you do not select a paid plan. If you choose not to continue, your data is retained for 90 days in a read only state before permanent deletion per Section 4.</p>
+
+    <h3 class="sub-title">3.3 Billing and Auto Renewal</h3>
+    <ul class="legal-list">
+      <li>Subscriptions are billed monthly on the anniversary of your first payment date</li>
+      <li>All subscriptions automatically renew each month unless cancelled before the renewal date</li>
+      <li>All payments are processed by Stripe. We do not store your credit card number or banking details on our systems</li>
+      <li>By providing a payment method, you authorize us to charge that method for your subscription on a recurring monthly basis</li>
+      <li>If a payment fails, we will retry up to three times over seven days. Unresolved payment failure may result in account suspension</li>
+      <li>A suspended account retains your data but restricts active use until payment is resolved</li>
+    </ul>
+
+    <h3 class="sub-title">3.4 Price Changes</h3>
+    <p class="legal-text">We may change subscription prices at any time. We will provide at least 30 days written notice of any price increase by email to your registered address. Continued use of the Service after the new pricing takes effect constitutes acceptance. If you do not agree, you may cancel before the new price takes effect.</p>
+
+    <h3 class="sub-title">3.5 Refund Policy</h3>
+    <div class="highlight-box">
+      <strong>Subscription fees are generally nonrefundable.</strong> We do not issue refunds for partial months of service. At our sole discretion, we may issue a refund for a charge made within the previous 7 days in cases of billing error or exceptional circumstances. To request a refund, email <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a> within 7 days of the charge with your account details and reason for the request.
+    </div>
+    <p class="legal-text">Approved refunds are returned to the original payment method and may take 5 to 10 business days to appear depending on your financial institution.</p>
+  </section>
+
+  <section class="legal-section" id="cancellation">
+    <div class="section-num">04</div>
+    <h2 class="section-title">Cancellation</h2>
+    <p class="legal-text">You may cancel your subscription at any time with no cancellation fees by visiting Settings then Billing in your account and following the cancellation steps.</p>
+    <ul class="legal-list">
+      <li>Cancellation takes effect at the end of your current billing period. You retain full access until that date</li>
+      <li>No partial month refunds are issued on cancellation</li>
+      <li>There are no cancellation fees, penalties, or minimum commitment periods</li>
+      <li>After cancellation, your account enters a 90 day data retention window. You may log in to export your data during this period</li>
+      <li>After 90 days from the effective cancellation date, your account and all associated data are permanently and irreversibly deleted</li>
+      <li>Permanent deletion cannot be reversed. FoodTruck POS cannot recover deleted data</li>
+    </ul>
+    <p class="legal-text">To request immediate data deletion before the 90 day period, email <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a>. Immediate deletion requests are processed within 14 business days.</p>
+  </section>
+
+  <section class="legal-section" id="data">
+    <div class="section-num">05</div>
+    <h2 class="section-title">Data and Privacy</h2>
+    <p class="legal-text">Our full data collection and processing practices are described in our <a href="/privacy.html">Privacy Policy</a>, which is incorporated into these Terms by reference. The summary below covers your key data rights.</p>
+
+    <h3 class="sub-title">5.1 Data Ownership</h3>
+    <p class="legal-text">You own your business data. FoodTruck POS does not claim ownership over your orders, menu items, customer information, financial records, or any other content you create in the Service. You grant FoodTruck POS a limited, nonexclusive, royalty free license to store, process, and transmit your data solely as necessary to provide the Service to you.</p>
+
+    <h3 class="sub-title">5.2 No Data Sales</h3>
+    <p class="legal-text">We do not sell, rent, trade, or transfer your personal or business data to third parties for commercial purposes. Data is shared with service providers only as necessary to operate the platform. See our Privacy Policy for the full list of providers.</p>
+
+    <h3 class="sub-title">5.3 Data Export</h3>
+    <p class="legal-text">You may request a full export of your data at any time by emailing <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a>. We will deliver your data in CSV or JSON format within 14 business days at no charge.</p>
+
+    <h3 class="sub-title">5.4 PIPEDA Compliance</h3>
+    <p class="legal-text">FoodTruck POS complies with the Personal Information Protection and Electronic Documents Act (PIPEDA) and applicable provincial privacy legislation. You have the right to access, correct, and request deletion of personal information we hold about you. Refer to our <a href="/privacy.html">Privacy Policy</a> for details on exercising these rights.</p>
+  </section>
+
+  <section class="legal-section" id="twilio">
+    <div class="section-num">06</div>
+    <h2 class="section-title">Twilio SMS Integration (Enterprise Plan)</h2>
+    <p class="legal-text">Enterprise subscribers may connect a Twilio account to enable SMS notifications to customers. The following additional terms apply to all users of the SMS integration.</p>
+
+    <h3 class="sub-title">6.1 Your Own Twilio Account</h3>
+    <p class="legal-text">SMS functionality requires you to supply your own Twilio account credentials. FoodTruck POS provides the integration interface only. You are solely responsible for creating and maintaining your Twilio account and for complying with Twilio's own terms of service and acceptable use policies.</p>
+
+    <h3 class="sub-title">6.2 Costs</h3>
+    <p class="legal-text">You are solely responsible for all charges on your Twilio account including per message fees and phone number costs. FoodTruck POS is not a party to your Twilio billing relationship and has no liability for any Twilio charges.</p>
+
+    <h3 class="sub-title">6.3 SMS Delivery</h3>
+    <p class="legal-text">FoodTruck POS is not responsible for SMS delivery failures, delays, or errors. Delivery depends on Twilio's infrastructure, mobile carrier networks, and recipient device availability, none of which are within our control.</p>
+
+    <h3 class="sub-title">6.4 CASL Compliance</h3>
+    <div class="warning-box">
+      <strong>Your responsibility under Canadian law:</strong> Sending commercial electronic messages including SMS to Canadians without consent is illegal under Canada's Anti Spam Legislation (CASL). You are solely and entirely responsible for CASL compliance when using the SMS integration.
+    </div>
+    <ul class="legal-list">
+      <li>You must obtain valid express or implied consent from each recipient before sending commercial SMS messages</li>
+      <li>You must provide a clear and easy mechanism for recipients to opt out</li>
+      <li>You must honor opt out requests within 10 business days as required by CASL</li>
+      <li>You must maintain records of consent in case of regulatory inquiry</li>
+      <li>FoodTruck POS is not responsible for any CASL violations you commit while using the SMS integration</li>
+      <li>You agree to indemnify and hold FoodTruck POS harmless from any claims, fines, or penalties arising from your CASL non compliance</li>
+    </ul>
+  </section>
+
+  <section class="legal-section" id="acceptable-use">
+    <div class="section-num">07</div>
+    <h2 class="section-title">Acceptable Use</h2>
+    <p class="legal-text">You agree to use the Service only for lawful purposes and in accordance with these Terms. The following uses are expressly prohibited:</p>
+    <ul class="legal-list">
+      <li>Using the Service for any illegal activity or in violation of any applicable federal, provincial, or local law or regulation</li>
+      <li>Reselling, sublicensing, or white labeling the Service to third parties without prior written permission from FoodTruck POS</li>
+      <li>Allowing multiple unrelated businesses to share a single account without an Enterprise plan</li>
+      <li>Reverse engineering, decompiling, or otherwise attempting to derive the source code of the Service</li>
+      <li>Automated scraping, crawling, or bulk data extraction from the Service without written consent</li>
+      <li>Uploading or transmitting malicious code, viruses, or harmful content</li>
+      <li>Attempting to gain unauthorized access to our systems or other users' accounts</li>
+      <li>Using the Service to store or transmit infringing, defamatory, or otherwise unlawful content</li>
+      <li>Using the Service in a way that could overburden, damage, or impair our infrastructure</li>
+    </ul>
+    <p class="legal-text">Violations may result in immediate suspension or termination. See our <a href="/aup.html">Acceptable Use Policy</a> for full detail.</p>
+  </section>
+
+  <section class="legal-section" id="uptime">
+    <div class="section-num">08</div>
+    <h2 class="section-title">Uptime and Availability</h2>
+    <p class="legal-text">FoodTruck POS targets 99.5% monthly uptime, excluding scheduled maintenance. This is an aspirational target and does not constitute a guarantee or a formal service level agreement.</p>
+    <ul class="legal-list">
+      <li>We will make reasonable efforts to notify you of scheduled maintenance windows via email or in app notification in advance</li>
+      <li>Unplanned outages may occur due to software defects, infrastructure failures, third party service disruptions, or events outside our control</li>
+      <li>We are not liable for lost sales, lost revenue, or business losses resulting from downtime of any kind</li>
+      <li>We are not liable for data loss that occurs during a service outage</li>
+    </ul>
+    <div class="highlight-box">
+      <strong>Cold Start Notice:</strong> Our backend is currently hosted on Render's free tier. After a period of inactivity, the service may take up to 50 seconds to respond to the first request as the server wakes up. This is normal behavior for the free hosting tier and is not a defect or service failure.
+    </div>
+    <p class="legal-text">We do not offer credits, refunds, or compensation for downtime or performance degradation unless required by applicable law.</p>
+  </section>
+
+  <section class="legal-section" id="liability">
+    <div class="section-num">09</div>
+    <h2 class="section-title">Limitation of Liability</h2>
+    <div class="warning-box">
+      <strong>Read this section carefully.</strong> It limits what FoodTruck POS may owe you if something goes wrong.
+    </div>
+
+    <h3 class="sub-title">9.1 Maximum Liability</h3>
+    <p class="legal-text">To the fullest extent permitted by applicable law, FoodTruck POS's total aggregate liability to you for any and all claims arising from or related to the Service shall not exceed the greater of: (a) the total subscription fees you paid to FoodTruck POS in the three months immediately before the event giving rise to the claim, or (b) one hundred Canadian dollars (CAD $100).</p>
+
+    <h3 class="sub-title">9.2 Excluded Damages</h3>
+    <p class="legal-text">FoodTruck POS is not liable under any theory of law for any indirect, incidental, special, consequential, or punitive damages, including:</p>
+    <ul class="legal-list">
+      <li>Loss of profits or revenue</li>
+      <li>Loss of sales or missed business opportunities</li>
+      <li>Loss or corruption of data</li>
+      <li>Business interruption or downtime losses</li>
+      <li>Cost of procuring substitute services</li>
+      <li>Reputational harm</li>
+    </ul>
+    <p class="legal-text">These exclusions apply even if FoodTruck POS has been advised of the possibility of such damages and even if the remedy fails its essential purpose.</p>
+
+    <h3 class="sub-title">9.3 Third Party Services</h3>
+    <p class="legal-text">We are not liable for failures, outages, errors, or security breaches caused by third party service providers including Stripe, Twilio, Resend, Neon, Render, Cloudflare, Vercel, or any other third party. Your use of third party services is subject to their own terms and policies.</p>
+
+    <h3 class="sub-title">9.4 As Is Service</h3>
+    <p class="legal-text">The Service is provided "as is" and "as available" without warranties of any kind, express or implied. We do not warrant that the Service will be error free, uninterrupted, secure, or that defects will be corrected. You assume all risk of using the Service to operate your business.</p>
+  </section>
+
+  <section class="legal-section" id="ip">
+    <div class="section-num">10</div>
+    <h2 class="section-title">Intellectual Property</h2>
+
+    <h3 class="sub-title">10.1 Our Property</h3>
+    <p class="legal-text">FoodTruck POS and its licensors own all right, title, and interest in the Service, including all software, source code, algorithms, databases, user interface designs, branding, trademarks, trade names, and logos. These Terms grant you no ownership rights in the Service. The FoodTruck POS name and logo are trademarks of Danish Kumar and may not be used without prior written permission.</p>
+
+    <h3 class="sub-title">10.2 Your Data</h3>
+    <p class="legal-text">You retain full ownership of your business data including orders, customer information, menu data, and financial records. You grant FoodTruck POS a limited, worldwide, nonexclusive, royalty free license to access, store, process, display, and transmit your data solely as required to operate, maintain, and improve the Service for your benefit. This license ends when your data is deleted per Section 4.</p>
+
+    <h3 class="sub-title">10.3 Feedback</h3>
+    <p class="legal-text">If you submit feedback, suggestions, or feature ideas to FoodTruck POS, you grant us an irrevocable, worldwide, royalty free license to use and incorporate that feedback into the Service without any obligation to compensate you.</p>
+  </section>
+
+  <section class="legal-section" id="termination">
+    <div class="section-num">11</div>
+    <h2 class="section-title">Termination</h2>
+
+    <h3 class="sub-title">11.1 Termination by You</h3>
+    <p class="legal-text">You may close your account at any time by cancelling your subscription in account Settings and, if desired, requesting deletion by emailing <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a>.</p>
+
+    <h3 class="sub-title">11.2 Termination by FoodTruck POS</h3>
+    <p class="legal-text">We may suspend or terminate your account:</p>
+    <ul class="legal-list">
+      <li>For material breach of these Terms, with 14 days written notice to cure where the breach is curable</li>
+      <li>Immediately and without notice for illegal activity, fraud, abuse, or conduct that poses a risk to other users or our infrastructure</li>
+      <li>For nonpayment after a reasonable cure period</li>
+      <li>If we discontinue the Service entirely, with at least 60 days advance notice and a full data export opportunity</li>
+    </ul>
+
+    <h3 class="sub-title">11.3 Effect of Termination</h3>
+    <p class="legal-text">Upon termination: your right to use the Service immediately ceases; we may delete your data after the applicable retention period; all provisions that by their nature should survive termination will survive, including intellectual property, limitation of liability, and governing law sections.</p>
+  </section>
+
+  <section class="legal-section" id="governing-law">
+    <div class="section-num">12</div>
+    <h2 class="section-title">Governing Law and Dispute Resolution</h2>
+    <p class="legal-text">These Terms are governed by the laws of the Province of Alberta and the federal laws of Canada applicable therein, without regard to conflict of law principles.</p>
+    <p class="legal-text">Any dispute arising out of these Terms or the Service that cannot be resolved informally shall be resolved exclusively in the courts of Edmonton, Alberta, Canada. You irrevocably consent to the personal jurisdiction of such courts.</p>
+    <div class="highlight-box">
+      <strong>No Class Actions:</strong> You agree that any dispute will be resolved on an individual basis only. You waive any right to bring or participate in a class action, class arbitration, or any other consolidated proceeding against FoodTruck POS.
+    </div>
+    <p class="legal-text">Before commencing any formal legal proceeding, you agree to contact us at <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a> and allow 30 days to attempt informal resolution.</p>
+  </section>
+
+  <section class="legal-section" id="changes">
+    <div class="section-num">13</div>
+    <h2 class="section-title">Changes to These Terms</h2>
+    <p class="legal-text">We reserve the right to modify these Terms at any time. The type of notice depends on the nature of the change:</p>
+    <ul class="legal-list">
+      <li>Material changes (pricing, liability limits, data rights, governing law) will be communicated at least 30 days in advance by email to your registered address</li>
+      <li>Minor or administrative changes may be made without advance notice but will be reflected in the "Last updated" date at the top of this page</li>
+      <li>Continued use of the Service after the effective date of any change constitutes acceptance of the revised Terms</li>
+      <li>If you do not agree to revised Terms, you must stop using the Service and cancel your subscription before the changes take effect</li>
+    </ul>
+    <p class="legal-text">The current version of these Terms is always available at <a href="https://foodtruckpos.app/terms.html">foodtruckpos.app/terms.html</a>.</p>
+  </section>
+
+  <section class="legal-section" id="contact">
+    <div class="section-num">14</div>
+    <h2 class="section-title">Contact</h2>
+    <p class="legal-text">For questions about these Terms, billing, data requests, or to report a policy violation:</p>
+    <div class="highlight-box">
+      <strong>FoodTruck POS</strong><br>
+      Danish Kumar, Edmonton, Alberta, Canada<br><br>
+      Email: <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a><br>
+      Website: <a href="https://foodtruckpos.app">foodtruckpos.app</a>
+    </div>
+    <p class="legal-text">We aim to respond to all inquiries within 2 business days.</p>
+  </section>
+
+  <footer class="legal-footer">
+    <div class="legal-footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/aup.html">Acceptable Use Policy</a>
+      <a href="/cookies.html">Cookie Policy</a>
+      <a href="/">Home</a>
+    </div>
+    <div class="legal-footer-copy">&#169; 2026 FoodTruck POS &nbsp;&middot;&nbsp; Danish Kumar, Edmonton, Alberta</div>
+  </footer>
+
 </div>
-
-<!-- ── Content ──────────────────────────────────────────────────── -->
-<main class="policy-content">
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">1. Acceptance of Terms</h2>
-    <div class="policy-section-body">
-      <p>By downloading, installing, or using Food Truck POS (the "App"), you agree to be bound by these Terms of Service. If you do not agree, do not use the App.</p>
-      <p>These Terms apply to the iOS application and any associated web dashboard or backend services provided by Food Truck POS.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">2. Description of Service</h2>
-    <div class="policy-section-body">
-      <p>Food Truck POS is a point of sale application designed for food truck operators and mobile vendors. The App provides tools for:</p>
-      <ul class="policy-list">
-        <li>Managing menus, items, and pricing</li>
-        <li>Taking and tracking customer orders</li>
-        <li>Processing payments via Stripe</li>
-        <li>Sending SMS order notifications via Twilio</li>
-        <li>Syncing analytics to an optional web dashboard</li>
-        <li>Coordinating orders between cashier and kitchen displays</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">3. Eligibility and Account</h2>
-    <div class="policy-section-body">
-      <p>You must be at least 18 years old to use the App. By using it, you represent that you are of legal age and have the authority to enter into these Terms on behalf of your business.</p>
-      <p>You are responsible for maintaining the confidentiality of your login credentials and API keys. Notify us immediately at <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a> if you believe your account has been compromised.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">4. Subscription and Billing</h2>
-    <div class="policy-section-body">
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Free Trial</p>
-        <p>All new accounts receive a 14 day free trial with full access to all features. No payment information is required to start your trial.</p>
-      </div>
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Paid Subscriptions</p>
-        <p>After your trial, continued access requires a paid subscription. Plans are available at three tiers:</p>
-        <ul class="policy-list" style="margin-top: 10px;">
-          <li>Starter: $29 CAD per month, supports 1 iPad</li>
-          <li>Professional: $59 CAD per month, supports up to 3 iPads</li>
-          <li>Enterprise: $99 CAD per month, supports unlimited iPads</li>
-        </ul>
-        <p>Subscriptions are managed through your web dashboard at <a href="https://foodtruckpos-dashboard.vercel.app" target="_blank" rel="noopener">foodtruckpos-dashboard.vercel.app</a> and are billed monthly through Stripe. You can upgrade, downgrade, or cancel at any time through the billing portal in your dashboard.</p>
-      </div>
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Cancellation</p>
-        <p>You may cancel your subscription at any time. Cancellation takes effect at the end of your current billing period. We do not offer refunds for partial months.</p>
-      </div>
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Refunds</p>
-        <p>Refund requests are handled on a case by case basis. Contact <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a> within 7 days of a charge if you believe you were billed in error.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">5. Payment Processing</h2>
-    <div class="policy-section-body">
-      <p>Card payments taken through the App are processed by Stripe, Inc. By using payment features, you agree to <a href="https://stripe.com/legal" target="_blank" rel="noopener">Stripe's Terms of Service</a> and <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
-      <ul class="policy-list">
-        <li>We never store, transmit, or have access to full card numbers</li>
-        <li>Transaction fees are set by Stripe and your merchant account agreement</li>
-        <li>You are responsible for ensuring your use of payment features complies with applicable laws and card network rules</li>
-        <li>Chargebacks, disputes, and refunds to your customers are governed by your Stripe merchant agreement</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">6. SMS Notifications</h2>
-    <div class="policy-section-body">
-      <p>The App can send SMS messages to your customers via Twilio when orders are ready. By enabling SMS notifications:</p>
-      <ul class="policy-list">
-        <li>You represent that you have obtained appropriate consent from your customers to receive SMS messages</li>
-        <li>You agree to <a href="https://www.twilio.com/en-us/legal/tos" target="_blank" rel="noopener">Twilio's Terms of Service</a></li>
-        <li>SMS costs are billed by Twilio to your Twilio account; we do not charge additionally for SMS</li>
-        <li>You are responsible for complying with applicable SMS regulations including TCPA (US), CASL (Canada), and other applicable laws</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">7. Acceptable Use</h2>
-    <div class="policy-section-body">
-      <p>You agree to use the App only for lawful business purposes. You must not:</p>
-      <ul class="policy-list">
-        <li>Use the App to facilitate illegal transactions or activities</li>
-        <li>Attempt to reverse engineer, decompile, or extract the source code of the App</li>
-        <li>Use the App in any way that could damage, disable, or impair our services</li>
-        <li>Share your account credentials with unauthorized parties</li>
-        <li>Use the App to send unsolicited communications to customers who have not consented</li>
-        <li>Misrepresent your identity or business information within the App</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">8. Your Data and Content</h2>
-    <div class="policy-section-body">
-      <p>You retain ownership of all business data you enter into the App, including menu items, customer records, and order history. This data is stored locally on your device and is not claimed by us.</p>
-      <p>By optionally syncing analytics to our backend dashboard, you grant us a limited, non-exclusive license to process and display that aggregated data solely for the purpose of providing the dashboard service to you.</p>
-      <p>You are responsible for the accuracy of data you enter and for maintaining your own backups. We are not liable for data loss resulting from device failure, accidental deletion, or app removal.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">9. Intellectual Property</h2>
-    <div class="policy-section-body">
-      <p>The App, including its design, code, graphics, and feature set, is owned by Food Truck POS and protected by copyright and other intellectual property laws. These Terms do not transfer any ownership rights to you.</p>
-      <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use the App on your Apple devices solely for your business operations in accordance with these Terms and Apple's App Store terms.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">10. Disclaimer of Warranties</h2>
-    <div class="policy-section-body">
-      <div class="policy-highlight">
-        The App is provided "as is" and "as available" without warranties of any kind, express or implied. We do not warrant that the App will be error-free, uninterrupted, or free of security vulnerabilities. Your use of the App is at your sole risk.
-      </div>
-      <p>We specifically disclaim any warranty that the App will meet your specific business requirements or that it will be suitable for use in regulated industries without additional compliance measures on your part.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">11. Limitation of Liability</h2>
-    <div class="policy-section-body">
-      <div class="policy-highlight">
-        To the maximum extent permitted by law, Food Truck POS shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to lost revenue, lost data, or business interruption, arising from your use of or inability to use the App.
-      </div>
-      <p>Our total aggregate liability to you for any claims arising from these Terms or the App shall not exceed the amount you paid for the App subscription in the 12 months preceding the claim, or $50 USD, whichever is greater.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">12. Changes, Termination, and Contact</h2>
-    <div class="policy-section-body">
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Changes to These Terms</p>
-        <p>We may update these Terms from time to time. We will update the "Last updated" date at the top of this page. Continued use of the App after changes constitutes acceptance of the updated Terms. For material changes, we will make reasonable efforts to notify you within the App.</p>
-      </div>
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Termination</p>
-        <p>You may stop using the App at any time by deleting it from your device. We reserve the right to suspend or terminate access to any account that violates these Terms. Upon termination, your license to use the App ceases immediately.</p>
-      </div>
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Governing Law</p>
-        <p>These Terms are governed by the laws of Ontario, Canada, without regard to conflict of law principles. Any disputes shall be resolved in the courts of Ontario.</p>
-      </div>
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Contact</p>
-        <p>Questions about these Terms: <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a></p>
-        <p>You can also read our <a href="/privacy">Privacy Policy</a>.</p>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<!-- ── Footer ───────────────────────────────────────────────────── -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-logo">🚚 Food Truck POS</div>
-      <div class="footer-links">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="mailto:foodtruckposapp@outlook.com">Support</a>
-        <a href="https://foodtruckpos-dashboard.vercel.app">Dashboard</a>
-      </div>
-      <div class="footer-right">
-        <span class="footer-copy">© 2026 Food Truck POS. Built for the road.</span>
-        <div class="footer-social">
-          <a href="https://github.com/danishkumar31" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
-
-  const hamburger = document.getElementById('hamburger');
-  const navMobile = document.getElementById('nav-mobile');
-  hamburger.addEventListener('click', () => {
-    const isOpen = navMobile.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen);
-  });
-  navMobile.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => navMobile.classList.remove('open'));
-  });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('.fade-in').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 60}ms`;
-    io.observe(el);
-  });
-</script>
-
 </body>
 </html>

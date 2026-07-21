@@ -3,487 +3,405 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — Food Truck POS</title>
-  <meta name="description" content="Privacy Policy for Food Truck POS. We collect only what is needed to run your business." />
+  <title>Privacy Policy — FoodTruck POS</title>
+  <meta name="description" content="Privacy Policy for FoodTruck POS. We collect only what is needed to run your business." />
   <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <style>
-    /* ── Variables ────────────────────────────────────────────── */
     :root {
-      --bg:             #0a0a0a;
-      --card-bg:        #141414;
-      --border:         #222222;
-      --accent:         #FF6B00;
-      --accent-dim:     rgba(255,107,0,0.12);
-      --text-primary:   #ffffff;
-      --text-secondary: #888888;
-      --text-tertiary:  #444444;
+      --bg: #0a0a0a; --card-bg: #141414; --border: #222222;
+      --accent: #FF6B00; --accent-dim: rgba(255,107,0,0.12);
+      --text-primary: #ffffff; --text-secondary: #999999; --text-tertiary: #555555;
     }
-
-    /* ── Reset ────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-    button { cursor: pointer; font-family: inherit; border: none; background: none; }
-
-    /* ── Layout ───────────────────────────────────────────────── */
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-
-    /* ── Buttons ──────────────────────────────────────────────── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 24px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .btn-primary { background: var(--accent); color: #000; }
-    .btn-primary:hover {
-      background: #ff8533;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(255,107,0,0.3);
-    }
-    .btn-sm { padding: 10px 20px; font-size: 14px; }
-
-    /* ── Animations ───────────────────────────────────────────── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Navigation ───────────────────────────────────────────── */
-    #nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
-      border-bottom: 1px solid transparent;
-    }
-    #nav.scrolled {
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-color: var(--border);
-    }
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      padding: 0 24px;
-      max-width: 1160px;
-      margin: 0 auto;
-    }
-    .nav-logo { font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-secondary); transition: color 0.2s ease; }
-    .nav-links a:hover { color: var(--text-primary); }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
-    .nav-hamburger span { display: block; width: 20px; height: 1.5px; background: var(--text-primary); transition: all 0.2s ease; }
-    .nav-mobile {
-      display: none;
-      flex-direction: column;
-      padding: 16px 24px 24px;
-      border-top: 1px solid var(--border);
-      background: rgba(10,10,10,0.95);
-      gap: 2px;
-    }
-    .nav-mobile.open { display: flex; }
-    .nav-mobile a { font-size: 15px; font-weight: 500; color: var(--text-secondary); padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color 0.2s ease; }
-    .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: var(--text-primary); }
-
-    /* ── Page Hero ────────────────────────────────────────────── */
-    .page-hero {
-      position: relative;
-      padding: 144px 24px 72px;
-      text-align: center;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-    .page-hero-glow {
-      position: absolute;
-      width: 640px;
-      height: 440px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(ellipse, rgba(255,107,0,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .page-hero-badge {
-      display: inline-flex;
-      align-items: center;
-      background: var(--accent-dim);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 5px 14px;
-      border-radius: 100px;
-      border: 1px solid rgba(255,107,0,0.2);
-      margin-bottom: 20px;
-    }
-    .page-hero-title {
-      font-size: clamp(36px, 5vw, 58px);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      color: var(--text-primary);
-      margin-bottom: 14px;
-      position: relative;
-    }
-    .page-hero-date {
-      font-size: 13px;
-      color: var(--text-tertiary);
-      margin-bottom: 16px;
-    }
-    .page-hero-sub {
-      font-size: 17px;
-      color: var(--text-secondary);
-      max-width: 480px;
-      margin: 0 auto;
-      line-height: 1.7;
-      position: relative;
-    }
-
-    /* ── Policy Content ───────────────────────────────────────── */
-    .policy-content {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 72px 24px 112px;
-    }
-    .policy-section {
-      border-left: 2px solid rgba(255,107,0,0.22);
-      padding-left: 28px;
-      margin-bottom: 56px;
-    }
-    .policy-section:last-child { margin-bottom: 0; }
-    .policy-section-title {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-    .policy-section-body {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .policy-section-body p {
-      font-size: 16px;
-      color: var(--text-secondary);
-      line-height: 1.85;
-    }
-    .policy-section-body a {
-      color: var(--accent);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    .policy-section-body a:hover { color: #ff8533; }
-    .policy-subsection { margin-top: 4px; }
-    .policy-subsection-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 10px;
-      letter-spacing: -0.01em;
-    }
-    .policy-list {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      padding-left: 0;
-    }
-    .policy-list li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-    }
-    .policy-list li::before {
-      content: '·';
-      color: var(--accent);
-      font-weight: 900;
-      font-size: 20px;
-      line-height: 1.4;
-      flex-shrink: 0;
-    }
-    .policy-highlight {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 20px;
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-    }
-
-    /* ── Footer ───────────────────────────────────────────────── */
-    footer { border-top: 1px solid var(--border); padding: 28px 0; }
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .footer-logo { font-size: 15px; font-weight: 700; color: var(--text-primary); }
-    .footer-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .footer-links a { font-size: 13px; color: var(--text-tertiary); transition: color 0.2s ease; }
-    .footer-links a:hover { color: var(--text-secondary); }
-    .footer-right { display: flex; align-items: center; gap: 16px; }
-    .footer-copy { font-size: 12px; color: var(--text-tertiary); }
-    .footer-social a { display: flex; align-items: center; color: var(--text-tertiary); transition: color 0.2s ease; }
-    .footer-social a:hover { color: var(--text-secondary); }
-
-    /* ── Responsive ───────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .nav-links, .nav-right .btn { display: none; }
-      .nav-hamburger { display: flex; }
-      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .footer-right { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .page-hero { padding: 120px 24px 56px; }
-      .policy-content { padding: 48px 24px 80px; }
-      .policy-section { padding-left: 20px; }
-    }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text-primary); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 24px; }
+    .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .nav-logo { font-size: 16px; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 14px; color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text-primary); text-decoration: none; }
+    .legal-wrap { max-width: 900px; margin: 0 auto; padding: 100px 24px 80px; }
+    .legal-header { margin-bottom: 48px; }
+    .legal-badge { display: inline-block; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(255,107,0,0.25); border-radius: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; margin-bottom: 16px; }
+    .legal-title { font-size: 40px; font-weight: 800; line-height: 1.15; margin-bottom: 12px; }
+    .legal-meta { font-size: 14px; color: var(--text-secondary); }
+    .legal-meta strong { color: var(--text-primary); }
+    .toc { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 56px; }
+    .toc-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 16px; }
+    .toc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 32px; list-style: none; }
+    .toc-list a { font-size: 14px; color: var(--text-secondary); display: flex; gap: 8px; align-items: baseline; padding: 6px 0; transition: color 0.15s; text-decoration: none; }
+    .toc-list a:hover { color: var(--accent); }
+    .toc-num { font-size: 11px; font-weight: 700; color: var(--accent); min-width: 20px; }
+    @media (max-width: 600px) { .toc-list { grid-template-columns: 1fr; } .legal-title { font-size: 28px; } }
+    .legal-section { margin-bottom: 56px; scroll-margin-top: 80px; }
+    .section-num { display: inline-block; background: var(--accent-dim); color: var(--accent); border-radius: 6px; font-size: 11px; font-weight: 700; padding: 2px 8px; margin-bottom: 10px; }
+    .section-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+    .sub-title { font-size: 16px; font-weight: 600; margin: 24px 0 12px; color: #dddddd; }
+    .legal-text { font-size: 15px; color: #cccccc; margin-bottom: 14px; }
+    .legal-text:last-child { margin-bottom: 0; }
+    .legal-list { margin: 10px 0 14px; padding-left: 0; list-style: none; }
+    .legal-list li { font-size: 15px; color: #cccccc; padding: 7px 0 7px 22px; position: relative; border-bottom: 1px solid rgba(34,34,34,0.6); }
+    .legal-list li:last-child { border-bottom: none; }
+    .legal-list li::before { content: ''; position: absolute; left: 0; top: 17px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+    .highlight-box { background: var(--card-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 18px 20px; margin: 16px 0; font-size: 15px; color: #cccccc; }
+    .highlight-box strong { color: var(--text-primary); }
+    .warning-box { background: rgba(255,107,0,0.06); border: 1px solid rgba(255,107,0,0.2); border-radius: 10px; padding: 18px 20px; margin: 16px 0; font-size: 14px; color: #cccccc; }
+    .warning-box strong { color: var(--accent); }
+    .provider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .provider-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .provider-name { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .provider-role { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+    .provider-link { font-size: 12px; color: var(--accent); }
+    @media (max-width: 600px) { .provider-grid { grid-template-columns: 1fr; } }
+    .legal-footer { border-top: 1px solid var(--border); padding-top: 40px; margin-top: 80px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .legal-footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .legal-footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+    .legal-footer-links a:hover { color: var(--text-primary); }
+    .legal-footer-copy { font-size: 13px; color: var(--text-tertiary); }
   </style>
 </head>
 <body>
 
-<!-- ── Navigation ──────────────────────────────────────────────── -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">🚚 Food Truck POS</a>
-    <div class="nav-links">
-      <a href="/#features">Features</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/#faq">FAQ</a>
-    </div>
-    <div class="nav-right">
-      <a href="https://apps.apple.com" class="btn btn-primary btn-sm">Download Free</a>
-      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-  <div class="nav-mobile" id="nav-mobile">
-    <a href="/#features">Features</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/#faq">FAQ</a>
-    <a href="https://apps.apple.com">Download Free</a>
+    <a class="nav-logo" href="/">FoodTruck <span>POS</span></a>
+    <a class="nav-back" href="/">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+      Back to Home
+    </a>
   </div>
 </nav>
 
-<!-- ── Page Hero ────────────────────────────────────────────────── -->
-<div class="page-hero">
-  <div class="page-hero-glow"></div>
-  <div class="page-hero-badge fade-in">Legal</div>
-  <h1 class="page-hero-title fade-in">Privacy Policy</h1>
-  <p class="page-hero-date fade-in">Last updated: June 20, 2026</p>
-  <p class="page-hero-sub fade-in">Food Truck POS is built with privacy by design. We collect only what is needed to run your business.</p>
+<div class="legal-wrap">
+
+  <div class="legal-header">
+    <div class="legal-badge">Legal</div>
+    <h1 class="legal-title">Privacy Policy</h1>
+    <p class="legal-meta">
+      Last updated: <strong>June 25, 2026</strong> &nbsp;&middot;&nbsp;
+      Effective: <strong>June 25, 2026</strong> &nbsp;&middot;&nbsp;
+      Jurisdiction: <strong>Alberta, Canada (PIPEDA)</strong>
+    </p>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol class="toc-list">
+      <li><a href="#overview"><span class="toc-num">01</span> Overview</a></li>
+      <li><a href="#what-we-collect"><span class="toc-num">02</span> What We Collect</a></li>
+      <li><a href="#how-we-use"><span class="toc-num">03</span> How We Use Data</a></li>
+      <li><a href="#storage"><span class="toc-num">04</span> Data Storage and Security</a></li>
+      <li><a href="#third-parties"><span class="toc-num">05</span> Third Party Services</a></li>
+      <li><a href="#pipeda"><span class="toc-num">06</span> Canadian Privacy Law (PIPEDA)</a></li>
+      <li><a href="#sms"><span class="toc-num">07</span> SMS and Customer Data</a></li>
+      <li><a href="#cookies"><span class="toc-num">08</span> Cookies</a></li>
+      <li><a href="#retention"><span class="toc-num">09</span> Data Retention</a></li>
+      <li><a href="#children"><span class="toc-num">10</span> Children</a></li>
+      <li><a href="#privacy-contact"><span class="toc-num">11</span> Privacy Contact</a></li>
+    </ol>
+  </nav>
+
+  <section class="legal-section" id="overview">
+    <div class="section-num">01</div>
+    <h2 class="section-title">Overview</h2>
+    <p class="legal-text">FoodTruck POS is operated by Danish Kumar, Edmonton, Alberta, Canada. This Privacy Policy describes how we collect, use, store, and share your information when you use our Service.</p>
+    <div class="highlight-box">
+      <strong>The short version:</strong> We collect only the data we need to run your POS business. We do not sell your data. We do not use your data for advertising. You own your business data and can export or delete it at any time.
+    </div>
+    <p class="legal-text">This Policy applies to all users of the FoodTruck POS Service including the iOS app, Android app, web dashboard, and website. By using the Service, you consent to the practices described in this Policy.</p>
+  </section>
+
+  <section class="legal-section" id="what-we-collect">
+    <div class="section-num">02</div>
+    <h2 class="section-title">What We Collect</h2>
+
+    <h3 class="sub-title">2.1 Account Information</h3>
+    <p class="legal-text">When you create an account or update your profile, we collect:</p>
+    <ul class="legal-list">
+      <li>Full name (operator name)</li>
+      <li>Email address (used for login and communications)</li>
+      <li>Business name and food truck name</li>
+      <li>Phone number (if provided)</li>
+      <li>Password (stored as a secure one way hash; we cannot read your password) — not applicable if you sign in with Google, Facebook, or Apple</li>
+    </ul>
+    <p class="legal-text">If you choose to sign in with Google, Facebook, or Apple instead of a password, we receive your name and email address from that provider to create or match your account. We verify the token directly with the provider and do not receive your password or access to your account with them.</p>
+
+    <h3 class="sub-title">2.2 Business Data</h3>
+    <p class="legal-text">We store the business data you enter into the Service, including:</p>
+    <ul class="legal-list">
+      <li>Orders and order history (items, quantities, totals, timestamps)</li>
+      <li>Menu items, categories, and pricing</li>
+      <li>Customer names and contact information entered during orders</li>
+      <li>Expense records</li>
+      <li>End of day report data and summaries</li>
+      <li>Device registrations (device name and device identifier)</li>
+    </ul>
+
+    <h3 class="sub-title">2.3 Payment Information</h3>
+    <p class="legal-text">Payment processing is handled entirely by Stripe, Inc. We do not receive, process, or store your credit card number, card verification codes, or full banking details. We retain only:</p>
+    <ul class="legal-list">
+      <li>Your Stripe customer ID (a reference token)</li>
+      <li>Your subscription tier (Starter, Professional, or Enterprise)</li>
+      <li>Subscription status (active, trialing, cancelled, past due)</li>
+      <li>Subscription period end date</li>
+    </ul>
+
+    <h3 class="sub-title">2.4 Usage Data</h3>
+    <p class="legal-text">We automatically collect limited technical information to operate and improve the Service:</p>
+    <ul class="legal-list">
+      <li>Login timestamps and session information</li>
+      <li>Device type and operating system (e.g. iPad, Android tablet)</li>
+      <li>App version in use</li>
+      <li>Error logs and crash reports (to fix bugs)</li>
+    </ul>
+    <p class="legal-text">We do not use advertising SDKs or analytics platforms that track your behavior across other apps or websites.</p>
+
+    <h3 class="sub-title">2.5 Customer Data You Enter</h3>
+    <p class="legal-text">When you use FoodTruck POS to manage your food truck business, you may enter information about your own customers such as customer names and phone numbers for order management or SMS notifications. This data belongs to you. We process it only to provide the Service functionality you have enabled.</p>
+  </section>
+
+  <section class="legal-section" id="how-we-use">
+    <div class="section-num">03</div>
+    <h2 class="section-title">How We Use Your Data</h2>
+    <p class="legal-text">We use the data we collect for the following purposes:</p>
+
+    <h3 class="sub-title">3.1 Providing the Service</h3>
+    <ul class="legal-list">
+      <li>Creating and managing your account</li>
+      <li>Storing and syncing your business data across devices</li>
+      <li>Processing subscription payments through Stripe</li>
+      <li>Generating reports and analytics for your business</li>
+    </ul>
+
+    <h3 class="sub-title">3.2 Communications</h3>
+    <p class="legal-text">We send emails to you in the following cases:</p>
+    <ul class="legal-list">
+      <li>Account verification and password one time codes (OTP)</li>
+      <li>End of day sales reports (if enabled)</li>
+      <li>Subscription receipts and billing notifications</li>
+      <li>Service announcements and updates that affect your use of the Service</li>
+      <li>Policy updates where required by law or these Terms</li>
+    </ul>
+    <p class="legal-text">We do not send marketing or promotional emails unless you have explicitly opted in. We never send emails on behalf of advertisers or third parties.</p>
+
+    <h3 class="sub-title">3.3 Service Improvement</h3>
+    <ul class="legal-list">
+      <li>Diagnosing bugs and technical issues</li>
+      <li>Understanding usage patterns to prioritize feature development</li>
+      <li>Maintaining security and preventing fraud</li>
+    </ul>
+
+    <h3 class="sub-title">3.4 What We Never Do</h3>
+    <ul class="legal-list">
+      <li>We never sell your data to third parties</li>
+      <li>We never use your data for advertising</li>
+      <li>We never share your business data with competitors or market research firms</li>
+      <li>We never use aggregate data derived from your account to build advertising profiles</li>
+    </ul>
+  </section>
+
+  <section class="legal-section" id="storage">
+    <div class="section-num">04</div>
+    <h2 class="section-title">Data Storage and Security</h2>
+
+    <h3 class="sub-title">4.1 Where Your Data is Stored</h3>
+    <p class="legal-text">Your data is stored on Neon.tech, a serverless PostgreSQL database provider. Our database is hosted in the US East region on Amazon Web Services (AWS) infrastructure. By using FoodTruck POS, you consent to your data being stored and processed in the United States.</p>
+
+    <h3 class="sub-title">4.2 Security Measures</h3>
+    <ul class="legal-list">
+      <li>All data is encrypted in transit using TLS 1.2 or higher</li>
+      <li>All data is encrypted at rest using AES 256 encryption</li>
+      <li>Passwords are hashed using bcrypt with a unique salt per account; we cannot read your password</li>
+      <li>Authentication uses short lived JWT access tokens plus long lived refresh tokens stored securely</li>
+      <li>API access requires authentication on all endpoints</li>
+      <li>Database access is restricted to application servers only</li>
+    </ul>
+
+    <h3 class="sub-title">4.3 Backups</h3>
+    <p class="legal-text">Neon.tech maintains automated database backups retained for 30 days. These backups are used for disaster recovery purposes only. Backup data is subject to the same security and access controls as primary data.</p>
+
+    <h3 class="sub-title">4.4 Data Breach Response</h3>
+    <p class="legal-text">In the event of a data breach that poses a real risk of significant harm, we will notify affected users and the Office of the Privacy Commissioner of Canada within 72 hours of becoming aware of the breach, as required by PIPEDA. Notification will be sent to your registered email address and will include a description of the breach, the information affected, and steps you can take to protect yourself.</p>
+  </section>
+
+  <section class="legal-section" id="third-parties">
+    <div class="section-num">05</div>
+    <h2 class="section-title">Third Party Services</h2>
+    <p class="legal-text">FoodTruck POS uses the following third party service providers to deliver the Service. Each provider processes only the data necessary to perform their function and is governed by their own privacy policy.</p>
+
+    <div class="provider-grid">
+      <div class="provider-card">
+        <div class="provider-name">Stripe</div>
+        <div class="provider-role">Payment processing and subscription billing</div>
+        <a class="provider-link" href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Resend</div>
+        <div class="provider-role">Transactional email delivery</div>
+        <a class="provider-link" href="https://resend.com/privacy" target="_blank" rel="noopener">resend.com/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Twilio</div>
+        <div class="provider-role">SMS notifications (Enterprise plan only)</div>
+        <a class="provider-link" href="https://twilio.com/privacy" target="_blank" rel="noopener">twilio.com/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Google</div>
+        <div class="provider-role">Sign in with Google (optional login method)</div>
+        <a class="provider-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Meta (Facebook)</div>
+        <div class="provider-role">Sign in with Facebook (optional login method)</div>
+        <a class="provider-link" href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener">facebook.com/privacy/policy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Apple</div>
+        <div class="provider-role">Sign in with Apple (optional login method)</div>
+        <a class="provider-link" href="https://www.apple.com/legal/privacy" target="_blank" rel="noopener">apple.com/legal/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Neon</div>
+        <div class="provider-role">Cloud database hosting</div>
+        <a class="provider-link" href="https://neon.tech/privacy" target="_blank" rel="noopener">neon.tech/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Render</div>
+        <div class="provider-role">Backend API hosting</div>
+        <a class="provider-link" href="https://render.com/privacy" target="_blank" rel="noopener">render.com/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Cloudflare</div>
+        <div class="provider-role">CDN, DDoS protection, and network tunneling</div>
+        <a class="provider-link" href="https://cloudflare.com/privacy" target="_blank" rel="noopener">cloudflare.com/privacy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">Vercel</div>
+        <div class="provider-role">Dashboard and landing page hosting</div>
+        <a class="provider-link" href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">vercel.com/legal/privacy-policy</a>
+      </div>
+      <div class="provider-card">
+        <div class="provider-name">UptimeRobot</div>
+        <div class="provider-role">Service uptime monitoring</div>
+        <a class="provider-link" href="https://uptimerobot.com/privacy" target="_blank" rel="noopener">uptimerobot.com/privacy</a>
+      </div>
+    </div>
+
+    <p class="legal-text">We do not use Google Analytics, Facebook Pixel, or any other advertising or cross site tracking technology. We do not share your data with data brokers, advertising networks, or social media platforms.</p>
+    <p class="legal-text">If we add new service providers that process personal data, we will update this Policy and notify you in advance for any provider with significant data access.</p>
+  </section>
+
+  <section class="legal-section" id="pipeda">
+    <div class="section-num">06</div>
+    <h2 class="section-title">Canadian Privacy Law (PIPEDA)</h2>
+    <p class="legal-text">FoodTruck POS is operated in Canada and complies with the Personal Information Protection and Electronic Documents Act (PIPEDA). Under PIPEDA, you have the following rights regarding your personal information:</p>
+
+    <h3 class="sub-title">6.1 Right to Access</h3>
+    <p class="legal-text">You have the right to request access to the personal information we hold about you. We will provide this within 30 days of a written request. For a data export of your full account data, email <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a>.</p>
+
+    <h3 class="sub-title">6.2 Right to Correct</h3>
+    <p class="legal-text">If you believe personal information we hold about you is inaccurate or incomplete, you have the right to request a correction. Most account information can be corrected directly in your account Settings. For other corrections, contact us at <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a>.</p>
+
+    <h3 class="sub-title">6.3 Right to Delete</h3>
+    <p class="legal-text">You have the right to request deletion of your personal information. You may do this by cancelling your account and your data will be permanently deleted 90 days after cancellation. To request immediate deletion, email <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a> and we will process your request within 14 business days.</p>
+
+    <h3 class="sub-title">6.4 Right to Withdraw Consent</h3>
+    <p class="legal-text">You may withdraw consent to our processing of your personal information at any time by deleting your account. Note that withdrawal of consent may mean we cannot continue providing the Service to you, as data processing is essential to Service delivery.</p>
+
+    <h3 class="sub-title">6.5 Complaints</h3>
+    <p class="legal-text">If you believe your privacy rights have been violated, you may file a complaint with the Office of the Privacy Commissioner of Canada (OPC) at <a href="https://www.priv.gc.ca" target="_blank" rel="noopener">priv.gc.ca</a>. We encourage you to contact us first to try to resolve your concern directly.</p>
+
+    <h3 class="sub-title">6.6 Data Breach Notification</h3>
+    <p class="legal-text">In the event of a breach of security safeguards involving personal information that creates a real risk of significant harm, we will notify affected individuals and report the breach to the OPC within 72 hours of discovery, as required by PIPEDA's breach notification provisions.</p>
+  </section>
+
+  <section class="legal-section" id="sms">
+    <div class="section-num">07</div>
+    <h2 class="section-title">SMS and Customer Data</h2>
+    <p class="legal-text">Enterprise plan subscribers may use the Twilio SMS integration to send text messages to their own customers. The following applies to how we handle customer phone numbers in this context:</p>
+    <ul class="legal-list">
+      <li>Customer phone numbers entered into FoodTruck POS are your data and remain under your ownership and control</li>
+      <li>We process customer phone numbers only to facilitate SMS delivery through Twilio on your behalf</li>
+      <li>We do not use customer phone numbers for any purpose other than delivering the SMS messages you initiate</li>
+      <li>We do not share customer phone numbers with any party other than Twilio for the purpose of message delivery</li>
+      <li>You are solely responsible for obtaining valid consent from your customers before sending them SMS messages, as required by Canada's Anti Spam Legislation (CASL)</li>
+      <li>You are responsible for maintaining consent records and honoring opt out requests from your customers</li>
+    </ul>
+    <p class="legal-text">FoodTruck POS is a data processor with respect to your customers' phone numbers when used in the SMS integration. You are the data controller. Your obligations to your customers under CASL and PIPEDA remain your responsibility.</p>
+  </section>
+
+  <section class="legal-section" id="cookies">
+    <div class="section-num">08</div>
+    <h2 class="section-title">Cookies</h2>
+    <p class="legal-text">FoodTruck POS uses a minimal cookie approach. See our full <a href="/cookies.html">Cookie Policy</a> for details.</p>
+    <div class="highlight-box">
+      <strong>Summary:</strong> We use only essential session cookies required to keep you logged in to the web dashboard. We do not use advertising cookies, tracking cookies, analytics cookies, or any third party cookies for behavioral targeting.
+    </div>
+    <ul class="legal-list">
+      <li>Session cookies are set when you log in to the web dashboard and expire when your session ends or you log out</li>
+      <li>The iOS and Android apps do not use cookies; they use secure local token storage instead</li>
+      <li>We do not use Google Analytics, Facebook Pixel, or any cross site tracking tools</li>
+      <li>Disabling cookies in your browser will prevent you from using the web dashboard but will not affect the iOS or Android apps</li>
+    </ul>
+  </section>
+
+  <section class="legal-section" id="retention">
+    <div class="section-num">09</div>
+    <h2 class="section-title">Data Retention</h2>
+
+    <h3 class="sub-title">9.1 Active Accounts</h3>
+    <p class="legal-text">While your account is active, we retain all your business data indefinitely. This allows you to access historical orders, reports, and analytics for as long as you are a subscriber.</p>
+
+    <h3 class="sub-title">9.2 Cancelled Accounts</h3>
+    <p class="legal-text">After you cancel your subscription, your data is retained in a read only state for 90 days. During this window you may log in to export your data. After 90 days, your account and all associated data are permanently and irreversibly deleted from our production database and backup systems.</p>
+
+    <h3 class="sub-title">9.3 Immediate Deletion</h3>
+    <p class="legal-text">If you wish to have your data deleted immediately upon cancellation, contact <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a>. We will process the request within 14 business days. Immediate deletion is permanent and cannot be reversed.</p>
+
+    <h3 class="sub-title">9.4 Legal Hold</h3>
+    <p class="legal-text">In limited circumstances, we may be required to retain certain data beyond normal retention periods to comply with a legal obligation, resolve a dispute, or enforce our agreements. In such cases, we retain only the minimum data necessary and for the minimum time required.</p>
+
+    <h3 class="sub-title">9.5 Backup Purge</h3>
+    <p class="legal-text">Automated database backups are retained for 30 days and then automatically purged. Deletion of your account data is reflected in backups within this 30 day window.</p>
+  </section>
+
+  <section class="legal-section" id="children">
+    <div class="section-num">10</div>
+    <h2 class="section-title">Children</h2>
+    <p class="legal-text">FoodTruck POS is a business software tool intended for adults operating food truck businesses. The Service is not directed at, and is not designed for use by, anyone under the age of 18.</p>
+    <p class="legal-text">We do not knowingly collect personal information from anyone under 18. If you are a parent or guardian and believe your child has provided us with personal information, contact us at <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a> and we will delete that information promptly.</p>
+  </section>
+
+  <section class="legal-section" id="privacy-contact">
+    <div class="section-num">11</div>
+    <h2 class="section-title">Privacy Contact and Requests</h2>
+    <p class="legal-text">For all privacy related inquiries, data access requests, correction requests, deletion requests, or complaints:</p>
+    <div class="highlight-box">
+      <strong>FoodTruck POS Privacy</strong><br>
+      Danish Kumar, Edmonton, Alberta, Canada<br><br>
+      Email: <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a><br>
+      Website: <a href="https://foodtruckpos.app">foodtruckpos.app</a>
+    </div>
+    <p class="legal-text">We aim to respond to all privacy requests within 30 days. Complex requests may require additional time, in which case we will notify you of the expected timeline.</p>
+    <p class="legal-text">If you are not satisfied with our response, you may contact the Office of the Privacy Commissioner of Canada at <a href="https://www.priv.gc.ca" target="_blank" rel="noopener">priv.gc.ca</a> or call 1 800 282 1376.</p>
+  </section>
+
+  <footer class="legal-footer">
+    <div class="legal-footer-links">
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/aup.html">Acceptable Use Policy</a>
+      <a href="/cookies.html">Cookie Policy</a>
+      <a href="/">Home</a>
+    </div>
+    <div class="legal-footer-copy">&#169; 2026 FoodTruck POS &nbsp;&middot;&nbsp; Danish Kumar, Edmonton, Alberta</div>
+  </footer>
+
 </div>
-
-<!-- ── Content ──────────────────────────────────────────────────── -->
-<main class="policy-content">
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">1. Who We Are</h2>
-    <div class="policy-section-body">
-      <p>Food Truck POS is a point of sale application for food trucks and mobile vendors. We are an independent software product. For privacy questions contact us at <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a>.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">2. What Data We Collect</h2>
-    <div class="policy-section-body">
-
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">On Device (stored only on your iPad, never sent to us)</p>
-        <ul class="policy-list">
-          <li>Menu items, prices, and categories you create</li>
-          <li>Order history and transaction records</li>
-          <li>Customer names and phone numbers you enter</li>
-          <li>Business profile information including your truck name and logo</li>
-          <li>Tax configuration settings</li>
-        </ul>
-      </div>
-
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Through the App Backend (sent to our servers)</p>
-        <ul class="policy-list">
-          <li>Analytics snapshots you choose to sync: revenue totals, order counts, top items. No individual customer data is included.</li>
-          <li>Recent order summaries for the web dashboard: order number, total, payment method, and timestamp only.</li>
-          <li>Your backend URL and API key are stored locally on your device only and are never transmitted to us.</li>
-        </ul>
-      </div>
-
-      <div class="policy-subsection">
-        <p class="policy-subsection-title">Through Third Party Services</p>
-        <ul class="policy-list">
-          <li>Stripe processes card payments. Stripe's privacy policy applies to all payment data. We never store card numbers.</li>
-          <li>Twilio sends SMS notifications to customers who place orders. Phone numbers are transmitted to Twilio only when an SMS is actively sent.</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">3. What We Do Not Collect</h2>
-    <div class="policy-section-body">
-      <ul class="policy-list">
-        <li>We do not collect your name or personal identity</li>
-        <li>We do not collect device identifiers for advertising</li>
-        <li>We do not sell your data to any third party</li>
-        <li>We do not use your data for advertising or marketing</li>
-        <li>We do not track you across other apps or websites</li>
-        <li>We do not collect analytics about how you use the app beyond what you explicitly sync to the dashboard</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">4. How We Use Your Data</h2>
-    <div class="policy-section-body">
-      <ul class="policy-list">
-        <li>To provide the POS features of the app</li>
-        <li>To display your analytics on the web dashboard when you choose to sync</li>
-        <li>To send order ready SMS notifications to your customers</li>
-        <li>To process card payments through Stripe</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">5. Data Storage and Security</h2>
-    <div class="policy-section-body">
-      <ul class="policy-list">
-        <li>All order and customer data is stored locally on your iPad using Apple CoreData</li>
-        <li>Dashboard analytics are stored temporarily in memory on our backend server and reset on each deployment</li>
-        <li>Payment processing is handled by Stripe, which is PCI DSS Level 1 certified</li>
-        <li>We use HTTPS for all data transmission between the app and our backend</li>
-        <li>Your API key is stored in the iOS Keychain, which is encrypted by the operating system</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">6. Your Rights</h2>
-    <div class="policy-section-body">
-      <p>You have the right to:</p>
-      <ul class="policy-list">
-        <li>Access all your data. It lives on your device and you can view it at any time in the app.</li>
-        <li>Delete your data. Deleting the app removes all locally stored data from your device.</li>
-        <li>Export your data. Use the End of Day report PDF export feature.</li>
-        <li>Opt out of dashboard sync. Simply do not configure a backend URL in Settings.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">7. Children</h2>
-    <div class="policy-section-body">
-      <p>Food Truck POS is not directed at children under 13. We do not knowingly collect data from children.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">8. Changes to This Policy</h2>
-    <div class="policy-section-body">
-      <p>We may update this policy from time to time. We will update the "Last updated" date at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
-    </div>
-  </div>
-
-  <div class="policy-section fade-in">
-    <h2 class="policy-section-title">9. Contact</h2>
-    <div class="policy-section-body">
-      <p>For privacy questions: <a href="mailto:foodtruckposapp@outlook.com">foodtruckposapp@outlook.com</a></p>
-      <p>You can also read our <a href="/terms">Terms of Service</a>.</p>
-    </div>
-  </div>
-
-</main>
-
-<!-- ── Footer ───────────────────────────────────────────────────── -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-logo">🚚 Food Truck POS</div>
-      <div class="footer-links">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="mailto:foodtruckposapp@outlook.com">Support</a>
-        <a href="https://foodtruckpos-dashboard.vercel.app">Dashboard</a>
-      </div>
-      <div class="footer-right">
-        <span class="footer-copy">© 2026 Food Truck POS. Built for the road.</span>
-        <div class="footer-social">
-          <a href="https://github.com/danishkumar31" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
-
-  const hamburger = document.getElementById('hamburger');
-  const navMobile = document.getElementById('nav-mobile');
-  hamburger.addEventListener('click', () => {
-    const isOpen = navMobile.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen);
-  });
-  navMobile.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => navMobile.classList.remove('open'));
-  });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('.fade-in').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 60}ms`;
-    io.observe(el);
-  });
-</script>
-
 </body>
 </html>

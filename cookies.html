@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Policy — FoodTruck POS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0A0A0A;
+      color: #E5E5E5;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: #FF6B00; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid #1A1A1A;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #FF6B00;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .badge {
+      background: #FF6B00;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+      border-bottom: 1px solid #1A1A1A;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: #FF6B00; }
+    .hero p {
+      font-size: 17px;
+      color: #999;
+      max-width: 620px;
+    }
+    .meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #666;
+    }
+    .meta-item svg { color: #FF6B00; flex-shrink: 0; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      position: sticky;
+      top: 80px;
+      padding: 32px 0;
+    }
+    .toc-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+      margin-bottom: 16px;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      margin-bottom: 6px;
+    }
+    .toc ol li a {
+      font-size: 13px;
+      color: #666;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      transition: color 0.15s;
+    }
+    .toc ol li a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-size: 10px;
+      color: #444;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .toc ol li a:hover { color: #FF6B00; text-decoration: none; }
+
+    /* ── Content ── */
+    .content {
+      padding: 48px 0;
+    }
+    .section {
+      margin-bottom: 56px;
+      scroll-margin-top: 100px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-num {
+      width: 36px;
+      height: 36px;
+      background: #FF6B00;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .section h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    .section p {
+      margin-bottom: 14px;
+      color: #CCC;
+    }
+    .section ul, .section ol {
+      padding-left: 20px;
+      margin-bottom: 14px;
+      color: #CCC;
+    }
+    .section li { margin-bottom: 6px; }
+    .section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFF;
+      margin: 24px 0 10px;
+    }
+
+    /* ── Highlight boxes ── */
+    .highlight-box {
+      background: #111;
+      border: 1px solid #222;
+      border-left: 3px solid #FF6B00;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #BBB;
+    }
+    .highlight-box strong { color: #FF6B00; }
+
+    .info-box {
+      background: rgba(0, 122, 255, 0.08);
+      border: 1px solid rgba(0, 122, 255, 0.2);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #CCC;
+    }
+    .info-box strong { color: #4FA3FF; }
+
+    .success-box {
+      background: rgba(52, 199, 89, 0.08);
+      border: 1px solid rgba(52, 199, 89, 0.2);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #CCC;
+    }
+    .success-box strong { color: #34C759; }
+
+    /* ── Cookie table ── */
+    .cookie-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    .cookie-table th {
+      background: #111;
+      color: #FF6B00;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid #222;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cookie-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1A1A1A;
+      color: #CCC;
+      vertical-align: top;
+    }
+    .cookie-table tr:last-child td { border-bottom: none; }
+    .cookie-type {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .type-essential { background: rgba(52,199,89,0.15); color: #34C759; }
+    .type-functional { background: rgba(255,159,10,0.15); color: #FF9F0A; }
+    .type-analytics { background: rgba(0,122,255,0.15); color: #4FA3FF; }
+
+    /* ── Platform grid ── */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .platform-card {
+      background: #111;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+    .platform-card .platform-icon { font-size: 24px; margin-bottom: 8px; }
+    .platform-card .platform-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFF;
+      margin-bottom: 4px;
+    }
+    .platform-card .platform-desc {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* ── Browser instructions ── */
+    .browser-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .browser-card {
+      background: #111;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .browser-card .browser-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFF;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .browser-card .browser-steps {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.6;
+    }
+    .browser-card .browser-steps code {
+      background: #1A1A1A;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      color: #FF6B00;
+    }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid #1A1A1A; margin: 40px 0; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #1A1A1A;
+      margin-top: 80px;
+      padding: 40px 0;
+    }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: #555; }
+    .footer-links a:hover { color: #FF6B00; }
+    .footer-copy { font-size: 13px; color: #444; }
+
+    @media (max-width: 700px) {
+      .container { grid-template-columns: 1fr; gap: 0; }
+      .toc { display: none; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .browser-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🚚</div>
+        FoodTruck POS
+      </a>
+      <span class="badge">Legal</span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Cookie <span>Policy</span></h1>
+    <p>How FoodTruck POS uses cookies and similar technologies, and how you can control them.</p>
+    <div class="meta">
+      <div class="meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Last updated: June 25, 2026
+      </div>
+      <div class="meta-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        3 minute read
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="container">
+
+    <!-- TOC -->
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#what-are-cookies">What Are Cookies</a></li>
+        <li><a href="#how-we-use">How We Use Cookies</a></li>
+        <li><a href="#cookie-list">Cookies We Set</a></li>
+        <li><a href="#platforms">Platforms &amp; Cookies</a></li>
+        <li><a href="#third-party">Third-Party Cookies</a></li>
+        <li><a href="#your-choices">Your Choices</a></li>
+        <li><a href="#impact">Impact of Disabling</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+
+      <!-- 1. What Are Cookies -->
+      <section class="section" id="what-are-cookies">
+        <div class="section-header">
+          <div class="section-num">01</div>
+          <h2>What Are Cookies</h2>
+        </div>
+        <p>Cookies are small text files that a website places on your device when you visit it. They are widely used to make websites work, or to work more efficiently, as well as to provide information to the owners of the site.</p>
+        <p>Similar technologies include local storage, session storage, and tokens — these work in a similar way to cookies and are used to store information on your device.</p>
+        <div class="success-box">
+          <strong>Simple summary:</strong> FoodTruck POS uses a minimal number of cookies. We use session cookies to keep you logged in and to remember your preferences. We do not use advertising cookies or cross-site tracking technologies.
+        </div>
+      </section>
+
+      <!-- 2. How We Use Cookies -->
+      <section class="section" id="how-we-use">
+        <div class="section-header">
+          <div class="section-num">02</div>
+          <h2>How We Use Cookies</h2>
+        </div>
+        <p>FoodTruck POS uses cookies and similar technologies for the following purposes:</p>
+        <ul>
+          <li><strong>Authentication:</strong> To keep you logged in to the web dashboard across page loads and browser sessions</li>
+          <li><strong>Session management:</strong> To maintain your active session state and prevent you from being logged out unexpectedly</li>
+          <li><strong>Security:</strong> To help detect and prevent unauthorized access, CSRF attacks, and session hijacking</li>
+          <li><strong>Preferences:</strong> To remember your UI preferences such as selected date ranges, view modes, or display settings</li>
+        </ul>
+        <p>We do not use cookies for advertising, behavioural profiling, retargeting, or to track you across other websites.</p>
+      </section>
+
+      <!-- 3. Cookie List -->
+      <section class="section" id="cookie-list">
+        <div class="section-header">
+          <div class="section-num">03</div>
+          <h2>Cookies We Set</h2>
+        </div>
+        <p>The following cookies are set by FoodTruck POS directly (first-party cookies):</p>
+
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Duration</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code style="font-size:12px;color:#FF6B00;background:#1A1A1A;padding:2px 6px;border-radius:3px;">auth_token</code></td>
+              <td><span class="cookie-type type-essential">Essential</span></td>
+              <td>Session / 30 days</td>
+              <td>Stores your JWT authentication token to keep you logged in to the dashboard.</td>
+            </tr>
+            <tr>
+              <td><code style="font-size:12px;color:#FF6B00;background:#1A1A1A;padding:2px 6px;border-radius:3px;">csrf_token</code></td>
+              <td><span class="cookie-type type-essential">Essential</span></td>
+              <td>Session</td>
+              <td>CSRF protection token to verify that form submissions originate from the FoodTruck POS dashboard.</td>
+            </tr>
+            <tr>
+              <td><code style="font-size:12px;color:#FF6B00;background:#1A1A1A;padding:2px 6px;border-radius:3px;">ui_prefs</code></td>
+              <td><span class="cookie-type type-functional">Functional</span></td>
+              <td>1 year</td>
+              <td>Stores your display preferences (e.g., selected date range, items per page) so they persist across visits.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info-box">
+          <strong>Mobile apps use secure storage, not cookies:</strong> The iOS and Android apps do not use browser cookies. Authentication tokens are stored in your device's secure keychain (iOS) or encrypted SharedPreferences (Android) using Expo SecureStore — not in browser-accessible storage.
+        </div>
+      </section>
+
+      <!-- 4. Platforms & Cookies -->
+      <section class="section" id="platforms">
+        <div class="section-header">
+          <div class="section-num">04</div>
+          <h2>Platforms &amp; Cookies</h2>
+        </div>
+        <p>Cookie usage differs across our platforms:</p>
+
+        <div class="platform-grid">
+          <div class="platform-card">
+            <div class="platform-icon">🌐</div>
+            <div class="platform-name">Web Dashboard</div>
+            <div class="platform-desc">Uses browser cookies for session management and preferences. Cookies are set on foodtruckpos-dashboard.vercel.app.</div>
+          </div>
+          <div class="platform-card">
+            <div class="platform-icon">📱</div>
+            <div class="platform-name">iOS App</div>
+            <div class="platform-desc">No browser cookies. Auth token stored in iOS Keychain via Expo SecureStore. No tracking SDKs.</div>
+          </div>
+          <div class="platform-card">
+            <div class="platform-icon">🤖</div>
+            <div class="platform-name">Android App</div>
+            <div class="platform-desc">No browser cookies. Auth token stored in Android Keystore via Expo SecureStore. No tracking SDKs.</div>
+          </div>
+        </div>
+
+        <p>The <strong>landing page</strong> (foodtruckpos.app) does not set any cookies. It is a static HTML/CSS page with no JavaScript tracking.</p>
+      </section>
+
+      <!-- 5. Third-Party Cookies -->
+      <section class="section" id="third-party">
+        <div class="section-header">
+          <div class="section-num">05</div>
+          <h2>Third-Party Cookies</h2>
+        </div>
+        <p>When you use the web dashboard, certain third-party services may set cookies on your device:</p>
+
+        <h3>Stripe (Payment Processing)</h3>
+        <p>When you access Stripe-powered billing pages or payment flows, Stripe may set cookies on your device. These cookies are used by Stripe for fraud prevention, security, and remembering your payment preferences. Stripe's cookie policy is governed by <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe's Privacy Policy</a>.</p>
+
+        <h3>Vercel (Hosting)</h3>
+        <p>Our web dashboard is hosted on Vercel. Vercel may set functional cookies related to routing, performance, and edge deployments. These are infrastructure-level cookies and do not contain personal information.</p>
+
+        <h3>No Analytics or Advertising Cookies</h3>
+        <p>We do not use:</p>
+        <ul>
+          <li>Google Analytics, Mixpanel, Amplitude, or other analytics platforms on our web dashboard</li>
+          <li>Facebook Pixel, Google Ads, or any advertising/retargeting cookies</li>
+          <li>Hotjar, FullStory, or session recording tools</li>
+          <li>Any cross-site tracking technologies</li>
+        </ul>
+        <div class="success-box">
+          <strong>Privacy-first:</strong> We deliberately chose not to implement analytics tracking on the dashboard to minimize the data we collect. We prefer manual feedback over surveillance.
+        </div>
+      </section>
+
+      <!-- 6. Your Choices -->
+      <section class="section" id="your-choices">
+        <div class="section-header">
+          <div class="section-num">06</div>
+          <h2>Your Choices</h2>
+        </div>
+        <p>You can control cookies through your browser settings. Below are instructions for the most common browsers:</p>
+
+        <div class="browser-grid">
+          <div class="browser-card">
+            <div class="browser-name">Chrome</div>
+            <div class="browser-steps">
+              <code>⋮ Menu</code> → Settings → Privacy and Security → Cookies and other site data
+            </div>
+          </div>
+          <div class="browser-card">
+            <div class="browser-name">Safari</div>
+            <div class="browser-steps">
+              <code>Safari</code> menu → Preferences → Privacy → Manage Website Data
+            </div>
+          </div>
+          <div class="browser-card">
+            <div class="browser-name">Firefox</div>
+            <div class="browser-steps">
+              <code>☰ Menu</code> → Settings → Privacy &amp; Security → Cookies and Site Data
+            </div>
+          </div>
+          <div class="browser-card">
+            <div class="browser-name">Edge</div>
+            <div class="browser-steps">
+              <code>… Menu</code> → Settings → Cookies and site permissions → Manage and delete cookies
+            </div>
+          </div>
+        </div>
+
+        <h3>Clearing Cookies</h3>
+        <p>You can delete all cookies that FoodTruck POS has set at any time through your browser's cookie management settings. To delete cookies from the dashboard specifically, look for cookies from <code style="font-size:13px;color:#FF6B00;background:#1A1A1A;padding:2px 6px;border-radius:3px;">foodtruckpos-dashboard.vercel.app</code>.</p>
+
+        <h3>Mobile App Tokens</h3>
+        <p>To clear authentication tokens from the mobile apps, simply log out of the app. This will delete the stored token from secure storage. You can also uninstall the app to remove all stored data.</p>
+      </section>
+
+      <!-- 7. Impact of Disabling -->
+      <section class="section" id="impact">
+        <div class="section-header">
+          <div class="section-num">07</div>
+          <h2>Impact of Disabling Cookies</h2>
+        </div>
+        <p>Because we use only essential cookies for the core dashboard functionality, disabling or deleting cookies will affect your experience:</p>
+        <ul>
+          <li><strong>Authentication cookie disabled:</strong> You will be logged out and will need to log in every time you open the dashboard</li>
+          <li><strong>CSRF token disabled:</strong> Form submissions may fail or be rejected as a security precaution</li>
+          <li><strong>Preference cookie disabled:</strong> Your UI preferences will not persist between sessions</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Recommendation:</strong> Allow cookies from <strong>foodtruckpos-dashboard.vercel.app</strong> for the best experience. You can block cookies from all other sites while allowing them from our dashboard using your browser's per-site cookie controls.
+        </div>
+        <p>The landing page (foodtruckpos.app) works fully without any cookies.</p>
+      </section>
+
+      <!-- 8. Contact -->
+      <section class="section" id="contact">
+        <div class="section-header">
+          <div class="section-num">08</div>
+          <h2>Contact</h2>
+        </div>
+        <p>If you have questions about our use of cookies or this Cookie Policy, please contact us:</p>
+        <div class="highlight-box">
+          <strong>FoodTruck POS</strong><br />
+          Edmonton, Alberta, Canada<br />
+          Email: <a href="mailto:privacy@foodtruckpos.app">privacy@foodtruckpos.app</a><br />
+          Support: <a href="mailto:support@foodtruckpos.app">support@foodtruckpos.app</a>
+        </div>
+        <p>For general privacy inquiries, see our <a href="privacy.html">Privacy Policy</a>. For questions about our terms, see our <a href="terms.html">Terms of Service</a>.</p>
+      </section>
+
+      <hr />
+      <p style="font-size: 13px; color: #555; text-align: center;">
+        This Cookie Policy was last updated on June 25, 2026.<br />
+        It forms part of the FoodTruck POS <a href="privacy.html">Privacy Policy</a>.
+      </p>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="aup.html">Acceptable Use</a>
+        <a href="cookies.html">Cookie Policy</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 FoodTruck POS. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
